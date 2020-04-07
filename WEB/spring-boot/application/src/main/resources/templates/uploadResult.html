@@ -1,0 +1,30 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+	
+    <article>
+        파일업로드 완료
+
+    </article>
+    <div>
+    </div>
+    <input type="button" value="fetch" onclick="
+    fetch('predict').then(function(response){
+        response.text().then(function(text){
+
+            var im = document.createElement( 'img' );
+            im.src = '/heatmap.jpg'
+            document.querySelector('div').appendChild( im );
+
+            document.querySelector('article').innerHTML = text;
+        })
+    })
+    ">
+
+</body>
+
+</html>
