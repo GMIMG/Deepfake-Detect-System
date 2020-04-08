@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="style4.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+
+    
+</head>
+
+<body>
+
+    
+    <div id="activity">
+        <img src="http://code.quirkbot.com/assets/images/logo/white-outline.svg" width="30%" alt="">
+        <h1 id="counter">Real Video <span class="hits">99</span>%</h1>
+        <!-- Single Album Area -->
+            <div class="row">
+                <div class="col-sm-5"></div>
+                <div class="col-sm-2">
+                    <div class="single-album-area wow fadeInUp" data-wow-delay="100ms" style="align-self:center">
+                        <div class="album-thumb">
+                            <img src="img/bg-img/딥1.jpg" alt="">
+                            
+                            <!-- Album Price -->
+                            <div class="album-price">
+                                
+                            </div>
+                            <!-- Play Icon -->
+                            <div class="play-icon">
+                                <a href="img/bg-img/v1.mp4" class="video--play--btn"><span class="icon-play-button"></span></a>
+                            </div>
+                        </div>
+                        <div class="album-info">
+                            <!-- <a href="#">
+                                <h5>Garage Band</h5>
+                            </a>
+                            <p>Radio Station</p> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        <a href="main2.html" onclick="resetHits()" class="tryagain">RESTART</a>
+    </div>
+    <script>
+        var hits = 0;
+        var hitElement = document.querySelector('.hits');
+        document.body.onkeyup = function (e) {
+            if (e.keyCode == 32) {
+                addHit();
+            }
+        }
+
+        var addHit = function () {
+            hits++;
+            renderHits();
+        }
+
+        var renderHits = function () {
+            hitElement.innerHTML = hits;
+        }
+
+        var resetHits = function () {
+            hits = 0;
+            renderHits();
+        }
+
+    </script>
+
+      <!-- ##### Footer Area Start ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="js/active.js"></script>
+</body>
+
+</html>

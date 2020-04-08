@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="result.css">
+</head>
+
+<body>
+    <video poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg" id="bgvid" playsinline autoplay muted
+        loop>
+        <!-- 
+      - Video needs to be muted, since Chrome 66+ will not autoplay video with sound.
+      WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
+        <source src="img/bg-img/v4.mp4" type="video/webm">
+        <source src="img/bg-img/v4.mp4" type="video/mp4">
+
+    </video>
+    <div id="polina">
+        <h1>98% chance of DeepFake</h1>
+        
+            <p><a href="albums-store.html">Save This Video</a><a href="albums-store.html" id ="a1">Go Previous Page</a>
+                
+              
+              
+    </div>
+
+    <script>
+        var vid = document.getElementById("bgvid");
+        var pauseButton = document.querySelector("#polina button");
+
+        if (window.matchMedia('(prefers-reduced-motion)').matches) {
+            vid.removeAttribute("autoplay");
+            vid.pause();
+            pauseButton.innerHTML = "Paused";
+        }
+
+        function vidFade() {
+            vid.classList.add("stopfade");
+        }
+
+        vid.addEventListener('ended', function () {
+            // only functional if "loop" is removed 
+            vid.pause();
+            // to capture IE10
+            vidFade();
+        });
+
+
+        pauseButton.addEventListener("click", function () {
+            vid.classList.toggle("stopfade");
+            if (vid.paused) {
+                vid.play();
+                pauseButton.innerHTML = "Pause";
+            } else {
+                vid.pause();
+                pauseButton.innerHTML = "Paused";
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>
