@@ -1,8 +1,5 @@
 package com.gmimg.multicampus.springboot.domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -11,6 +8,8 @@ import org.junit.jupiter.api.Test;
 //import org.springframework.test.context.junit.jupiter.*;
 //import static org.junit.jupiter.api.Assertions.*;
 //import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 //@RunWith(SpringRunner.class)
 @DataJpaTest
