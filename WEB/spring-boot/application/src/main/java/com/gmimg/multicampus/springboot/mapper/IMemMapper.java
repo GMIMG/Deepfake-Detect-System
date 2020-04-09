@@ -8,9 +8,9 @@ import com.gmimg.multicampus.springboot.member.Member;
 
 @Mapper
 public interface IMemMapper {
-	
-	@Select("select * from member where memId = #{memId}")
-	Member findAll(@Param("memId") String memId);
+			
+	@Select("select * from member where memId = #{memId} and memPw = #{memPw}")
+	Member findMem(@Param("memId") String memId, @Param("memPw") String memPw);
 	
 	@Select("insert into member (memId, memPw) values (#{memId}, #{memPw})")
 	Member insertMem(@Param("memId") String memId, @Param("memPw") String memPw);

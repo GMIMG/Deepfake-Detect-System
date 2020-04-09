@@ -59,7 +59,7 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="/">Home</a></li>
                                     <!-- <li><a href="albums-store.html">My Page</a></li> -->
                                     <li><a href="#">Pages</a>
                                         <ul class="dropdown">
@@ -105,6 +105,7 @@
 
                                     <!-- Cart Button -->
                                     <div class="cart-btn">
+                                    	<p th:if="${sessionMem}!=null" th:text="${sessionMem.getMemId()}"></p>
                                         <a href="albums-store.html"><p><span> MY PAGE</span> <span class="quantity">2</span></p></a>
                                     </div>
                                 </div>

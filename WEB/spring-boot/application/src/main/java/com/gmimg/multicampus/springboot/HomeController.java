@@ -3,20 +3,24 @@ package com.gmimg.multicampus.springboot;
 import java.io.File;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@SessionAttributes("sessionMem")
 public class HomeController {
 
     // @Resource(name = "uploadPath")
 	String uploadPath = "/static/";
-	
+
 	@RequestMapping("/")
-	public String indexPage() {
+	public String indexPage(Model model) {
+
 		return "index";
 	}
 
