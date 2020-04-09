@@ -22,6 +22,14 @@ spring:
         static-locations:
             - classpath:/static/
         add-mappings: true
+    datasource:
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3307/mydb?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+        username: Lee
+        password: 1q2w3e4r!
+        
+        
+## 서버 운영 환경
 server:
     servlet:
         context-path: /
@@ -30,3 +38,4 @@ server:
     tomcat:
         uri-encoding: UTF-8
     port: 8080
+## database 설정

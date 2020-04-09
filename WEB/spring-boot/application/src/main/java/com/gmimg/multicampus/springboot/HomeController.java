@@ -14,7 +14,15 @@ public class HomeController {
 
     // @Resource(name = "uploadPath")
 	String uploadPath = "/static/";
+	
+	@RequestMapping("/")
+	public String indexPage() {
+		return "index";
+	}
 
+	
+	
+	
     @RequestMapping("/uploadForm")
     public String uploadForm() {
         //uploadForm.jsp 페이지로 포워딩
