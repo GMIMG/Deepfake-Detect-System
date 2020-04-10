@@ -5,8 +5,10 @@ import java.io.File;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,7 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 
     // @Resource(name = "uploadPath")
-	String uploadPath = "/static/";
+	// String uploadPath = "C:/Users/JMLAP/Desktop/새 폴더/Final_Project/WEB/static/";
+    String uploadPath = "/static/";
 
 	@RequestMapping("/")
 	public String indexPage(Model model) {
@@ -33,7 +36,9 @@ public class HomeController {
         return "uploadForm";
     }
 
-    @RequestMapping(value = "/upload", method = RequestMethod.POST )
+
+    @ResponseBody
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String uploadForm(MultipartFile file, ModelAndView mav) throws Exception {
         // logger.info(file.getOriginalFilename());
         // logger.info(file.getContentType());
@@ -52,7 +57,7 @@ public class HomeController {
         // mav.setViewName("uploadResult");
         // mav.addObject("savedName", savedName);
         
-        return "uploadResult";
+        return "kk";
     }
 }
 

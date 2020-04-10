@@ -21,24 +21,9 @@ function myFunction() {
 	method: 'POST',
 	body: formData
 	})
-	.then(function(response){
-        response.text().then(function(text){
-
-			document.querySelector('article').innerHTML = '업로드중';
-			console.log(text);
-			document.querySelector('article').innerHTML = '분석중';
-
-			fetch('predict').then(function(response2){
-				response2.text().then(function(text2){
-
-					document.querySelector('article').innerHTML = text2;
-
-				})
-			});
-
-        })
-    });
-
+	.then(response => response.json())
+	.catch(error => console.error('Error:', error))
+	.then(response => console.log('Success:', JSON.stringify(response)));
 }
 </script>
 

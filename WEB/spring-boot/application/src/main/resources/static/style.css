@@ -10,6 +10,9 @@
 @import url(css/font-awesome.min.css);
 @import url(css/audioplayer.css);
 @import url(css/one-music-icon.css);
+@import url(css/result.css);
+@import url(css/upload.css);
+
 /* :: 3.0 Base CSS */
 * {
   margin: 0;
@@ -1676,3 +1679,5 @@ img {
 /* ====== The End ====== */
 
 /*# sourceMappingURL=style.css.map */
+
+

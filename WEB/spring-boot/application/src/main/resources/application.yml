@@ -2,10 +2,10 @@ spring:
     http:
         encoding:
             charset: UTF-8
-    h2:
-        console:
-            enabled: true
-            path: /h2
+    # h2:
+    #     console:
+    #         enabled: true
+    #         path: /h2
     mvc:
         view:
             prefix: /WEB-INF/views/
