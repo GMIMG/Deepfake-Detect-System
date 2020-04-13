@@ -91,5 +91,10 @@ public class MemberController {
 		sessionStatus.setComplete();
 		return "redirect:/";
 	}
+
+	@RequestMapping(value = "/member/myPage")
+	public String myPageForm() {
+		return "myPage";
+	}
 	
 }

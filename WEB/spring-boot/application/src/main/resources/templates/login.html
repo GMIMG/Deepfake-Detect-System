@@ -1,5 +1,4 @@
 <html xmlns:th="https://www.thymeleaf.org">
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -30,8 +29,7 @@
             <div></div>
         </div>
     </div>
-
-    <!-- ##### Header Area Start ##### -->
+ <!-- ##### Header Area Start ##### -->
     <header class="header-area">
         <!-- Navbar Area -->
         <div class="oneMusic-main-menu">
@@ -57,56 +55,34 @@
                             </div>
 
                             <!-- Nav Start -->
-                            <div class="classynav">
-                                <ul>
-                                    <li><a href="/">Home</a></li>
-                                    <!-- <li><a href="albums-store.html">My Page</a></li> -->
-                                    <li><a href="#">Pages</a>
-                                        <ul class="dropdown">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="albums-store.html">My Page</a></li>
-                                            <li><a href="event.html">Events</a></li>
-                                            <li><a href="blog.html">News</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                            <li><a href="elements.html">Elements</a></li>
-                                            <li><a href="login">Login</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="event.html">Events</a></li>
-                                    <li><a href="blog.html">News</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>
+                         
+                            <!-- Login/Register & Cart Button -->
+                            <div class="login-register-cart-button d-flex align-items-center">
+                                <!-- Login/Register -->
+                                <div th:if="${sessionMem}==null" class="login-register-btn mr-50">
+                                    <a href="/member/loginForm" id="loginBtn">Login</a>
+                                    <a>/</a>
+                                    <a href="/member/registerForm" id="loginBtn">Register</a>
+                                </div>
 
-                                <!-- Login/Register & Cart Button -->
-                                <div class="login-register-cart-button d-flex align-items-center">
-                                    <!-- Login/Register -->
-                                    <div th:if="${sessionMem}!=null" class="logOut-btn mr-50">
-                                        <a href="/member/logOut" id="logOutBtn">LogOut</a>
-                                    </div>
-                                    
-                                    <div th:if="${sessionMem}==null" class="login-register-btn mr-50">
-                                        <a href="/member/loginForm" id="loginBtn">Login</a>
-                                        <a>/</a>
-                                        <a href="/member/registerForm" id="RegiBtn">Register</a>
-                                    </div>
-
-                                    <!-- Cart Button -->
-                                    <div class="cart-btn">
-                                    	<p th:if="${sessionMem}!=null" th:text="${sessionMem.getMemId()}"></p>
-                                        <a href="albums-store.html"><p><span th:if="${sessionMem}!=null"> MY PAGE</span> <!-- <span class="quantity">2</span>--></p></a>
-                                    </div>
+                                <!-- Cart Button -->
+                                <div th:if="${sessionMem}!=null" class="cart-btn">
+                                    <a href="/member/myPage">
+                                        <p><span> MY PAGE</span></p>
+                                    </a>
                                 </div>
                             </div>
-                            <!-- Nav End -->
-
                         </div>
-                    </nav>
+                        <!-- Nav End -->
+
                 </div>
+                </nav>
             </div>
+        </div>
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
-
+    
     <!-- ##### Breadcumb Area Start ##### -->
     <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/img/bg-img/trump.png);">
         <div class="bradcumbContent">
@@ -128,14 +104,15 @@
                             <form action="/login" method="post">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" name="loginMemId" aria-describedby="emailHelp" placeholder="Enter E-mail">
+                                    <input type="email" name="loginMemId" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter E-mail">
                                     <small id="emailHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll never share your email with anyone else.</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" name="loginMemPw" placeholder="Password">
+                                    <input type="password" name="loginMemPw" class="form-control" id="exampleInputPassword1" placeholder="Password">
                                 </div>
                                 <button type="submit" class="btn oneMusic-btn mt-30">Login</button>
+                                <a href="/member/registerForm"><button type="button" class="btn oneMusic-btn mt-30">Register</button></a>
                             </form>
                         </div>
                     </div>
@@ -150,27 +127,15 @@
         <div class="container">
             <div class="row d-flex flex-wrap align-items-center">
                 <div class="col-12 col-md-6">
-                    <a href="#"><img src="/img/core-img/logo.png" alt=""></a>
+                    <a href="#"><img src="img/core-img/logo.png" alt=""></a>
                     <p class="copywrite-text"><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Chimac</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
 
-                <div class="col-12 col-md-6">
-                    <div class="footer-nav">
-                        <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Albums</a></li>
-                            <li><a href="#">Events</a></li>
-                            <li><a href="#">News</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
     </footer>
-    <!-- ##### Footer Area Start ##### -->
 
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->

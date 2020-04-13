@@ -77,8 +77,7 @@
             <div></div>
         </div>
     </div>
-
-    <!-- ##### Header Area Start ##### -->
+ <!-- ##### Header Area Start ##### -->
     <header class="header-area">
         <!-- Navbar Area -->
         <div class="oneMusic-main-menu">
@@ -104,52 +103,30 @@
                             </div>
 
                             <!-- Nav Start -->
-                            <div class="classynav">
-                                <ul>
-                                    <li><a href="/">Home</a></li>
-                                    <!-- <li><a href="albums-store.html">My Page</a></li> -->
-                                    <li><a href="#">Pages</a>
-                                        <ul class="dropdown">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="albums-store.html">My Page</a></li>
-                                            <li><a href="event.html">Events</a></li>
-                                            <li><a href="blog.html">News</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                            <li><a href="elements.html">Elements</a></li>
-                                            <li><a href="login">Login</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="event.html">Events</a></li>
-                                    <li><a href="blog.html">News</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>
+                         
+                            <!-- Login/Register & Cart Button -->
+                            <div class="login-register-cart-button d-flex align-items-center">
+                                <!-- Login/Register -->
+                                <div th:if="${sessionMem}==null" class="login-register-btn mr-50">
+                                    <a href="/member/loginForm" id="loginBtn">Login</a>
+                                    <a>/</a>
+                                    <a href="/member/registerForm" id="loginBtn">Register</a>
+                                </div>
 
-                                <!-- Login/Register & Cart Button -->
-                                <div class="login-register-cart-button d-flex align-items-center">
-                                    <!-- Login/Register -->
-                                    <div th:if="${sessionMem}!=null" class="logOut-btn mr-50">
-                                        <a href="/member/logOut" id="logOutBtn">LogOut</a>
-                                    </div>
-                                    
-                                    <div th:if="${sessionMem}==null" class="login-register-btn mr-50">
-                                        <a href="/member/loginForm" id="loginBtn">Login</a>
-                                        <a>/</a>
-                                        <a href="/member/registerForm" id="RegiBtn">Register</a>
-                                    </div>
-
-                                    <!-- Cart Button -->
-                                    <div class="cart-btn">
-                                    	<p th:if="${sessionMem}!=null" th:text="${sessionMem.getMemId()}"></p>
-                                        <a href="albums-store.html"><p><span th:if="${sessionMem}!=null"> MY PAGE</span> <!-- <span class="quantity">2</span>--></p></a>
-                                    </div>
+                                <!-- Cart Button -->
+                                <div th:if="${sessionMem}!=null" class="cart-btn">
+                                    <a href="/member/myPage">
+                                        <p><span> MY PAGE</span></p>
+                                    </a>
                                 </div>
                             </div>
-                            <!-- Nav End -->
-
                         </div>
-                    </nav>
+                        <!-- Nav End -->
+
                 </div>
+                </nav>
             </div>
+        </div>
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
@@ -158,54 +135,47 @@
     <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/img/bg-img/trump.png);">
         <div class="bradcumbContent">
             <p>See what’s new</p>
-            <h2>REGISTER</h2>
+            <h2>Register</h2>
         </div>
     </section>
     <!-- ##### Breadcumb Area End ##### -->
 
-    <!-- ##### Login Area Start ##### -->
+    <!-- ##### Register Area Start ##### -->
     <section class="login-area section-padding-100">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-8">
                     <div class="login-content">
-                        <h3>Welcome Back</h3>
-                        <!-- Login Form -->
+                        <h3>Welcome New!</h3>
+                        <!-- Register Form -->
                         
-                        <div id="container">
-							<form action="/register" method="post" id="regForm">
-								<div class="form-group has-feedback">
-									<label class="control-label" for="regMemId">아이디</label>
-									<input class="form-control" type="email" id="regMemId" name="regMemId" />
-									<button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
-								</div>
-								<div class="form-group has-feedback">
-									<label class="control-label" for="regMemPw">패스워드</label>
-									<input class="form-control" type="password" id="regMemPw" name="regMemPw" />
-								</div>
-			
-							</form>
-								<div class="form-group has-feedback">
-									<button class="btn btn-success" type="button" id="submit">회원가입</button>
-									<button class="cencle btn btn-danger" type="button">취소</button>
-								</div>
-						</div>
-						<!-- 
-                        <div class="login-form">
-                            <form action="/register" method="post">
+                        <div class="register-form">
+                            <form action="/register" method="post" id="regForm">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" name="regMemId" aria-describedby="emailHelp" placeholder="Enter E-mail">
+                                    <label for="regMemId">Email address</label>
+                                    <input type="email" name="regMemId" class="form-control" id="regMemId" aria-describedby="emailHelp" placeholder="Enter E-mail">
                                     <small id="emailHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll never share your email with anyone else.</small>
+                                    <button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" name="regMemPw" placeholder="Password">
+                                    <label for="regMemPw0">Password</label>
+                                    <input type="password" name="regMemPw0" class="form-control" id="regMemPw0" placeholder="Password">
                                 </div>
+                                <div class="form-group">
+                                    <label for="regMemPw">Password Confirm</label>
+                                    <input type="password" name="regMemPw" class="form-control" id="regMemPw" placeholder="Pleae Password one more">
+                                </div>
+                                <!-- 
                                 <button type="submit" class="btn oneMusic-btn mt-30">Register</button>
+                                 
+                                <button class="btn oneMusic-btn mt-30" type="button" id="submit">회원가입</button>
+                                -->
+             
                             </form>
+                            	
+									<button class="btn oneMusic-btn text-center" type="button" id="submit">회원가입</button>	
+								
                         </div>
-                         -->
                     </div>
                 </div>
             </div>
@@ -220,25 +190,13 @@
                 <div class="col-12 col-md-6">
                     <a href="#"><img src="/img/core-img/logo.png" alt=""></a>
                     <p class="copywrite-text"><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Chimac</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
 
-                <div class="col-12 col-md-6">
-                    <div class="footer-nav">
-                        <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Albums</a></li>
-                            <li><a href="#">Events</a></li>
-                            <li><a href="#">News</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
     </footer>
-    <!-- ##### Footer Area Start ##### -->
 
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
