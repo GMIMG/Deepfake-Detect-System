@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+﻿from flask import Flask, render_template, jsonify
 import os
 import time
 import numpy as np
@@ -15,8 +15,8 @@ from os.path import join
 
 app = Flask(__name__)
 
-# model = load_model('deepfake-detection2.h5')
-model = load_model("Xcept-55-0.0002.h5")
+model = load_model('deepfake-detection2.h5')
+# model = load_model("Xcept-55-0.0002.h5")
 # model.compile(loss='binary_crossentropy', optimizer="adam", metrics=['acc'])
 
 @app.route('/predict')

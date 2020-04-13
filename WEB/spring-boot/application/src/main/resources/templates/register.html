@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
 <html lang="en">
 
 <head>
@@ -16,6 +16,54 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/style.css">
+    <script src="/webjars/jquery/3.4.1/jquery.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+		$(document).ready(function(){
+			// 취소
+			$(".cencle").on("click", function(){
+				location.href = "/";
+			})
+			
+			$("#submit").on("click", function(){
+				if($("#regMemId").val()==""){
+					alert("아이디를 입력해주세요.");
+					$("#regMemId").focus();
+					return false;
+				}
+				if($("#regMemPw").val()==""){
+					alert("비밀번호를 입력해주세요.");
+					$("#regMemPw").focus();
+					return false;
+				}
+
+				var idChkVal = $("#idChk").val();
+				
+				if(idChkVal == "N"){
+					alert("중복확인 버튼을 눌러주세요.");
+				}else if(idChkVal == "Y"){
+					$("#regForm").submit();
+					
+				}
+			});
+		})
+		
+		function fn_idChk(){
+			$.ajax({
+				url : "/idChk",
+				type : "post",
+				dataType : "json",
+				data : {"regMemId" : $("#regMemId").val()},
+				success : function(data){
+					if(data == 1){
+						alert("중복된 아이디입니다.");
+					}else if(data == 0){
+						$("#idChk").attr("value", "Y");
+						alert("사용가능한 아이디입니다.");
+					}
+				}
+			})
+		}
+	</script>
 
 </head>
 
@@ -40,7 +88,7 @@
                     <nav class="classy-navbar justify-content-between" id="oneMusicNav">
 
                         <!-- Nav brand -->
-                        <a href="index.html" class="nav-brand"><img src="/img/core-img/logo.png" alt=""></a>
+                        <a href="/" class="nav-brand">Deep Fake</a>
 
                         <!-- Navbar Toggler -->
                         <div class="classy-navbar-toggler">
@@ -59,7 +107,7 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a href="/">Home</a></li>
-                                    <!-- <li><a href="albums-store.html">Albums</a></li> -->
+                                    <!-- <li><a href="albums-store.html">My Page</a></li> -->
                                     <li><a href="#">Pages</a>
                                         <ul class="dropdown">
                                             <li><a href="index.html">Home</a></li>
@@ -68,8 +116,7 @@
                                             <li><a href="blog.html">News</a></li>
                                             <li><a href="contact.html">Contact</a></li>
                                             <li><a href="elements.html">Elements</a></li>
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="register.html">register</a></li>
+                                            <li><a href="login">Login</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="event.html">Events</a></li>
@@ -80,7 +127,11 @@
                                 <!-- Login/Register & Cart Button -->
                                 <div class="login-register-cart-button d-flex align-items-center">
                                     <!-- Login/Register -->
-                                    <div class="login-register-btn mr-50">
+                                    <div th:if="${sessionMem}!=null" class="logOut-btn mr-50">
+                                        <a href="/member/logOut" id="logOutBtn">LogOut</a>
+                                    </div>
+                                    
+                                    <div th:if="${sessionMem}==null" class="login-register-btn mr-50">
                                         <a href="/member/loginForm" id="loginBtn">Login</a>
                                         <a>/</a>
                                         <a href="/member/registerForm" id="RegiBtn">Register</a>
@@ -89,7 +140,7 @@
                                     <!-- Cart Button -->
                                     <div class="cart-btn">
                                     	<p th:if="${sessionMem}!=null" th:text="${sessionMem.getMemId()}"></p>
-                                        <a href="albums-store.html"><p><span> MY PAGE</span> <span class="quantity">2</span></p></a>
+                                        <a href="albums-store.html"><p><span th:if="${sessionMem}!=null"> MY PAGE</span> <!-- <span class="quantity">2</span>--></p></a>
                                     </div>
                                 </div>
                             </div>
@@ -120,6 +171,26 @@
                     <div class="login-content">
                         <h3>Welcome Back</h3>
                         <!-- Login Form -->
+                        
+                        <div id="container">
+							<form action="/register" method="post" id="regForm">
+								<div class="form-group has-feedback">
+									<label class="control-label" for="regMemId">아이디</label>
+									<input class="form-control" type="email" id="regMemId" name="regMemId" />
+									<button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
+								</div>
+								<div class="form-group has-feedback">
+									<label class="control-label" for="regMemPw">패스워드</label>
+									<input class="form-control" type="password" id="regMemPw" name="regMemPw" />
+								</div>
+			
+							</form>
+								<div class="form-group has-feedback">
+									<button class="btn btn-success" type="button" id="submit">회원가입</button>
+									<button class="cencle btn btn-danger" type="button">취소</button>
+								</div>
+						</div>
+						<!-- 
                         <div class="login-form">
                             <form action="/register" method="post">
                                 <div class="form-group">
@@ -134,6 +205,7 @@
                                 <button type="submit" class="btn oneMusic-btn mt-30">Register</button>
                             </form>
                         </div>
+                         -->
                     </div>
                 </div>
             </div>

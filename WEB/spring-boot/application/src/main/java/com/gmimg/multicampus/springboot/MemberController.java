@@ -6,7 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gmimg.multicampus.springboot.mapper.IMemMapper;
@@ -31,23 +33,39 @@ public class MemberController {
 			@RequestParam("regMemId") String RegId,
 			@RequestParam("regMemPw") String RegPw) {
 		
-		memMapper.insertMem(RegId, RegPw);
-		
-		mav.addObject("regId", RegId);
-		mav.addObject("regPw", RegPw);
-		mav.setViewName("registerOk");
+		Member member = memMapper.insertMem(RegId, RegPw);
+//		
+//		System.out.println(member.getMemId());
+//		System.out.println(member.getMemPw());
+
+		mav.setViewName("redirect:/");
 		
 		//String map = memMapper.findAll("heee@email.com").getMemPw();
 		
 		return mav;
 	}
+	
+	//아이디 중복확인 
+	@ResponseBody
+	@RequestMapping(value = "/idChk", method = {RequestMethod.POST,RequestMethod.GET})
+	public int postIdCheck(@RequestParam("regMemId") String userId) {
+
+		Member check = memMapper.idCheckMem(userId);
+		
+		int result = 0;
+		
+		if (check != null) {
+			result = 1;
+		} 
+		return result;
+	}
+
 	//로그인 
 	@RequestMapping(value = "/member/loginForm")
 	public String loginForm() {
 		return "login";
 	}
-	
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView login(ModelAndView mav, Model model,
 			@RequestParam("loginMemId") String loginId,
 			@RequestParam("loginMemPw") String loginPw) {
@@ -62,10 +80,16 @@ public class MemberController {
 			model.addAttribute("sessionMem", member); 
 			
 		
-			mav.setViewName("index");			
+			mav.setViewName("redirect:/");			
 		} else {
-			mav.setViewName("login");
+			mav.setViewName("redirect:/member/loginForm");
 		}
 		return mav;
 	}
+	@RequestMapping(value = "/member/logOut")
+	public String logOut(SessionStatus sessionStatus) {
+		sessionStatus.setComplete();
+		return "redirect:/";
+	}
+	
 }

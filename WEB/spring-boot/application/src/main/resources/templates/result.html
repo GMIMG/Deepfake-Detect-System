@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="css/style4.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="activity">
+        <img src="http://code.quirkbot.com/assets/images/logo/white-outline.svg" width="30%" alt="">
+		<h1 id="counter">Real Video  <span class="hits">99</span>%</h1>
+		<a href="main2" onclick="resetHits()" class="tryagain">RESTART</a>
+    </div>
+    <script>r
+        var hits = 0;
+var hitElement = document.querySelector( '.hits' );
+document.body.onkeyup = function(e) {
+  if( e.keyCode == 32 ) {
+    addHit();
+  }
+}
+
+var addHit = function() {
+  hits++;
+  renderHits();
+}
+
+var renderHits = function() {
+  hitElement.innerHTML = hits;
+}
+
+var resetHits = function() {
+  hits = 0;
+  renderHits();
+}
+
+    </script>
+</body>
+</html>

@@ -13,10 +13,10 @@
     <title>Deep Fake Detecter - dect your video</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="icon" href="/img/core-img/favicon.ico">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 
 </head>
 
@@ -41,7 +41,7 @@
                     <nav class="classy-navbar justify-content-between" id="oneMusicNav">
 
                         <!-- Nav brand -->
-                        <a href="index.html" class="nav-brand">Deep Fake</a>
+                        <a href="/" class="nav-brand">Deep Fake</a>
 
                         <!-- Navbar Toggler -->
                         <div class="classy-navbar-toggler">
@@ -70,23 +70,6 @@
                                             <li><a href="contact.html">Contact</a></li>
                                             <li><a href="elements.html">Elements</a></li>
                                             <li><a href="login">Login</a></li>
-                                            <!-- <li><a href="#">Dropdown</a>
-                                                <ul class="dropdown">
-                                                    <li><a href="#">Even Dropdown</a></li>
-                                                    <li><a href="#">Even Dropdown</a></li>
-                                                    <li><a href="#">Even Dropdown</a></li>
-                                                    <li><a href="#">Even Dropdown</a>
-                                                        <ul class="dropdown">
-                                                            <li><a href="#">Deeply Dropdown</a></li>
-                                                            <li><a href="#">Deeply Dropdown</a></li>
-                                                            <li><a href="#">Deeply Dropdown</a></li>
-                                                            <li><a href="#">Deeply Dropdown</a></li>
-                                                            <li><a href="#">Deeply Dropdown</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><a href="#">Even Dropdown</a></li>
-                                                </ul>
-                                            </li> -->
                                         </ul>
                                     </li>
                                     <li><a href="event.html">Events</a></li>
@@ -97,7 +80,11 @@
                                 <!-- Login/Register & Cart Button -->
                                 <div class="login-register-cart-button d-flex align-items-center">
                                     <!-- Login/Register -->
-                                    <div class="login-register-btn mr-50">
+                                    <div th:if="${sessionMem}!=null" class="logOut-btn mr-50">
+                                        <a href="/member/logOut" id="logOutBtn">LogOut</a>
+                                    </div>
+                                    
+                                    <div th:if="${sessionMem}==null" class="login-register-btn mr-50">
                                         <a href="/member/loginForm" id="loginBtn">Login</a>
                                         <a>/</a>
                                         <a href="/member/registerForm" id="RegiBtn">Register</a>
@@ -106,7 +93,7 @@
                                     <!-- Cart Button -->
                                     <div class="cart-btn">
                                     	<p th:if="${sessionMem}!=null" th:text="${sessionMem.getMemId()}"></p>
-                                        <a href="albums-store.html"><p><span> MY PAGE</span> <span class="quantity">2</span></p></a>
+                                        <a href="albums-store.html"><p><span th:if="${sessionMem}!=null"> MY PAGE</span> <!-- <span class="quantity">2</span>--></p></a>
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +113,7 @@
             <!-- Single Hero Slide -->
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url(img/bg-img/trump.png);"></div>
+                <div class="slide-img bg-img" style="background-image: url(/img/bg-img/trump.png);"></div>
                 <!-- Slide Content -->
                 <div class="container">
                     <div class="row">
@@ -144,7 +131,7 @@
             <!-- Single Hero Slide -->
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url(img/bg-img/make.jpg);"></div>
+                <div class="slide-img bg-img" style="background-image: url(/img/bg-img/make.jpg);"></div>
                 <!-- Slide Content -->
                 <div class="container">
                     <div class="row">
@@ -186,7 +173,7 @@
                     <div class="albums-slideshow owl-carousel">
                         <!-- Single Album -->
                         <div class="single-album">
-                            <img src="img/bg-img/a1.jpg" alt="">
+                            <img src="/img/bg-img/a1.jpg" alt="">
                             <div class="album-info">
                                 <a href="#">
                                     <h5>윤옥이 누나</h5>
@@ -197,7 +184,7 @@
 
                         <!-- Single Album -->
                         <div class="single-album">
-                            <img src="img/bg-img/a2.jpg" alt="">
+                            <img src="/img/bg-img/a2.jpg" alt="">
                             <div class="album-info">
                                 <a href="#">
                                     <h5>멀캠 딥러닝 장경석</h5>
@@ -208,7 +195,7 @@
 
                         <!-- Single Album -->
                         <div class="single-album">
-                            <img src="img/bg-img/a3.jpg" alt="">
+                            <img src="/img/bg-img/a3.jpg" alt="">
                             <div class="album-info">
                                 <a href="#">
                                     <h5>멀캠 장지승</h5>
@@ -219,7 +206,7 @@
 
                         <!-- Single Album -->
                         <div class="single-album">
-                            <img src="img/bg-img/a4.jpg" alt="">
+                            <img src="/img/bg-img/a4.jpg" alt="">
                             <div class="album-info">
                                 <a href="#">
                                     <h5>삼성 김지승연구원님</h5>
@@ -230,7 +217,7 @@
 
                         <!-- Single Album -->
                         <div class="single-album">
-                            <img src="img/bg-img/a5.jpg" alt="">
+                            <img src="/img/bg-img/a5.jpg" alt="">
                             <div class="album-info">
                                 <a href="#">
                                     <h5>기타 빠돌이 황지민</h5>
@@ -241,7 +228,7 @@
 
                         <!-- Single Album -->
                         <div class="single-album">
-                            <img src="img/bg-img/a6.jpg" alt="">
+                            <img src="/img/bg-img/a6.jpg" alt="">
                             <div class="album-info">
                                 <a href="#">
                                     <h5>멀티캠퍼스 매니져님</h5>
@@ -252,7 +239,7 @@
 
                         <!-- Single Album -->
                         <div class="single-album">
-                            <img src="img/bg-img/a7.jpg" alt="">
+                            <img src="/img/bg-img/a7.jpg" alt="">
                             <div class="album-info">
                                 <a href="#">
                                     <h5>권혜윤강사님</h5>
@@ -285,7 +272,7 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
                         <div class="album-thumb">
-                            <img src="img/bg-img/딥1.jpg" alt="">
+                            <img src="/img/bg-img/딥1.jpg" alt="">
                             
                             <!-- Album Price -->
                             <div class="album-price">
@@ -293,7 +280,7 @@
                             </div>
                             <!-- Play Icon -->
                             <div class="play-icon">
-                                <a href="img/bg-img/v1.mp4" class="video--play--btn"><span class="icon-play-button"></span></a>
+                                <a href="/img/bg-img/v1.mp4" class="video--play--btn"><span class="icon-play-button"></span></a>
                             </div>
                         </div>
                         <div class="album-info">
@@ -309,7 +296,7 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="single-album-area wow fadeInUp" data-wow-delay="200ms">
                         <div class="album-thumb">
-                            <img src="img/bg-img/딥2.jpg" alt="">
+                            <img src="/img/bg-img/딥2.jpg" alt="">
                         </div>
                         <div class="album-info">
                             <a href="#">
@@ -324,7 +311,7 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="single-album-area wow fadeInUp" data-wow-delay="300ms">
                         <div class="album-thumb">
-                            <img src="img/bg-img/딥3.jpg" alt="">
+                            <img src="/img/bg-img/딥3.jpg" alt="">
                         </div>
                         <div class="album-info">
                             <a href="#">
@@ -339,7 +326,7 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="single-album-area wow fadeInUp" data-wow-delay="400ms">
                         <div class="album-thumb">
-                            <img src="img/bg-img/딥4.jpg" alt="">
+                            <img src="/img/bg-img/딥4.jpg" alt="">
                         </div>
                         <div class="album-info">
                             <a href="#">
@@ -354,14 +341,14 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="single-album-area wow fadeInUp" data-wow-delay="500ms">
                         <div class="album-thumb">
-                            <img src="img/bg-img/딥5.jpg" alt="">
+                            <img src="/img/bg-img/딥5.jpg" alt="">
                             <!-- Album Price -->
                             <div class="album-price">
                                 <p>Hot</p>
                             </div>
                             <!-- Play Icon -->
                             <div class="play-icon">
-                                <a href="img/bg-img/v5.mp4" class="video--play--btn"><span class="icon-play-button"></span></a>
+                                <a href="/img/bg-img/v5.mp4" class="video--play--btn"><span class="icon-play-button"></span></a>
                             </div>
                         </div>
                         <div class="album-info">
@@ -377,7 +364,7 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="single-album-area wow fadeInUp" data-wow-delay="600ms">
                         <div class="album-thumb">
-                            <img src="img/bg-img/딥6.jpg" alt="">
+                            <img src="/img/bg-img/딥6.jpg" alt="">
                         </div>
                         <div class="album-info">
                             <a href="#">
@@ -392,7 +379,7 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
                         <div class="album-thumb">
-                            <img src="img/bg-img/딥7.jpg" alt="">
+                            <img src="/img/bg-img/딥7.jpg" alt="">
                         </div>
                         <div class="album-info">
                             <a href="#">
@@ -407,7 +394,7 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="single-album-area wow fadeInUp" data-wow-delay="200ms">
                         <div class="album-thumb">
-                            <img src="img/bg-img/딥8.jpg" alt="">
+                            <img src="/img/bg-img/딥8.jpg" alt="">
                         </div>
                         <div class="album-info">
                             <a href="#">
@@ -422,14 +409,14 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="single-album-area wow fadeInUp" data-wow-delay="300ms">
                         <div class="album-thumb">
-                            <img src="img/bg-img/딥4.jpg" alt="">
+                            <img src="/img/bg-img/딥4.jpg" alt="">
                             <!-- Album Price -->
                             <div class="album-price">
                                 <p>New</p>
                             </div>
                             <!-- Play Icon -->
                             <div class="play-icon">
-                                <a href="img/bg-img/v4.mp4" class="video--play--btn"><span class="icon-play-button"></span></a>
+                                <a href="/img/bg-img/v4.mp4" class="video--play--btn"><span class="icon-play-button"></span></a>
                             </div>
                         </div>
                         <div class="album-info">
@@ -445,7 +432,7 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="single-album-area wow fadeInUp" data-wow-delay="400ms">
                         <div class="album-thumb">
-                            <img src="img/bg-img/딥5.jpg" alt="">
+                            <img src="/img/bg-img/딥5.jpg" alt="">
                         </div>
                         <div class="album-info">
                             <a href="#">
@@ -460,7 +447,7 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="single-album-area wow fadeInUp" data-wow-delay="500ms">
                         <div class="album-thumb">
-                            <img src="img/bg-img/딥6.jpg" alt="">
+                            <img src="/img/bg-img/딥6.jpg" alt="">
                         </div>
                         <div class="album-info">
                             <a href="#">
@@ -475,7 +462,7 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="single-album-area wow fadeInUp" data-wow-delay="600ms">
                         <div class="album-thumb">
-                            <img src="img/bg-img/딥7.jpg" alt="">
+                            <img src="/img/bg-img/딥7.jpg" alt="">
                         </div>
                         <div class="album-info">
                             <a href="#">
@@ -500,12 +487,12 @@
     <!-- ##### Buy Now Area End ##### -->
 
     <!-- ##### Featured Artist Area Start ##### -->
-    <section class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed" style="background-image: url(img/bg-img/bg-4.jpg);">
+    <section class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed" style="background-image: url(/img/bg-img/bg-4.jpg);">
         <div class="container">
             <div class="row align-items-end">
                 <div class="col-12 col-md-5 col-lg-4">
                     <div class="featured-artist-thumb">
-                        <img src="img/bg-img/fa.jpg" alt="">
+                        <img src="/img/bg-img/fa.jpg" alt="">
                     </div>
                 </div>
                 <div class="col-12 col-md-7 col-lg-8">
@@ -521,7 +508,7 @@
                                 <p>01. Main Hit Song</p>
                             </div>
                             <audio preload="auto" controls>
-                                <source src="audio/dummy-audio.mp3">
+                                <source src="/audio/dummy-audio.mp3">
                             </audio>
 
                             
@@ -548,7 +535,7 @@
                         <!-- Single Top Item -->
                         <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="100ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/wt1.jpg" alt="">
+                                <img src="/img/bg-img/wt1.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <h6>Sam Smith</h6>
@@ -559,7 +546,7 @@
                         <!-- Single Top Item -->
                         <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="150ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/wt2.jpg" alt="">
+                                <img src="/img/bg-img/wt2.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <h6>Power Play</h6>
@@ -570,7 +557,7 @@
                         <!-- Single Top Item -->
                         <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="200ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/wt3.jpg" alt="">
+                                <img src="/img/bg-img/wt3.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <h6>Cristinne Smith</h6>
@@ -581,7 +568,7 @@
                         <!-- Single Top Item -->
                         <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="250ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/wt4.jpg" alt="">
+                                <img src="/img/bg-img/wt4.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <h6>The Music Band</h6>
@@ -592,7 +579,7 @@
                         <!-- Single Top Item -->
                         <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="300ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/wt5.jpg" alt="">
+                                <img src="/img/bg-img/wt5.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <h6>Creative Lyrics</h6>
@@ -603,7 +590,7 @@
                         <!-- Single Top Item -->
                         <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="350ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/wt6.jpg" alt="">
+                                <img src="/img/bg-img/wt6.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <h6>The Culture</h6>
@@ -626,7 +613,7 @@
                         <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms">
                             <div class="first-part d-flex align-items-center">
                                 <div class="thumbnail">
-                                    <img src="img/bg-img/wt7.jpg" alt="">
+                                    <img src="/img/bg-img/wt7.jpg" alt="">
                                 </div>
                                 <div class="content-">
                                     <h6>Sam Smith</h6>
@@ -644,7 +631,7 @@
                         <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="150ms">
                             <div class="first-part d-flex align-items-center">
                                 <div class="thumbnail">
-                                    <img src="img/bg-img/wt8.jpg" alt="">
+                                    <img src="/img/bg-img/wt8.jpg" alt="">
                                 </div>
                                 <div class="content-">
                                     <h6>Power Play</h6>
@@ -660,7 +647,7 @@
                         <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="200ms">
                             <div class="first-part d-flex align-items-center">
                                 <div class="thumbnail">
-                                    <img src="img/bg-img/wt9.jpg" alt="">
+                                    <img src="/img/bg-img/wt9.jpg" alt="">
                                 </div>
                                 <div class="content-">
                                     <h6>Cristinne Smith</h6>
@@ -676,7 +663,7 @@
                         <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="250ms">
                             <div class="first-part d-flex align-items-center">
                                 <div class="thumbnail">
-                                    <img src="img/bg-img/wt10.jpg" alt="">
+                                    <img src="/img/bg-img/wt10.jpg" alt="">
                                 </div>
                                 <div class="content-">
                                     <h6>The Music Band</h6>
@@ -692,7 +679,7 @@
                         <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="300ms">
                             <div class="first-part d-flex align-items-center">
                                 <div class="thumbnail">
-                                    <img src="img/bg-img/wt11.jpg" alt="">
+                                    <img src="/img/bg-img/wt11.jpg" alt="">
                                 </div>
                                 <div class="content-">
                                     <h6>Creative Lyrics</h6>
@@ -708,7 +695,7 @@
                         <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="350ms">
                             <div class="first-part d-flex align-items-center">
                                 <div class="thumbnail">
-                                    <img src="img/bg-img/wt12.jpg" alt="">
+                                    <img src="/img/bg-img/wt12.jpg" alt="">
                                 </div>
                                 <div class="content-">
                                     <h6>The Culture</h6>
@@ -733,7 +720,7 @@
                         <!-- Single Artist -->
                         <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/pa1.jpg" alt="">
+                                <img src="/img/bg-img/pa1.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <p>Sam Smith</p>
@@ -743,7 +730,7 @@
                         <!-- Single Artist -->
                         <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="150ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/pa2.jpg" alt="">
+                                <img src="/img/bg-img/pa2.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <p>William Parker</p>
@@ -753,7 +740,7 @@
                         <!-- Single Artist -->
                         <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="200ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/pa3.jpg" alt="">
+                                <img src="/img/bg-img/pa3.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <p>Jessica Walsh</p>
@@ -763,7 +750,7 @@
                         <!-- Single Artist -->
                         <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="250ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/pa4.jpg" alt="">
+                                <img src="/img/bg-img/pa4.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <p>Tha Stoves</p>
@@ -773,7 +760,7 @@
                         <!-- Single Artist -->
                         <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="300ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/pa5.jpg" alt="">
+                                <img src="/img/bg-img/pa5.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <p>DJ Ajay</p>
@@ -783,7 +770,7 @@
                         <!-- Single Artist -->
                         <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="350ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/pa6.jpg" alt="">
+                                <img src="/img/bg-img/pa6.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <p>Radio Vibez</p>
@@ -793,7 +780,7 @@
                         <!-- Single Artist -->
                         <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="400ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/pa7.jpg" alt="">
+                                <img src="/img/bg-img/pa7.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <p>Music 4u</p>
@@ -862,7 +849,7 @@
         <div class="container">
             <div class="row d-flex flex-wrap align-items-center">
                 <div class="col-12 col-md-6">
-                    <a href="#"><img src="img/core-img/logo.png" alt=""></a>
+                    <a href="#"><img src="/img/core-img/logo.png" alt=""></a>
                     <p class="copywrite-text"><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
@@ -886,15 +873,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="/js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
-    <script src="js/bootstrap/popper.min.js"></script>
+    <script src="/js/bootstrap/popper.min.js"></script>
     <!-- Bootstrap js -->
-    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
     <!-- All Plugins js -->
-    <script src="js/plugins/plugins.js"></script>
+    <script src="/js/plugins/plugins.js"></script>
     <!-- Active js -->
-    <script src="js/active.js"></script>
+    <script src="/js/active.js"></script>
 </body>
 
 </html>

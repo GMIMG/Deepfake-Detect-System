@@ -15,4 +15,6 @@ public interface IMemMapper {
 	@Select("insert into member (memId, memPw) values (#{memId}, #{memPw})")
 	Member insertMem(@Param("memId") String memId, @Param("memPw") String memPw);
 	
+	@Select("select memId from member where memId = #{memId}")
+	Member idCheckMem(@Param("memId") String memId);
 }

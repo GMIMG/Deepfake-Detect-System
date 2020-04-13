@@ -10,7 +10,14 @@ package com.gmimg.multicampus.springboot.member;
 public class Member {
 	private String memId;
 	private String memPw;
+	private String memVideo;
 	
+	public String getMemVideo() {
+		return memVideo;
+	}
+	public void setMemVideo(String memVideo) {
+		this.memVideo = memVideo;
+	}
 	public String getMemId() {
 		return memId;
 	}
