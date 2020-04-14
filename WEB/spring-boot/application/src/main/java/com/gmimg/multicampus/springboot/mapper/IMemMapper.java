@@ -17,4 +17,5 @@ public interface IMemMapper {
 	
 	@Select("select memId from member where memId = #{memId}")
 	Member idCheckMem(@Param("memId") String memId);
+	
 }

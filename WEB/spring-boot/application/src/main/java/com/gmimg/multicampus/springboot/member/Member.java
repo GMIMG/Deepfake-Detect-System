@@ -1,12 +1,5 @@
-/**
- * 
- */
 package com.gmimg.multicampus.springboot.member;
 
-/**
- * @author JC Lee
- *
- */
 public class Member {
 	private String memId;
 	private String memPw;

@@ -21,10 +21,10 @@ public class MemberController {
 	@Autowired
 	IMemMapper memMapper;
 	
-	
 	//회원가입
 	@RequestMapping(value = "/member/registerForm", method = RequestMethod.GET)
 	public String registerForm() {
+
 		return "register";
 	}
 	
