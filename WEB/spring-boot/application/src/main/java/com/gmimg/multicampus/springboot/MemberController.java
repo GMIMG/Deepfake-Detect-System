@@ -24,7 +24,6 @@ public class MemberController {
 	//회원가입
 	@RequestMapping(value = "/member/registerForm", method = RequestMethod.GET)
 	public String registerForm() {
-
 		return "register";
 	}
 	
@@ -32,15 +31,9 @@ public class MemberController {
 	public ModelAndView register(ModelAndView mav,
 			@RequestParam("regMemId") String RegId,
 			@RequestParam("regMemPw") String RegPw) {
-		
-		Member member = memMapper.insertMem(RegId, RegPw);
-//		
-//		System.out.println(member.getMemId());
-//		System.out.println(member.getMemPw());
 
+		memMapper.insertMem(RegId, RegPw);
 		mav.setViewName("redirect:/");
-		
-		//String map = memMapper.findAll("heee@email.com").getMemPw();
 		
 		return mav;
 	}
@@ -65,6 +58,7 @@ public class MemberController {
 	public String loginForm() {
 		return "login";
 	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView login(ModelAndView mav, Model model,
 			@RequestParam("loginMemId") String loginId,
@@ -74,18 +68,14 @@ public class MemberController {
 		
 		if (member != null) {
 			
-			System.out.println(member.getMemId());
-			System.out.println(member.getMemPw());
-			
 			model.addAttribute("sessionMem", member); 
-			
-		
 			mav.setViewName("redirect:/");			
 		} else {
 			mav.setViewName("redirect:/member/loginForm");
 		}
 		return mav;
 	}
+
 	@RequestMapping(value = "/member/logOut")
 	public String logOut(SessionStatus sessionStatus) {
 		sessionStatus.setComplete();

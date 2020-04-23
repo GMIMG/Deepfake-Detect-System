@@ -185,13 +185,18 @@
 </head>
 
 <body>
+    <!-- <div th:if="${session.sessionMem}">
+        <span th:text="${session.sessionMem.getmemId()}"></span>
+        <span th:text="${session.sessionMem.ididx]}"></span> 
+        <a href="logout">로그아웃</a>
+    </div>
+    <div th:unless="${session.sessionMem}">
+        로그인안됨
+    </div> -->
+
     <!-- Preloader -->
     <div class="preloader d-flex align-items-center justify-content-center">
         <div class="lds-ellipsis">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
         </div>
     </div>
 
@@ -262,11 +267,10 @@
                         <div class="col-12">
                             <div class="hero-slides-content text-center">
                                 <h6 data-animation="fadeInUp" data-delay="100ms">Using Latest Model</h6>
-                                <h2 data-animation="fadeInUp" data-delay="300ms">Dectect Your Video <span>Dectect Your
-                                        Video</span></h2>
-                                <a data-animation="fadeInUp" data-delay="500ms" href="upload.html"
-                                    class="btn oneMusic-btn mt-50">Go Detect <i
-                                        class="fa fa-angle-double-right"></i></a>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">Dectect Your Video <span>Dectect Your Video</span></h2>
+                                <a data-animation="fadeInUp" data-delay="500ms" href="#layer2"
+                                class="btn btn-example oneMusic-btn mt-50">Go Detect <i class="fa fa-angle-double-right"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -283,11 +287,10 @@
                         <div class="col-12">
                             <div class="hero-slides-content text-center">
                                 <h6 data-animation="fadeInUp" data-delay="100ms">Using Latest Model</h6>
-                                <h2 data-animation="fadeInUp" data-delay="300ms">Detect Your Video <span>Detect Your
-                                        Video</span></h2>
-                                <a data-animation="fadeInUp" data-delay="500ms" href="upload.html"
-                                    class="btn oneMusic-btn mt-50">Go Detect <i
-                                        class="fa fa-angle-double-right"></i></a>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">Dectect Your Video <span>Dectect Your Video</span></h2>
+                                <a data-animation="fadeInUp" data-delay="500ms" href="#layer2"
+                                class="btn btn-example oneMusic-btn mt-50">Go Detect <i class="fa fa-angle-double-right"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -432,7 +435,6 @@
     <!-- ##### Latest Albums Area End ##### -->
 
     
-    <a href="#layer2" class="btn-example">업로드하기</a>
     <div class="dim-layer">
         <div class="dimBg"></div>
         <div id="layer2" class="pop-layer" style="width: 1200px; height: 500px; border-radius: 15px;">
@@ -446,20 +448,20 @@
                         <a href="#" class="btn-layerClose">Close</a>
                     </div>
 
-                    <form method="post" action="/upload">
+                    <!-- <form method="post" action="/upload"> -->
                         <article>
                             파일을 업로드 하여 예측합니다2
                         </article>
                         <label class="file">
                             Drop a file or click to select one
                             <!--input type="file" multiple-->
-                            <input class="fileinput" type="file" name="file">
+                            <input class="fileinput" type="file" > 
+                            <!-- name="file" -->
                             <!-- use multiple, even if it’s not allowed, to be able to show an info text -->
                         </label>
-                    </form>
+                    <!-- </form> -->
                     <div>
                     <button onclick="myFunction()">jimin</button>
-
                     <a href="result1.html"><button type="submit">Go To Predict</button></a>
                     <a href="result.html"><button type="submit">Go To Detail Predict</button></a>
                     </div>
@@ -502,6 +504,8 @@
     <script src="/js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="/js/active.js"></script>
+
+    
     <script>
         $('.btn-example').click(function () {
             var $href = $(this).attr('href');
@@ -546,53 +550,6 @@
 
 
 
-    <script>
-function myFunction() {
-	var formData = new FormData();
-	var fileField = document.querySelector('.fileinput'); //input[type="file"]
-
-	formData.append('file', fileField.files[0]);
-
-	fetch('upload', {
-	method: 'POST',
-	body: formData
-	})
-	.then(function(response){
-        response.text().then(function(text){
-
-			document.querySelector('article').innerHTML = '업로드중';
-			console.log(text);
-			document.querySelector('article').innerHTML = '분석중';
-
-			fetch('predict').then(function(response2){
-				response2.text().then(function(text2){
-
-					document.querySelector('article').innerHTML = text2;
-
-				})
-			});
-            
-        })
-    });
-}
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -601,32 +558,186 @@ function myFunction() {
 
 
     <script>
-        $(document).ready(function () {
-            // $('input[type=file]').change(function () {
-            //     //console.log(this.files);
-            //     var f = this.files;
-            //     var el = $(this).parent();
-            //     if (f.length > 1) {
-            //         console.log(this.files, 1);
-            //         el.text('Sorry, multiple files are not allowed');
-            //         return;
-            //     }
-            //     // el.removeClass('focus');
-            //     el.html(f[0].name + '<br>' +
-            //         '<span class="sml">' +
-            //         'type: ' + f[0].type + ', ' +
-            //         Math.round(f[0].size / 1024) + ' KB</span>');
-            // });
 
-            // $('input[type=file]').on('focus', function () {
-            //     $(this).parent().addClass('focus');
-            // });
 
-            // $('input[type=file]').on('blur', function () {
-            //     $(this).parent().removeClass('focus');
-            // });
+
+        // window.onload = 
+
+        document.querySelector('input[type=file]').addEventListener('change',function(){
+
+            console.log(this.files);
+            var f = this.files;
+            var el = $(this).parent();
+            // if (f.length > 1) {
+            //     console.log(this.files, 1);
+            //     el.text('Sorry, multiple files are not allowed');
+            //     return;
+            // }
+            // el.removeClass('focus');
+            el.append(f[0].name + '<br>' +
+                '<span class="sml">' +
+                'type: ' + f[0].type + ', ' +
+                Math.round(f[0].size / 1024) + ' KB</span>');
 
         });
+
+
+
+
+
+        function myFunction() {
+
+            var formData = new FormData();
+            var fileField = document.querySelector('input[type=file]'); //input[type="file"]
+            
+            fetch('getididx', {
+                method: 'GET'
+            })
+            .then(response => response.text())
+            .then(text => upload_predict(text))
+
+            function upload_predict(text) {
+
+                console.log(text)
+                formData.append('file', fileField.files[0]);
+                formData.append('ididx', text);
+
+                document.querySelector('article').innerHTML = '업로드 & 분석';
+                
+                fetch('predict', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(json => done(json))
+            }
+
+            function done(json){
+                console.log(fileField.filename);
+                // let filename = .split('.');
+                window.location.replace('result?results='+json["acc"] + '&filename='+json["filename"]); // 
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+            // function fileupload(text) {
+            //     console.log(text)
+            //     formData.append('ididx', text);
+            //     document.querySelector('article').innerHTML = '업로드중';
+
+            //     fetch('fileUpload', {
+            //         method: 'POST',
+            //         body: formData
+            //     })
+            //     .then(response => response.text())
+            //     .then(text => predict(text))
+            // }
+
+
+            // function predict(text){
+                
+            //     document.querySelector('article').innerHTML = '업로드완료. 분석중';
+            //     fetch('predict?filename='+text,
+            //     {method: 'GET'}
+            //     )
+            //     .then(response => response.json())
+            //     .then(json => predictDone(json, text))
+            // }
+            
+            // function predictDone(json, text){
+            //     let filename = text.split('.');
+            //     window.location.replace('result?results='+json["acc"]+'&filename='+filename[0]);
+            // }
+
+
+
+
+            // function callback(res, func, result){
+            //     if (res.status === 200 || res.status === 201) {
+            //         res.result().then(result => func(result));
+            //     } else { // 실패를 알리는 HTTP 상태 코드면
+            //         console.error(res.statusText);
+            //     }
+            // }
+            
+        }
+
+
+
+
+            
+        //     .then(function(response){
+        //         response.text().then(function(text){
+        //             let file = text
+        //             fetch('predict?filename='+text,
+        //             {method: 'GET'}).then(function(response2){
+        //                 response2.text().then(function(text2){
+        //                     // let acc = JSON.stringify(text2)
+        //                     let accu = JSON.parse(text2);
+
+        //                     console.log(accu);
+        //                     console.log(accu["acc"]);
+        //                     // return fetch('result?results='+accu["acc"], {
+        //                     //     redirect: 'follow',
+        //                     //     method: 'GET'
+        //                     // });
+        //                     let filename = file.split('.');
+        //                     document.querySelector('article').innerHTML = text2;
+        //                     return window.location.replace('result?results='+accu["acc"]+'&filename='+filename[0]);
+        //                 })
+        //             });
+                    
+        //         })
+        //     });
+        // }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+
+
+        // $(document).ready(function () {
+
+
+        //     $('input[type=file]').on('focus', function () {
+        //         $(this).parent().addClass('focus');
+        //     });
+
+        //     $('input[type=file]').on('blur', function () {
+        //         $(this).parent().removeClass('focus');
+        //     });
+
+        // });
     </script>
 </body>
 

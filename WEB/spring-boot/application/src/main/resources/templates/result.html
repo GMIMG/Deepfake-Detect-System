@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="/result.css">
+    </head>
+
+    <body>
+        <video poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg" id="bgvid" playsinline autoplay muted loop>
+        </video>
+
+        <div id="polina">
+            <h1 th:text="${param.results}+ '% chance of DeepFake'">Test</h1>
+            <p>
+            <a href="albums-store.html">Save This Video</a><a href="index.html" id ="a1">Go Previous Page</a>
+            <!-- <a id="polina button">play1</a> -->
+        </div>
+
+
+        <script th:inline="javascript">
+            window.onload = function (){
+                let source = document.createElement( 'source' );
+                source.src = [[${filename}]] + ".webm";
+                source.type = "video/webm";
+                document.querySelector("video").appendChild(source);
+            }
+
+
+            
+            var vid = document.getElementById("bgvid");
+            var pauseButton = document.querySelector("#polina button");
+
+            if (window.matchMedia('(prefers-reduced-motion)').matches) {
+                vid.removeAttribute("autoplay");
+                vid.pause();
+                pauseButton.innerHTML = "Paused";
+            }
+
+            function vidFade() {
+                vid.classList.add("stopfade");
+            }
+
+            vid.addEventListener('ended', function () {
+                // only functional if "loop" is removed 
+                vid.pause();
+                // to capture IE10
+                vidFade();
+            });
+
+            pauseButton.addEventListener("click", function () {
+                vid.classList.toggle("stopfade");
+                if (vid.paused) {
+                    vid.play();
+                    pauseButton.innerHTML = "Pause";
+                } else {
+                    vid.pause();
+                    pauseButton.innerHTML = "Paused";
+                }
+            })
+        </script>
+        
+    </body>
+</html>

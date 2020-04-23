@@ -1,15 +1,23 @@
-version: '3'
+version: '2'
 services:
-  flask:
-    container_name: flask
-    build: ./flask
-    image: "flask:test"
-    ports:
-      - "5000:5000"
-    networks:
-    - backend
-    volumes: 
-      - ./static:/static
+  # flask:
+  #   container_name: flask
+  #   build: ./flask
+  #   image: "flask:test"
+  #   ports:
+  #     - "5000:5000"
+  #   networks:
+  #   - backend
+  #   volumes: 
+  #     - ./static:/static
+    # resources:
+    #   limits:
+    #     cpus: '0.50'
+    #     memory: 2G
+    #   reservations:
+    #     cpus: '0.25'
+    #     memory: 1G
+
 
   spring:
     container_name: spring
@@ -22,6 +30,7 @@ services:
     volumes: 
       - ./static:/static
 
+
   nginx:
     container_name: nginx
     build: ./nginx
@@ -32,17 +41,17 @@ services:
       - backend
     volumes: 
       - ./static:/static
-  
-  # mysql:
-  #   container_name: mysql
-  #   build: ./mysql
-  #   image: "mysql:test"
-  #   ports:
-  #     - "3306:3306"
-  #   networks: 
-  #     - backend
-  #   # volumes: 
-  #   #   - ./static:/static
+
+  mysql:
+    container_name: mysql
+    build: ./mysql
+    image: "mysql:test"
+    ports:
+      - "3306:3306"
+    networks: 
+      - backend
+    volumes: 
+      - ./static/mysql:/var/lib/mysql
 
 networks:
   backend:
