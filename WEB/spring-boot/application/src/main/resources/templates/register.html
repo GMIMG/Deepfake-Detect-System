@@ -17,16 +17,18 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/style.css">
     <script src="/webjars/jquery/3.4.1/jquery.js"></script>
-
     <script type="text/javascript" th:inline="javascript">
-	    
 		$(document).ready(function(){
+			
+
 			// 취소
 			$(".cencle").on("click", function(){
 				location.href = "/";
 			})
 			
 			$("#submit").on("click", function(){
+				var pwd1 = $("#regMemPw0").val();
+            	var pwd2 = $("#regMemPw").val();
 				if($("#regMemId").val()==""){
 					alert("아이디를 입력해주세요.");
 					$("#regMemId").focus();
@@ -42,8 +44,13 @@
 				
 				if(idChkVal == "N"){
 					alert("중복확인 버튼을 눌러주세요.");
+					
 				}else if(idChkVal == "Y"){
-					$("#regForm").submit();
+					if (pwd1 == pwd2) {
+						$("#regForm").submit();
+					} else {
+						window.location.replace("/member/registerForm")
+					}
 					
 				}
 			});
@@ -105,7 +112,7 @@
                             </div>
 
                             <!-- Nav Start -->
-                         	
+                         
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
@@ -114,20 +121,13 @@
                                     <a>/</a>
                                     <a href="/member/registerForm" id="loginBtn">Register</a>
                                 </div>
-                                
 
                                 <!-- Cart Button -->
-                                <div th:if="${sessionMem}!=null" class="cart-btn">
-                                    <a href="/member/logOut">
-                                        <p><span> LOGOUT</span></p>
-                                    </a>
-                                </div> &nbsp;&nbsp;&nbsp;
                                 <div th:if="${sessionMem}!=null" class="cart-btn">
                                     <a href="/member/myPage">
                                         <p><span> MY PAGE</span></p>
                                     </a>
                                 </div>
-                                
                             </div>
                         </div>
                         <!-- Nav End -->
@@ -173,14 +173,13 @@
                                     	<span>8~15자리의 영문, 숫자, 특수문자의 입력이 가능합니다.</span>
                                     </div>
                                 </div>
-                                
                                 <div class="form-group">
                                     <label for="regMemPw">Password Confirm</label>
-                                    <div class="content_content">
+                                    <div>
                                     	<input type="password" name="regMemPw" class="form-control" id="regMemPw" placeholder="Pleae Password one more">
-                                    	<span id="alert-success" style="display: none;">비밀번호가 일치합니다.</span>
-                                        <span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다.</span>
-                                    </div>
+                                		<span id="alert-success" style="display: none;">비밀번호가 일치합니다.</span>
+                                        <span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지않습니다.</span>
+                                	</div>
                                 </div>
                                 <!-- 
                                 <button type="submit" class="btn oneMusic-btn mt-30">Register</button>
@@ -189,7 +188,7 @@
                                 -->
              
                             </form>
-                            	
+                            		<button type="button" id="submit" class="btn oneMusic-btn mt-30">Register</button>
 									<button class="btn oneMusic-btn text-center" type="button" id="submit">회원가입</button>	
 								
                         </div>
@@ -226,26 +225,68 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="/js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="/js/active.js"></script>
-        <script type="text/javascript" th:inline="javascript">
-	    $('.form-control').focusout(function () {
-	        var pwd1 = $("#regMemPw0").val();
-	        var pwd2 = $("#regMemPw").val();
-	
-	        if (pwd1 != '' && pwd2 == '') {
-	            null;
-	        } else if (pwd1 != "" || pwd2 != "") {
-	            if (pwd1 == pwd2) {
-	                $("#alert-success").css('display', 'inline-block');
-	                $("#alert-danger").css('display', 'none');
-	            } else {
-	                alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
-	                $("#alert-success").css('display', 'none');
-	                $("#alert-danger").css('display', 'inline-block');
-	            }
-	        }
-	    });
-	    </script>
-    
+    <!-- 
+    <script>
+        $('.form-control').focusout(function () {
+            var pwd1 = $("#regMemPw0").val();
+            var pwd2 = $("#regMemPw").val();
+
+            if (pwd1 != '' && pwd2 == '') {
+                null;
+            } else if (pwd1 != "" || pwd2 != "") {
+                if (pwd1 == pwd2) {
+                    $("#alert-success").css('display', 'inline-block');
+                    $("#alert-danger").css('display', 'none');
+                } else {
+                    alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
+                    $("#alert-success").css('display', 'none');
+                    $("#alert-danger").css('display', 'inline-block');
+                }
+            }
+        });
+    </script>
+     -->
+    <script>
+        $('.form-control').focusout(function () {
+            var pwd1 = $("#regMemPw0").val();
+            var pwd2 = $("#regMemPw").val();
+
+
+
+
+            if (pwd1 != '' && pwd2 == '') {
+                null;
+            } else if (pwd1 != "" || pwd2 != "") {
+                if (pwd1 == pwd2) {
+                    $("#alert-success").css('display', 'inline-block');
+                    $("#alert-danger").css('display', 'none');
+                } else {
+                    if (pwd1.length > 15 || pwd1.length < 8 || pwd2.length > 15 || pwd2.length < 8) {
+                        //alert("비밀번호가 8자리 이하이거나 15자리 이상입니다.")
+                    }
+                    //alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
+                    $("#alert-success").css('display', 'none');
+                    $("#alert-danger").css('display', 'inline-block');
+                }
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById("submit").onclick = function () {
+            myFunction()
+        };
+
+        function myFunction() {
+            var pwd1 = $("#regMemPw0").val();
+            var pwd2 = $("#regMemPw").val();
+
+            if (pwd1 != pwd2) {
+                alert("비밀번호가 다릅니다.")
+                window.location.replace("/member/registerForm")
+            }
+        }
+	</script>
     
 </body>
 

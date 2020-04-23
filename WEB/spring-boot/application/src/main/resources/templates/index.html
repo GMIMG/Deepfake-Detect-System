@@ -235,20 +235,16 @@
                                     <a>/</a>
                                     <a href="/member/registerForm" id="loginBtn">Register</a>
                                 </div>
-                                
+                                <div th:if="${sessionMem}!=null" class="login-register-btn mr-50">
+                                    <a href="/member/logOut" id="loginBtn">LogOut</a>
+                                </div>
 
                                 <!-- Cart Button -->
-                                <div th:if="${sessionMem}!=null" class="cart-btn">
-                                    <a href="/member/logOut">
-                                        <p><span> LOGOUT</span></p>
-                                    </a>
-                                </div> &nbsp;&nbsp;&nbsp;
                                 <div th:if="${sessionMem}!=null" class="cart-btn">
                                     <a href="/member/myPage">
                                         <p><span> MY PAGE</span></p>
                                     </a>
                                 </div>
-                                
                             </div>
                         </div>
                         <!-- Nav End -->
@@ -557,6 +553,7 @@
 
 
 
+<<<<<<< Updated upstream
 
 
 
@@ -632,10 +629,16 @@
 
 
 
+=======
+
+
+
+>>>>>>> Stashed changes
 
 
 
 
+<<<<<<< Updated upstream
             // function fileupload(text) {
             //     console.log(text)
             //     formData.append('ididx', text);
@@ -664,10 +667,36 @@
             //     let filename = text.split('.');
             //     window.location.replace('result?results='+json["acc"]+'&filename='+filename[0]);
             // }
+=======
+    <script>
+    function myFunction() {
+        var formData = new FormData();
+        var fileField = document.querySelector('.fileinput'); //input[type="file"]
+
+        formData.append('file', fileField.files[0]);
+        
+        fetch('getididx', {
+            method: 'GET'
+        })
+        .then(response => response.text())
+        .then(text => fileupload(text))
+>>>>>>> Stashed changes
 
 
+        function fileupload(text) {
+            console.log(text)
+            formData.append('ididx', text);
+            document.querySelector('article').innerHTML = '업로드중';
 
+            fetch('fileUpload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(text => fileUploadDone(text))
+        }
 
+<<<<<<< Updated upstream
             // function callback(res, func, result){
             //     if (res.status === 200 || res.status === 201) {
             //         res.result().then(result => func(result));
@@ -710,6 +739,62 @@
 
 
 
+=======
+        function fileUploadDone(text){
+            
+            document.querySelector('article').innerHTML = '업로드완료. 분석중';
+            fetch('predict?filename='+text,
+            {method: 'GET'}
+            )
+            .then(response => response.json())
+            .then(json => predict(json, text))
+        }
+        
+        function predict(json, text){
+            let filename = text.split('.');
+            window.location.replace('result?results='+json["acc"]+'&filename='+filename[0]);
+        }
+>>>>>>> Stashed changes
+
+        // function callback(res, func, result){
+        //     if (res.status === 200 || res.status === 201) {
+        //         res.result().then(result => func(result));
+        //     } else { // 실패를 알리는 HTTP 상태 코드면
+        //         console.error(res.statusText);
+        //     }
+        // }
+        
+    }
+
+
+
+
+        
+         .then(function(response){
+             response.text().then(function(text){
+                 let file = text
+                 fetch('predict?filename='+text,
+                 {method: 'GET'}).then(function(response2){
+                     response2.text().then(function(text2){
+                         // let acc = JSON.stringify(text2)
+                         let accu = JSON.parse(text2);
+                         
+                         console.log(accu);
+                         console.log(accu["acc"]);
+                         // return fetch('result?results='+accu["acc"], {
+                         //     redirect: 'follow',
+                         //     method: 'GET'
+                         // });
+                         let filename = file.split('.');
+                         document.querySelector('article').innerHTML = text2;
+                         return window.location.replace('result?results='+accu["acc"]+'&filename='+filename[0]);
+                     })
+                 });
+              
+             })
+         });
+     }
+    </script>
 
 
 
@@ -730,11 +815,16 @@
 
 
 
+
+
+
+<!-- 
     <script>
 
 
         // $(document).ready(function () {
 
+<<<<<<< Updated upstream
 
         //     $('input[type=file]').on('focus', function () {
         //         $(this).parent().addClass('focus');
@@ -746,6 +836,10 @@
 
         // });
     </script>
+=======
+        });
+    </script> -->
+>>>>>>> Stashed changes
 </body>
 
 </html>

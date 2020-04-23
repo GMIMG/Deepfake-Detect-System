@@ -41,10 +41,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.client.builder.AwsClientBuilder;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.ListObjectsV2Result;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.gmimg.multicampus.springboot.mapper.IMemMapper;
+import com.gmimg.multicampus.springboot.member.Member;
+
 @Controller
 @SessionAttributes("sessionMem")
 // @Configuration
 public class HomeController {
+	
+	@Autowired
+    IMemMapper memMapper;
 
     @Autowired
     IMemMapper memMapper;
