@@ -18,6 +18,7 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/style.css">
+    <link href="/css/style5.css" rel="stylesheet" />
     <style>
         .pop-layer .pop-container {
             padding: 20px 25px;
@@ -241,7 +242,7 @@
 
                                 <!-- Cart Button -->
                                 <div th:if="${sessionMem}!=null" class="cart-btn">
-                                    <a href="/member/myPage">
+                                    <a href="/mypage">
                                         <p><span> MY PAGE</span></p>
                                     </a>
                                 </div>
@@ -472,7 +473,12 @@
             </div>
         </div>
     </div>
-
+    
+	<div class="center-on-page">
+		<div class="pokeball">
+			<div class="pokeball__button"></div>
+        </div>
+    </div>
 
 
     <!-- ##### Footer Area Start ##### -->
@@ -601,20 +607,6 @@
                 window.location.replace('result?results='+json["acc"] + '&filename='+json["filename"]); // 
             }
 
-
-
-        // function fileupload(text) {
-        //     console.log(text)
-        //     formData.append('ididx', text);
-        //     document.querySelector('article').innerHTML = '업로드중';
-
-        //     fetch('fileUpload', {
-        //         method: 'POST',
-        //         body: formData
-        //     })
-        //     .then(response => response.text())
-        //     .then(text => fileUploadDone(text))
-        // }
         }
     </script>
 

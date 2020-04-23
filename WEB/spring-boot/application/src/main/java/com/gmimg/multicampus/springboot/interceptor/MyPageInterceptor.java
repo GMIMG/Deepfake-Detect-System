@@ -18,7 +18,7 @@ public class MyPageInterceptor extends HandlerInterceptorAdapter{
 		
 		HttpSession session = request.getSession();
 		
-		Member member  = (Member) session.getAttribute("member");
+		Member member  = (Member) session.getAttribute("sessionMem");
 		
 		if (member == null) {
 			response.sendRedirect("/member/loginForm");
