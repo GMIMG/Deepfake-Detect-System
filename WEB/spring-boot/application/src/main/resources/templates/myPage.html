@@ -51,24 +51,19 @@
                                     <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
                                 </div>
                                 
-                                <!-- Login/Register & Cart Button -->
-                                <div class="login-register-cart-button d-flex align-items-center">
 
-                                    <!-- Login/Register -->
-                                    <div th:if="${sessionMem}==null" class="login-register-btn mr-50">
-                                        <a href="/member/loginForm" id="loginBtn">Login</a>
-                                        <a>/</a>
-                                        <a href="/member/registerForm" id="loginBtn">Register</a>
-                                    </div>
-
-                                    <!-- Cart Button -->
-                                    <div th:if="${sessionMem}!=null" class="cart-btn">
-                                        <a href="/myPage">
-                                            <p><span> MY PAGE</span></p>
-                                        </a>
-                                    </div>
-
+                                <!-- Cart Button -->
+                                <div th:if="${sessionMem}!=null" class="cart-btn">
+                                    <a href="/member/logOut">
+                                        <p><span> LOGOUT</span></p>
+                                    </a>
+                                </div> &nbsp;&nbsp;&nbsp;
+                                <div th:if="${sessionMem}!=null" class="cart-btn">
+                                    <a href="/member/myPage">
+                                        <p><span> MY PAGE</span></p>
+                                    </a>
                                 </div>
+                                
                             </div>
                             <!-- Nav End -->
                         </nav>

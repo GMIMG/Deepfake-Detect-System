@@ -16,8 +16,6 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/style.css">
-    <script src="/webjars/jquery/3.4.1/jquery.js"></script>
-
     <script type="text/javascript" th:inline="javascript">
 	    
 		$(document).ready(function(){
@@ -79,7 +77,7 @@
             <div></div>
         </div>
     </div>
- <!-- ##### Header Area Start ##### -->
+    <!-- ##### Header Area Start ##### -->
     <header class="header-area">
         <!-- Navbar Area -->
         <div class="oneMusic-main-menu">
@@ -89,7 +87,7 @@
                     <nav class="classy-navbar justify-content-between" id="oneMusicNav">
 
                         <!-- Nav brand -->
-                        <a href="/" class="nav-brand">Deep Fake</a>
+                        <a href="index.html" class="nav-brand">Deep Fake</a>
 
                         <!-- Navbar Toggler -->
                         <div class="classy-navbar-toggler">
@@ -105,7 +103,7 @@
                             </div>
 
                             <!-- Nav Start -->
-                         	
+                         
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
@@ -114,20 +112,13 @@
                                     <a>/</a>
                                     <a href="/member/registerForm" id="loginBtn">Register</a>
                                 </div>
-                                
 
                                 <!-- Cart Button -->
-                                <div th:if="${sessionMem}!=null" class="cart-btn">
-                                    <a href="/member/logOut">
-                                        <p><span> LOGOUT</span></p>
-                                    </a>
-                                </div> &nbsp;&nbsp;&nbsp;
                                 <div th:if="${sessionMem}!=null" class="cart-btn">
                                     <a href="/member/myPage">
                                         <p><span> MY PAGE</span></p>
                                     </a>
                                 </div>
-                                
                             </div>
                         </div>
                         <!-- Nav End -->
@@ -139,9 +130,8 @@
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
-
     <!-- ##### Breadcumb Area Start ##### -->
-    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/img/bg-img/trump.png);">
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(img/bg-img/trump.png);">
         <div class="bradcumbContent">
             <p>See what’s new</p>
             <h2>Register</h2>
@@ -149,49 +139,49 @@
     </section>
     <!-- ##### Breadcumb Area End ##### -->
 
-    <!-- ##### Register Area Start ##### -->
+    <!-- ##### Login Area Start ##### -->
     <section class="login-area section-padding-100">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-8">
                     <div class="login-content">
                         <h3>Welcome New!</h3>
-                        <!-- Register Form -->
-                        
-                        <div class="register-form">
+                        <!-- Login Form -->
+                        <div class="login-form">
                             <form action="/register" method="post" id="regForm">
                                 <div class="form-group">
                                     <label for="regMemId">Email address</label>
-                                    <input type="email" name="regMemId" class="form-control" id="regMemId" aria-describedby="emailHelp" placeholder="Enter E-mail">
-                                    <small id="emailHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll never share your email with anyone else.</small>
+                                    <input type="email" name="regMemId" class="form-control" id="regMemId"
+                                        aria-describedby="emailHelp" placeholder="Enter E-mail">
+                                    <small id="emailHelp" class="form-text text-muted"><i
+                                            class="fa fa-lock mr-2"></i>We'll never share your email with anyone
+                                        else.</small>
+                                    <!-- <button style="border-color: black; border-width: 1px; background-color: white;">double check</button> -->
                                     <button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
                                 </div>
                                 <div class="form-group">
                                     <label for="regMemPw0">Password</label>
+                                   
                                     <div class="content_content">
-                                    	<input type="password" name="regMemPw0" class="form-control" id="regMemPw0" placeholder="Password">
-                                    	<span>8~15자리의 영문, 숫자, 특수문자의 입력이 가능합니다.</span>
+                                        <input type="password" name="regMemPw0" id="regMemPw0" class="form-control" placeholder="password">
+                                        <span>8~15자리의 영문, 숫자, 특수문자의 입력이 가능합니다.</span>
                                     </div>
                                 </div>
-                                
                                 <div class="form-group">
-                                    <label for="regMemPw">Password Confirm</label>
+                                    <label for="exampleInputPassword1">Password Confirm</label>
+                                    
                                     <div class="content_content">
-                                    	<input type="password" name="regMemPw" class="form-control" id="regMemPw" placeholder="Pleae Password one more">
-                                    	<span id="alert-success" style="display: none;">비밀번호가 일치합니다.</span>
-                                        <span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다.</span>
+                                        <input type="password" name="regMemPw" id="regMemPw" class="form-control" placeholder="password one more">
+                                        <span id="alert-success" style="display: none;">비밀번호가 일치합니다.</span>
+                                        <span id="alert-danger"
+                                            style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지
+                                            않습니다.</span>
                                     </div>
+
                                 </div>
-                                <!-- 
+								<button class="btn oneMusic-btn text-center" type="button" id="submit">회원가입</button>
                                 <button type="submit" class="btn oneMusic-btn mt-30">Register</button>
-                                 
-                                <button class="btn oneMusic-btn mt-30" type="button" id="submit">회원가입</button>
-                                -->
-             
                             </form>
-                            	
-									<button class="btn oneMusic-btn text-center" type="button" id="submit">회원가입</button>	
-								
                         </div>
                     </div>
                 </div>
@@ -205,10 +195,15 @@
         <div class="container">
             <div class="row d-flex flex-wrap align-items-center">
                 <div class="col-12 col-md-6">
-                    <a href="#"><img src="/img/core-img/logo.png" alt=""></a>
-                    <p class="copywrite-text"><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Chimac</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    <a href="#"><img src="img/core-img/logo.png" alt=""></a>
+                    <p class="copywrite-text"><a href="#">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved <i
+                                class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                target="_blank">Chimac</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
                 </div>
 
             </div>
@@ -226,27 +221,26 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="/js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="/js/active.js"></script>
-        <script type="text/javascript" th:inline="javascript">
-	    $('.form-control').focusout(function () {
-	        var pwd1 = $("#regMemPw0").val();
-	        var pwd2 = $("#regMemPw").val();
-	
-	        if (pwd1 != '' && pwd2 == '') {
-	            null;
-	        } else if (pwd1 != "" || pwd2 != "") {
-	            if (pwd1 == pwd2) {
-	                $("#alert-success").css('display', 'inline-block');
-	                $("#alert-danger").css('display', 'none');
-	            } else {
-	                alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
-	                $("#alert-success").css('display', 'none');
-	                $("#alert-danger").css('display', 'inline-block');
-	            }
-	        }
-	    });
-	    </script>
-    
-    
+
+    <script>
+        $('.form-control').focusout(function () {
+            var pwd1 = $("#password_1").val();
+            var pwd2 = $("#password_2").val();
+
+            if (pwd1 != '' && pwd2 == '') {
+                null;
+            } else if (pwd1 != "" || pwd2 != "") {
+                if (pwd1 == pwd2) {
+                    $("#alert-success").css('display', 'inline-block');
+                    $("#alert-danger").css('display', 'none');
+                } else {
+                    alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
+                    $("#alert-success").css('display', 'none');
+                    $("#alert-danger").css('display', 'inline-block');
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

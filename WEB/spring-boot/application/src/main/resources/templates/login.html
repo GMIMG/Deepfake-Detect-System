@@ -55,7 +55,7 @@
                             </div>
 
                             <!-- Nav Start -->
-                         
+                         	
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
@@ -64,13 +64,20 @@
                                     <a>/</a>
                                     <a href="/member/registerForm" id="loginBtn">Register</a>
                                 </div>
+                                
 
                                 <!-- Cart Button -->
+                                <div th:if="${sessionMem}!=null" class="cart-btn">
+                                    <a href="/member/logOut">
+                                        <p><span> LOGOUT</span></p>
+                                    </a>
+                                </div> &nbsp;&nbsp;&nbsp;
                                 <div th:if="${sessionMem}!=null" class="cart-btn">
                                     <a href="/member/myPage">
                                         <p><span> MY PAGE</span></p>
                                     </a>
                                 </div>
+                                
                             </div>
                         </div>
                         <!-- Nav End -->

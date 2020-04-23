@@ -2,10 +2,10 @@ spring:
     http:
         encoding:
             charset: UTF-8
-    # h2:
-    #     console:
-    #         enabled: true
-    #         path: /h2
+    h2:
+        console:
+            enabled: true
+            path: /h2
     mvc:
         view:
             prefix: /WEB-INF/views/
@@ -24,9 +24,9 @@ spring:
         add-mappings: true
     datasource:
         driverClassName: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://mysql:3306/mydb?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+        url: jdbc:mysql://localhost:3307/mydb?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&autoReconnection=true
         username: root
-        password: 1234
+        password: 1q2w3e4r!
         
         
 ## 서버 운영 환경
