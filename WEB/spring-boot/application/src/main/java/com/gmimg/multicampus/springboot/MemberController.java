@@ -40,18 +40,9 @@ public class MemberController {
 	public ModelAndView register(ModelAndView mav,
 			@RequestParam("regMemId") String RegId,
 			@RequestParam("regMemPw") String RegPw) {
-<<<<<<< Updated upstream
-=======
-		
-		Member member = memMapper.insertMem(RegId, RegPw);
->>>>>>> Stashed changes
 
 		memMapper.insertMem(RegId, RegPw);
 		mav.setViewName("redirect:/");
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 		
 		return mav;
 	}

@@ -58,9 +58,6 @@ import com.gmimg.multicampus.springboot.member.Member;
 @SessionAttributes("sessionMem")
 // @Configuration
 public class HomeController {
-	
-	@Autowired
-    IMemMapper memMapper;
 
     @Autowired
     IMemMapper memMapper;
