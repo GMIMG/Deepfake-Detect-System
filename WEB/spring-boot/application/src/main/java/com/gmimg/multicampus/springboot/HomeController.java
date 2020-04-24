@@ -4,13 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
@@ -19,21 +16,15 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
-import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.gmimg.multicampus.springboot.mapper.IMemMapper;
 import com.gmimg.multicampus.springboot.member.Item;
 import com.gmimg.multicampus.springboot.member.Member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,22 +32,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.client.builder.AwsClientBuilder;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.ListObjectsV2Result;
-import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
-import com.amazonaws.services.s3.model.S3ObjectSummary;
-import com.gmimg.multicampus.springboot.mapper.IMemMapper;
-import com.gmimg.multicampus.springboot.member.Member;
 
 @Controller
 @SessionAttributes("sessionMem")
-// @Configuration
 public class HomeController {
 
     @Autowired
@@ -78,27 +56,15 @@ public class HomeController {
         s3 = AmazonS3ClientBuilder.standard()
         .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endPoint, regionName))
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                // .withRegion("kr-standard")
                 .build();
     }
 
 
-
-    // String accessKey = "5qQSeTt9g4P4pUWdllTK";
-    // String secretKey = "a0ljKI9ykkmNBDmitaXRa2tSUSteSDTs4CJncm2Q";
-
-    // final String endPoint = "https://kr.object.ncloudstorage.com";
-    // final String regionName = "kr-standard";
-    // final AmazonS3 s3 = AmazonS3ClientBuilder.standard()
-    // .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endPoint, regionName))
-    // .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(accessKey, secretKey)))
-    // .build();
-
+    
 
     String bucketName;
     String objectName;
     String downloadPath;
-
 
 	@RequestMapping("/")
 	public String indexPage() {
@@ -113,7 +79,13 @@ public class HomeController {
     @RequestMapping(value = "/getididx", method = RequestMethod.GET)
     @ResponseBody
     public int getididx(@ModelAttribute("sessionMem") Member member) {
-        return member.getMemIdx();
+        System.out.println(member);
+        if (member == null){
+            return 0;
+        }
+        else {
+            return member.getMemIdx();
+        }
     }
 
     @RequestMapping(value = "/result", method = RequestMethod.GET)
@@ -123,9 +95,12 @@ public class HomeController {
         bucketName = "deepfake";
         objectName = filename + ".webm";
         downloadPath = staticPath + objectName;
+        
 
         try {
             S3Object o = s3.getObject(bucketName, objectName);
+
+
             S3ObjectInputStream s3is = o.getObjectContent();
             FileOutputStream fos = new FileOutputStream(new File(downloadPath));
             byte[] read_buf = new byte[1024];
@@ -221,56 +196,3 @@ public class HomeController {
     }
 
 }
-    
-
-
-
-
-        // bucketName = "deepfake-thumb";
-        // ListObjectsV2Result result = s3.listObjectsV2(bucketName);
-        // List<S3ObjectSummary> objects = result.getObjectSummaries();
-        // for (S3ObjectSummary os : objects) {
-        //     System.out.println("* " + os.getKey());
-        // }
-
-
-
-
-
-
-
-
-
-	// @ResponseBody
-    // @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    // public String uploadForm(MultipartFile file, ModelAndView mav) throws Exception {
-    //     // logger.info(file.getOriginalFilename());
-    //     // logger.info(file.getContentType());
-    //     // logger.info("파일 크기 : "+file.getSize());
-        
-    //     String savedName = file.getOriginalFilename();
-
-    //     savedName = "test1.webm";
-
-    //     File target = new File(uploadPath, savedName);
-        
-    //     //임시디렉토리에 저장된 업로드 파일을 지정된 디렉토리로 복사
-    //     //FileCopyUtils.copy(바이트 배열, 파일 객체)
-    //     FileCopyUtils.copy(file.getBytes(), target);
-        
-    //     // mav.setViewName("uploadResult");
-    //     // mav.addObject("savedName", savedName);
-        
-    //     return "kk";
-    // }
-
-
-
-
-    // @ResponseBody
-    // @RequestMapping(value = "/predictspring", method = RequestMethod.POST)
-    // public String predictspring(MultipartFile file, ModelAndView mav) throws Exception {
-        
-        
-    //     return ;
-    // }

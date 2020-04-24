@@ -27,8 +27,7 @@ public class MemberController {
 	@Autowired
 	IMemMapper memMapper;
 	
-	//@Resource(name = "C:/Users/JC Lee/Desktop/NEW")
-	String uploadPath = "C:/Users/JC Lee/Desktop/NEW";
+	String uploadPath = "/static/";
 	
 	//회원가입
 	@RequestMapping(value = "/member/registerForm", method = RequestMethod.GET)

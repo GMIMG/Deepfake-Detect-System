@@ -2,10 +2,6 @@ spring:
     http:
         encoding:
             charset: UTF-8
-    # h2:
-    #     console:
-    #         enabled: true
-    #         path: /h2
     mvc:
         view:
             prefix: /WEB-INF/views/
@@ -28,7 +24,6 @@ spring:
         username: root
         password: 1234
         
-## 서버 운영 환경
 server:
     servlet:
         context-path: /
@@ -38,9 +33,10 @@ server:
         uri-encoding: UTF-8
     port: 8080
 
-
 cloud:
     aws:
         credentials:
-            accessKey: 5qQSeTt9g4P4pUWdllTK
-            secretKey: a0ljKI9ykkmNBDmitaXRa2tSUSteSDTs4CJncm2Q
+            accessKey: pc8XRHCt0mLea5yCbrid
+            secretKey: DE2lCMrjUCGpEW8B5FM7AjDp5NapyJw01yyegZd3
+
+path: /static/
