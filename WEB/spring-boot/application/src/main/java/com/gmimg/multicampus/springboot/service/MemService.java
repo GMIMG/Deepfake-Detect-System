@@ -9,7 +9,6 @@ import com.gmimg.multicampus.springboot.member.Member;
 import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor
 public class MemService implements IMemService {
 
 	@Autowired

@@ -20,22 +20,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
-import com.amazonaws.services.s3.model.S3ObjectSummary;
-import com.gmimg.multicampus.springboot.mapper.IMemMapper;
+
+import com.gmimg.multicampus.springboot.mapper.IItemMapper;
+import com.gmimg.multicampus.springboot.member.Item;
 import com.gmimg.multicampus.springboot.member.Member;
 
 @Controller
 public class HomeController {
 
-    
     @Autowired
     IItemMapper mapper;
 
@@ -78,12 +78,10 @@ public class HomeController {
     @RequestMapping(value = "/getididx", method = RequestMethod.GET)
     @ResponseBody
     public int getididx(HttpServletRequest request) {
+
     	HttpSession session = request.getSession();
     	Member member = (Member) session.getAttribute("sessionMem");
-    	
-        return member.getMemIdx();
-    public int getididx(HttpServletRequest request) {
-        System.out.println(member);
+
         if (member == null){
             return 0;
         }
@@ -94,17 +92,13 @@ public class HomeController {
 
     @RequestMapping(value = "/result", method = RequestMethod.GET)
     public ModelAndView result(String results, String filename, ModelAndView mav) { // , @RequestParam
-
         
         bucketName = "deepfake";
         objectName = filename + ".webm";
         downloadPath = staticPath + objectName;
-        
 
         try {
             S3Object o = s3.getObject(bucketName, objectName);
-
-
             S3ObjectInputStream s3is = o.getObjectContent();
             FileOutputStream fos = new FileOutputStream(new File(downloadPath));
             byte[] read_buf = new byte[1024];
@@ -125,13 +119,13 @@ public class HomeController {
             System.exit(1);
         }
 
+        Float r = Float.parseFloat(results);
+        String res = String.format("%.4f", r*100);
         mav.setViewName("result");
         mav.addObject("filename", filename);
-        
+        mav.addObject("res", res);
         return mav;
     }
-
-
 
     @RequestMapping(value="/mypage", method=RequestMethod.GET)
     public ModelAndView mypage(ModelAndView mav, HttpServletRequest request) throws Exception {

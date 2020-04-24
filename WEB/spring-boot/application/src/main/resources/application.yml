@@ -2,6 +2,10 @@ spring:
     http:
         encoding:
             charset: UTF-8
+    # h2:
+    #     console:
+    #         enabled: true
+    #         path: /h2
     mvc:
         view:
             prefix: /WEB-INF/views/
@@ -15,28 +19,30 @@ spring:
             max-file-size: 128MB
             max-request-size: 128MB
     resources:
-        static-locations:
-            - classpath:/static/
+        static-locations: classpath:/static/
         add-mappings: true
+        
     datasource:
         driverClassName: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://49.50.172.150:3306/mydb?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
         username: root
         password: 1234
         
+## 서버 운영 환경
 server:
     servlet:
         context-path: /
         session: 
-            timeout: 60
+            timeout: 14400
     tomcat:
         uri-encoding: UTF-8
     port: 8080
+    
+mybatis:
+    mapper-locations: classpath:Mappers/*Mapper.xml
 
 cloud:
     aws:
         credentials:
             accessKey: pc8XRHCt0mLea5yCbrid
             secretKey: DE2lCMrjUCGpEW8B5FM7AjDp5NapyJw01yyegZd3
-
-path: /static/

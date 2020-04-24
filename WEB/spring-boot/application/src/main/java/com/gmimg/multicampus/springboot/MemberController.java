@@ -17,12 +17,10 @@ import com.gmimg.multicampus.springboot.member.Member;
 import com.gmimg.multicampus.springboot.service.MemService;
 
 @Controller
-
 public class MemberController {
 
 	@Autowired
 	MemService service; 
-	
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
