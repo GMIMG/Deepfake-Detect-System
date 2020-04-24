@@ -23,7 +23,7 @@
         <script th:inline="javascript">
             window.onload = function (){
                 let source = document.createElement( 'source' );
-                source.src = [[${filename}]] + ".webm";
+                source.src = "/static/" + [[${filename}]] + ".webm";
                 source.type = "video/webm";
                 document.querySelector("video").appendChild(source);
             }

@@ -10,18 +10,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gmimg.multicampus.springboot.member.Member;
 import com.gmimg.multicampus.springboot.service.MemService;
 
 @Controller
-@SessionAttributes("sessionMem")
+
 public class MemberController {
 
 	@Autowired
 	MemService service; 
+	
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -92,13 +93,24 @@ public class MemberController {
 			session.setAttribute("sessionMem", null); 
 			mav.setViewName("redirect:/member/loginForm");
 		}
+		System.out.println(session.getCreationTime());
+		System.out.println(session.getMaxInactiveInterval());
+		System.out.println(session.getMaxInactiveInterval() - session.getCreationTime());
 		return mav;
 	}
 
 	@RequestMapping(value = "/member/logOut")
-	public String logOut(HttpServletRequest request) {
+	public String logOut(HttpServletRequest request, SessionStatus status) {
+		
 		HttpSession session = request.getSession();
-		session.invalidate();
+		
+		session.getAttribute("sessionMem");
+		System.out.println(session);
+		session.removeAttribute("sessionMem");
+		
+		System.out.println(session.getAttribute("sessionMem"));
+		System.out.println("logout OK");
+		
 		
 		return "redirect:/";
 	}
@@ -106,6 +118,11 @@ public class MemberController {
 	@RequestMapping(value = "/loading")
 	public String loading() {
 		return "loading";
+	}
+	
+	@RequestMapping(value = "session")
+	public String session() {
+		return "redirect:/";
 	}
 	
 	

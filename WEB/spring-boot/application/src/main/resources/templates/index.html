@@ -231,17 +231,17 @@
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
-                                <div th:if="${sessionMem}==null" class="login-register-btn mr-50">
+                                <div th:if="${session.sessionMem}==null" class="login-register-btn mr-50">
                                     <a href="/member/loginForm" id="loginBtn">Login</a>
                                     <a>/</a>
                                     <a href="/member/registerForm" id="loginBtn">Register</a>
                                 </div>
-                                <div th:if="${sessionMem}!=null" class="login-register-btn mr-50">
+                                <div th:if="${session.sessionMem}!=null" class="login-register-btn mr-50">
                                     <a href="/member/logOut" id="loginBtn">LogOut</a>
                                 </div>
 
                                 <!-- Cart Button -->
-                                <div th:if="${sessionMem}!=null" class="cart-btn">
+                                <div th:if="${session.sessionMem}!=null" class="cart-btn">
                                     <a href="/mypage">
                                         <p><span> MY PAGE</span></p>
                                     </a>
@@ -479,7 +479,7 @@
 			<div class="pokeball__button"></div>
         </div>
     </div>
-
+    
 
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer-area">
@@ -609,6 +609,44 @@
 
         }
     </script>
+    <!--  
+    <script type="text/javascript">
+    var initMinute;
+    var remainSecond;
+    
+    $(document).ready(function(){
+    	clearTime(10);
+    	setTimer();
+    });
+    
+    function clearTime(min){
+    	initMinute = min;
+    	remainSecond = min*60;
+    }
+    
+    function setTimer(){
+    	remainMinute_ = parseInt(remainSecond/60);
+    	remainSecond_ = remainSecond%60;
+    	
+    	if(remainSecond > 0){
+    		$("#timer").empty();
+    		$("#timer").append(Lpad(remainMinute_,2) + ":" + Lpad(remainSecond_,2));
+    		remainSecond--;
+    		setTimeout("setTimer()",1000);
+    	}else{
+    		alert("세션종료")
+    	}
+    }
+    
+    function Lpad(str, len){
+    	str = str + "";
+    	while (str.length<len){
+    		str = "0"+str;
+    	}
+    	return str;
+    }
+    </script>
+    -->
 
 </body>
 

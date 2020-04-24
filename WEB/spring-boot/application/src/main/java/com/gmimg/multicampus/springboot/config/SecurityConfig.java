@@ -2,6 +2,7 @@ package com.gmimg.multicampus.springboot.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -25,5 +26,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         web.ignoring()
                 .antMatchers("/**");
     }
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//	    http.authorizeRequests()
+//	    		.antMatchers("/**").permitAll()
+//	    	.and()
+//	        	.logout()
+//	        	.logoutUrl("/member/logOut")
+//	        	.logoutSuccessUrl("/")
+//	        	.invalidateHttpSession(true)
+//	        	.permitAll();
+//	        .and()
+//	        	.formLogin()
+//	        	.loginPage("/member/loginForm")
+//	        	.defaultSuccessUrl("/")
+//	        	.usernameParameter()
+//	        	.permitAll();
+//	
+//	}
+
+
 
 }

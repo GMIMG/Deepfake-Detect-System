@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.amazonaws.AmazonServiceException;
@@ -29,13 +29,10 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.gmimg.multicampus.springboot.mapper.IItemMapper;
-import com.gmimg.multicampus.springboot.mapper.IMemMapper;
 import com.gmimg.multicampus.springboot.member.Item;
 import com.gmimg.multicampus.springboot.member.Member;
 
 @Controller
-@SessionAttributes("sessionMem")
-// @Configuration
 public class HomeController {
 
     
@@ -50,8 +47,8 @@ public class HomeController {
 
     private AmazonS3 s3;
     
-//    String staticPath = "/static/";
-    String staticPath = "E:/dev/git/Final_Project/WEB/spring-boot/application/src/main/resources/static/deepImg/";
+    String staticPath = "/static/";
+//    String staticPath = "E:/dev/git/Final_Project/WEB/spring-boot/application/src/main/resources/static/deepImg/";
 
     @PostConstruct
     public void setS3Client() {
@@ -82,7 +79,10 @@ public class HomeController {
 
     @RequestMapping(value = "/getididx", method = RequestMethod.GET)
     @ResponseBody
-    public int getididx(@ModelAttribute("sessionMem") Member member) {
+    public int getididx(HttpServletRequest request) {
+    	HttpSession session = request.getSession();
+    	Member member = (Member) session.getAttribute("sessionMem");
+    	
         return member.getMemIdx();
     }
 
@@ -125,7 +125,11 @@ public class HomeController {
 
 
     @RequestMapping(value="/mypage", method=RequestMethod.GET)
-    public ModelAndView mypage(@ModelAttribute("sessionMem") Member member, ModelAndView mav) throws Exception {
+    public ModelAndView mypage(ModelAndView mav, HttpServletRequest request) throws Exception {
+    	HttpSession session = request.getSession();
+    	Member member = (Member) session.getAttribute("sessionMem");
+    	
+    	System.out.println(member.toString());
 
         // session의 id index 가져와서 저장
         int mem_idx = member.getMemIdx();
