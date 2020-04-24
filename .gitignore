@@ -9,6 +9,8 @@
 application.yml
 config.py
 
+WEB/static/
+
 # Created by https://www.gitignore.io/api/linux,python,windows,eclipse,jupyternotebooks,visualstudiocode,gradle,Maven
 # Edit at https://www.gitignore.io/?templates=linux,python,windows,eclipse,jupyternotebooks,visualstudiocode,gradle,Maven
 
