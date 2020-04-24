@@ -6,11 +6,13 @@
 *.hdf5
 *.jar
 *.war
+**/application.yml
 application.yml
+
 config.py
 
 WEB/static/
-
+WEB/spring-boot/application/src/main/resources/application.yml
 
 # Created by https://www.gitignore.io/api/linux,python,windows,eclipse,jupyternotebooks,visualstudiocode,gradle,Maven
 # Edit at https://www.gitignore.io/?templates=linux,python,windows,eclipse,jupyternotebooks,visualstudiocode,gradle,Maven
