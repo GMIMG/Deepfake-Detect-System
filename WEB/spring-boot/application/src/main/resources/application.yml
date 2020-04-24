@@ -44,5 +44,5 @@ mybatis:
 cloud:
     aws:
         credentials:
-            accessKey: pc8XRHCt0mLea5yCbrid
-            secretKey: DE2lCMrjUCGpEW8B5FM7AjDp5NapyJw01yyegZd3
+            accessKey: EEk9wvC0SUDjvvtTimfn
+            secretKey: EZb5PUwoOTqanKF0Fh44MRYNbKBtN3bbfjEI6aAo
