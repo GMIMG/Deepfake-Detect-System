@@ -1,5 +1,5 @@
-application.yml
-**/application.yml
+WEB/spring-boot/application/src/main/resources/application.yml
+*/application.yml
 *.yml
 *.mp4
 *.jpg
