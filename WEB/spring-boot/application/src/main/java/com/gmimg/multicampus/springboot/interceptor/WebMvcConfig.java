@@ -10,7 +10,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new MyPageInterceptor())
+                .addPathPatterns("/member/myPage/**");
                 .addPathPatterns("/mypage");
+                .addPathPatterns("/mypage/**");
     }
 
 }

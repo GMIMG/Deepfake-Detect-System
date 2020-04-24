@@ -18,6 +18,7 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/style.css">
+    <link href="/css/style5.css" rel="stylesheet" />
     <style>
         .pop-layer .pop-container {
             padding: 20px 25px;
@@ -245,18 +246,18 @@
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
-                                <div th:if="${sessionMem}==null" class="login-register-btn mr-50">
+                                <div th:if="${session.sessionMem}==null" class="login-register-btn mr-50">
                                     <a href="/member/loginForm" id="loginBtn">Login</a>
                                     <a>/</a>
                                     <a href="/member/registerForm" id="loginBtn">Register</a>
                                 </div>
-                                <div th:if="${sessionMem}!=null" class="login-register-btn mr-50">
+                                <div th:if="${session.sessionMem}!=null" class="login-register-btn mr-50">
                                     <a href="/member/logOut" id="loginBtn">LogOut</a>
                                 </div>
 
                                 <!-- Cart Button -->
-                                <div th:if="${sessionMem}!=null" class="cart-btn">
-                                    <a href="/member/myPage">
+                                <div th:if="${session.sessionMem}!=null" class="cart-btn">
+                                    <a href="/mypage">
                                         <p><span> MY PAGE</span></p>
                                     </a>
                                 </div>
@@ -476,8 +477,13 @@
             </div>
         </div>
     </div>
-
-
+    
+	<div class="center-on-page">
+		<div class="pokeball">
+			<div class="pokeball__button"></div>
+        </div>
+    </div>
+    
 
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer-area">

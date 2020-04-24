@@ -27,16 +27,16 @@
 			})
 			
 			$("#submit").on("click", function(){
-				var pwd1 = $("#regMemPw0").val();
-            	var pwd2 = $("#regMemPw").val();
-				if($("#regMemId").val()==""){
+				var pwd1 = $("#memPw0").val();
+            	var pwd2 = $("#memPw").val();
+				if($("#memId").val()==""){
 					alert("아이디를 입력해주세요.");
-					$("#regMemId").focus();
+					$("#memId").focus();
 					return false;
 				}
-				if($("#regMemPw").val()==""){
+				if($("#memPw").val()==""){
 					alert("비밀번호를 입력해주세요.");
-					$("#regMemPw").focus();
+					$("#memPw").focus();
 					return false;
 				}
 
@@ -47,6 +47,9 @@
 					
 				}else if(idChkVal == "Y"){
 					if (pwd1 == pwd2) {
+						console.log("체크")
+						var regForm = document.getElementById('regForm');
+						console.log(" regForm method :",regForm.method) 
 						$("#regForm").submit();
 					} else {
 						window.location.replace("/member/registerForm")
@@ -61,7 +64,7 @@
 				url : "/idChk",
 				type : "post",
 				dataType : "json",
-				data : {"regMemId" : $("#regMemId").val()},
+				data : {"memId" : $("#memId").val()},
 				success : function(data){
 					if(data == 1){
 						alert("중복된 아이디입니다.");
@@ -161,22 +164,22 @@
                         <div class="register-form">
                             <form action="/register" method="post" id="regForm">
                                 <div class="form-group">
-                                    <label for="regMemId">Email address</label>
-                                    <input type="email" name="regMemId" class="form-control" id="regMemId" aria-describedby="emailHelp" placeholder="Enter E-mail">
+                                    <label for="memId">Email address</label>
+                                    <input type="email" name="memId" class="form-control" id="memId" aria-describedby="emailHelp" placeholder="Enter E-mail">
                                     <small id="emailHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll never share your email with anyone else.</small>
                                     <button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
                                 </div>
                                 <div class="form-group">
                                     <label for="regMemPw0">Password</label>
                                     <div class="content_content">
-                                    	<input type="password" name="regMemPw0" class="form-control" id="regMemPw0" placeholder="Password">
+                                    	<input type="password" name="memPw0" class="form-control" id="memPw0" placeholder="Password">
                                     	<span>8~15자리의 영문, 숫자, 특수문자의 입력이 가능합니다.</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="regMemPw">Password Confirm</label>
                                     <div>
-                                    	<input type="password" name="regMemPw" class="form-control" id="regMemPw" placeholder="Pleae Password one more">
+                                    	<input type="password" name="memPw" class="form-control" id="memPw" placeholder="Pleae Password one more">
                                 		<span id="alert-success" style="display: none;">비밀번호가 일치합니다.</span>
                                         <span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지않습니다.</span>
                                 	</div>
@@ -216,7 +219,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
-    <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+	<script src="/js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
     <script src="/js/bootstrap/popper.min.js"></script>
     <!-- Bootstrap js -->
@@ -248,8 +251,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
      -->
     <script>
         $('.form-control').focusout(function () {
-            var pwd1 = $("#regMemPw0").val();
-            var pwd2 = $("#regMemPw").val();
+            var pwd1 = $("#memPw0").val();
+            var pwd2 = $("#memPw").val();
 
 
 
@@ -278,8 +281,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         };
 
         function myFunction() {
-            var pwd1 = $("#regMemPw0").val();
-            var pwd2 = $("#regMemPw").val();
+            var pwd1 = $("#memPw0").val();
+            var pwd2 = $("#memPw").val();
 
             if (pwd1 != pwd2) {
                 alert("비밀번호가 다릅니다.")

@@ -12,27 +12,20 @@ from sklearn.metrics import log_loss
 from os.path import join
 import boto3
 import mysql.connector
-
-
-
-
+import config
 
 
 service_name = 's3'
 endpoint_url = 'https://kr.object.ncloudstorage.com'
 region_name = 'kr-standard'
-access_key = '5qQSeTt9g4P4pUWdllTK'
-secret_key = 'a0ljKI9ykkmNBDmitaXRa2tSUSteSDTs4CJncm2Q'
-
-
-
+access_key = config.access_key
+secret_key = config.secret_key
 
 model = load_model("Xcept-55-0.0002.h5")
 
 app = Flask(__name__)
 
 vid_path = '/static/'
-
 
 # #파일 업로드 처리
 # @app.route('/fileUpload', methods = ['GET', 'POST'])
@@ -42,11 +35,6 @@ vid_path = '/static/'
 #         #저장할 경로 + 파일명
 #         f.save(vid_path + f.filename)
 #     return f.filename
-
-
-
-
-
 
 @app.route('/predict', methods = ['GET', 'POST'])
 def predict():
@@ -172,16 +160,11 @@ def predict():
 
 
 
-
-
     input_shape = (160,160,3)
     # Text variables
     font_face = cv2.FONT_HERSHEY_SIMPLEX
     thickness = 2
     font_scale = 1
-
-
-
 
     # if request.method == 'POST':
     f = request.files['file']
@@ -190,80 +173,44 @@ def predict():
     file_name = f.filename
     ididx = request.form['ididx']
 
+    try:
+        # 영상예측
+        num_frames, predictions, video_fn = predict_model(vid_path, file_name, model, start_frame=0, end_frame=None, n_frames=10)
+        count = len(predictions)
 
+        # 얼굴이 검출 안됐으면 acc = 0.5 return
+        if count == 0:
+            acc = 0.5
+            print('ERROR', 'num_frames', num_frames, 'video_fn', video_fn, 'count', count, 'acc', acc)
+            return jsonify(acc=acc)
+        acc = sum(predictions)/(count)
+        print('COMPLETE', 'num_frames', num_frames, 'video_fn', video_fn, 'count', count, 'acc', acc)
 
+    except:
+        acc = None
+        print('ERROR', 'num_frames', 0, 'video_fn', '', 'count', 0, 'acc', None)
 
-
-
-
-
-
-
-    # try:
-    # 영상 예측
-    # vid_path = '/static/'
-    # file_name = request.args.get('filename') # 'test1.mp4'
-
-    # 영상예측
-    num_frames, predictions, video_fn = predict_model(vid_path, file_name, model, start_frame=0, end_frame=None, n_frames=10)
-    count = len(predictions)
-    # print(num_frames, predictions, count, video_fn)
-
-    # 얼굴이 검출 안됐으면 acc = 0.5 return
-    if count == 0:
-        acc = 0.5
-        print('ERROR', 'num_frames', num_frames, 'video_fn', video_fn, 'count', count, 'acc', acc)
-        return jsonify(acc=acc)
-    acc = sum(predictions)/(count)
-    print('COMPLETE', 'num_frames', num_frames, 'video_fn', video_fn, 'count', count, 'acc', acc)
-    # except:
-    #     acc = None
-    #     print('ERROR', 'num_frames', 0, 'video_fn', '', 'count', 0, 'acc', None)
-
-
-
-
-
-    input_shape = (160,160,3)
     # Text variables
     font_face = cv2.FONT_HERSHEY_SIMPLEX
     thickness = 2
     font_scale = 1
-
-
-    print(ididx, file_name, acc)
-
-
-
-    cnx = mysql.connector.connect(user='root', password='1234',
-                                host='49.50.172.150',
+    cnx = mysql.connector.connect(user='root', password=config.password,
+                                host=config.host,
                                 database='mydb')
-
     cursor = cnx.cursor()
     cursor.execute(f"INSERT INTO item (memIdx, filename, acc) values ({ididx}, '{file_name}', {acc})")
 
     cnx.commit()
-
     cursor.execute("SELECT LAST_INSERT_ID()")
     rows = cursor.fetchall()
-    print(rows)
-
     cnx.close()
-
 
     vid_object_name = str(rows[0][0]) + '.webm'
     thumb_object_name = str(rows[0][0]) + '.jpg'
 
-
-
-
-
     # 데이터 베이스 등록
 
     # autoincrease 한값 가져와서 파일이름
-
-    # vid_object_name = 
-    # thumb_object_name = 
 
     vid_local_file_path = vid_path + video_fn
     thumb_local_file_path = vid_path + '.'.join(file_name.split('.')[:-1]) + '.jpg'
@@ -283,9 +230,6 @@ def predict():
     os.remove(thumb_local_file_path)
     os.remove(vid_local_file_path)
     os.remove(vid_path + file_name)
-
-
-
     
     return jsonify(acc=acc, filename=rows[0][0])
 

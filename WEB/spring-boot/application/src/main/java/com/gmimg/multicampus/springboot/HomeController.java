@@ -21,15 +21,21 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.gmimg.multicampus.springboot.mapper.IMemMapper;
 import com.gmimg.multicampus.springboot.member.Item;
 import com.gmimg.multicampus.springboot.member.Member;
+=======
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+>>>>>>> 3b39786079a3db2d318edef2665ed93704b80f53
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+=======
+>>>>>>> 3b39786079a3db2d318edef2665ed93704b80f53
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -37,8 +43,9 @@ import org.springframework.web.servlet.ModelAndView;
 @SessionAttributes("sessionMem")
 public class HomeController {
 
+    
     @Autowired
-    IMemMapper memMapper;
+    IItemMapper mapper;
 
     @Value("${cloud.aws.credentials.accessKey}")
     private String accessKey;
@@ -47,6 +54,9 @@ public class HomeController {
     private String secretKey;
 
     private AmazonS3 s3;
+    
+    String staticPath = "/static/";
+//    String staticPath = "E:/dev/git/Final_Project/WEB/spring-boot/application/src/main/resources/static/deepImg/";
 
     @PostConstruct
     public void setS3Client() {
@@ -59,6 +69,7 @@ public class HomeController {
                 .build();
     }
 
+<<<<<<< HEAD
 
     
 
@@ -78,7 +89,12 @@ public class HomeController {
 
     @RequestMapping(value = "/getididx", method = RequestMethod.GET)
     @ResponseBody
+<<<<<<< HEAD
     public int getididx(@ModelAttribute("sessionMem") Member member) {
+    	HttpSession session = request.getSession();
+    	Member member = (Member) session.getAttribute("sessionMem");
+        return member.getMemIdx();
+    public int getididx(HttpServletRequest request) {
         System.out.println(member);
         if (member == null){
             return 0;
@@ -91,7 +107,7 @@ public class HomeController {
     @RequestMapping(value = "/result", method = RequestMethod.GET)
     public ModelAndView result(String results, String filename, ModelAndView mav) { // , @RequestParam
 
-        String staticPath = "/static/";
+        
         bucketName = "deepfake";
         objectName = filename + ".webm";
         downloadPath = staticPath + objectName;
@@ -130,13 +146,17 @@ public class HomeController {
 
 
     @RequestMapping(value="/mypage", method=RequestMethod.GET)
-    public ModelAndView mypage(@ModelAttribute("sessionMem") Member member, ModelAndView mav) {
+    public ModelAndView mypage(ModelAndView mav, HttpServletRequest request) throws Exception {
+    	HttpSession session = request.getSession();
+    	Member member = (Member) session.getAttribute("sessionMem");
+    	
+    	System.out.println(member.toString());
 
         // session의 id index 가져와서 저장
         int mem_idx = member.getMemIdx();
 
         // session의 id가 가진 item 저장
-        List<Item> items = memMapper.findItem(mem_idx);
+        List<Item> items = mapper.findItem(mem_idx);
 
         List<Integer> iss = new ArrayList<>();
         List<String> fs = new ArrayList<>();
@@ -147,7 +167,7 @@ public class HomeController {
         float acc;
 
         bucketName = "deepfake-thumb";
-        String staticPath = "/static/";
+        
 
         for (Item item: items){
             i = item.getIditem();

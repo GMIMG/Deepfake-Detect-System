@@ -10,14 +10,6 @@ services:
   #   - backend
   #   volumes: 
   #     - ./static:/static
-    # resources:
-    #   limits:
-    #     cpus: '0.50'
-    #     memory: 2G
-    #   reservations:
-    #     cpus: '0.25'
-    #     memory: 1G
-
 
   spring:
     container_name: spring
