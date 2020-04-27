@@ -14,7 +14,13 @@
 
         <div id="polina">
             <h1 th:text="${res}+ '% chance of DeepFake'">None</h1>
-            <p>
+            <br>
+            <span th:text="'frames: ' + ${frames}"></span>
+            <br>
+            <span th:text="'Detect face: '+ ${count}"></span>
+            <br>
+            <span th:text="'fake face: '+ ${fake_num}"></span>
+            <br>
             <a href="/" id ="a1">Go Previous Page</a>
         </div>
 

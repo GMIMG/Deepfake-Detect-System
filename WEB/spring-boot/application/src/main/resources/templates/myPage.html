@@ -17,6 +17,77 @@
         <!-- Stylesheet -->
         <link rel="stylesheet" href="/style.css">
 
+        <style>
+        .pop-layer .pop-container {
+            /* padding: 20px 25px; */
+        }
+        
+        .pop-conts {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        .pop-layer p.ctxt {
+            color: #666;
+            line-height: 25px;
+        }
+
+        .pop-layer .btn-r {
+            width: 100%;
+            margin: 10px 0 20px;
+            padding-top: 10px;
+            border-top: 1px solid #DDD;
+            text-align: right;
+        }
+
+        .pop-layer {
+            
+            display: none;
+            position: absolute;
+            position:absolute; 
+            top:0; 
+            bottom:0; 
+            left: 0;
+            right: 0; 
+            width: 60%; 
+            height: 60%;
+            margin: auto;
+            /* top: 50%;
+            left: 50%;
+            width: 410px;
+            height: auto; */
+            background-color: #fff;
+            /* border: 1px solid black; */
+            z-index: 10;
+        }
+
+        .dim-layer {
+            display: none;
+            position: fixed;
+            _position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+        }
+
+        .dim-layer .dimBg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            opacity: .5;
+            filter: alpha(opacity=50);
+        }
+
+        .dim-layer .pop-layer {
+            display: block;
+        }
+        </style>
     </head>
 
     <body>
@@ -173,6 +244,25 @@
     </section>
     <!-- ##### Latest Albums Area End ##### -->
 
+
+
+    <div class="dim-layer">
+        <div class="dimBg"></div>
+        <div id="layer2" class="pop-layer" style="border-radius: 15px;">
+            <div class="pop-container">
+                <div class="pop-conts">
+                    <video poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg" id="bgvid" 
+                    style="width: 100%; max-height: 90%; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                    playsinline autoplay muted loop>
+                    </video>
+                    <a href="#" class="btn-layerDelete">Delete</a>
+                    <span>             </span>
+                    <a href="#" class="btn-layerClose">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
    
         <!-- ##### Footer Area Start ##### -->
         <footer class="footer-area">
@@ -189,26 +279,19 @@
             </div>
         </footer>
 
-        <!-- ##### All Javascript Script ##### -->
-        <!-- jQuery-2.2.4 js -->
-        <script src="/js/jquery/jquery-2.2.4.min.js"></script>
-        <!-- Popper js -->
-        <script src="/js/bootstrap/popper.min.js"></script>
-        <!-- Bootstrap js -->
-        <script src="/js/bootstrap/bootstrap.min.js"></script>
-        <!-- All Plugins js -->
-        <script src="/js/plugins/plugins.js"></script>
-        <!-- Active js -->
-        <script src="/js/active.js"></script>
+
+
+
 
         <script th:inline="javascript">
-
+            // window.onload = 
             makeAlbum();
 
             function makeAlbum() {
                 let lst = [[${iss}]];
                 let filename = [[${fs}]];
                 let accs = [[${accs}]];
+                let deletes = [[${deletes}]];
 
                 for (i in lst){
                     let al = document.querySelector("#album-list");
@@ -217,16 +300,29 @@
                     let div2 = document.createElement('div');
                     div2.className = "single-album"
                     let img = document.createElement('img');
-                    img.src = "/static/" + lst[i] + '.jpg';
+                    img.src = lst[i] + '.jpg';
                     let div3 = document.createElement('div');
-                    let a = document.createElement('a');
+                    
+                    let a;
+                    if (deletes[i]==0) {
+                        a = document.createElement('a'); 
+                        a.href = "#layer2";
+                        a.className = "btn-example";
+                    }
+                    else {a = document.createElement('span');}
+
                     let h5 = document.createElement('h5');
                     let p = document.createElement('p');
-
-                    div1.classList.add(filename[i][0]);
+                    div1.classList.add(filename[i][0].toLowerCase());
                     p.innerHTML = accs[i];
-                    a.href = "#";
-                    h5.innerHTML = filename[i];
+
+                    let fn;
+                    if (filename[i].length> 10)
+                    {
+                        fn = filename[i].substring(0,9) + '...'
+                    }
+                    else {fn = filename[i]}
+                    h5.innerHTML = fn;
 
                     a.appendChild(h5);
                     div3.appendChild(a);
@@ -239,6 +335,94 @@
             }
 
         </script>
+        <!-- jQuery-2.2.4 js -->
+        <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+        <script>
+            $('.btn-example').click(function () {
+                var th = $(this)
+                var iditem = $(this).parent().prev().attr('src').split('.')[0]
+                var $href = $(this).attr('href');
+                fetch('viewvid?filename='+ iditem, {method: 'GET'}).then(response => layer_popup($href, iditem, th))
+                // layer_popup($href);
+            });
+            function layer_popup(el, filename, th) {
+                let source = document.createElement( 'source' );
+                source.src = filename + ".webm";
+                source.type = "video/webm";
+                let video = document.querySelector("video")
+                video.appendChild(source);
+
+                video.load()
+                video.play();
+
+                var $el = $(el);        //레이어의 id를 $el 변수에 저장
+                var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+                isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+    
+                var $elWidth = ~~($el.outerWidth()),
+                    $elHeight = ~~($el.outerHeight()),
+                    docWidth = $(document).width(),
+                    docHeight = $(document).height();
+    
+                // 화면의 중앙에 레이어를 띄운다.
+                if ($elHeight < docHeight || $elWidth < docWidth) {
+                    $el.css({
+                        // marginTop: -$elHeight / 2,
+                        // marginLeft: -$elWidth / 2
+                    })
+                } else {
+                    $el.css({ top: 0, left: 0 });
+                }
+
+                $el.find('a.btn-layerDelete').click(function () {
+                    video.pause();
+                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    $('source').remove();
+                    fetch('del?filename='+filename,{method: 'GET'}).then(response => response);
+                    th.removeattr('href');
+                    th.unbind("click");
+                    th.removeClass('btn-example');
+                    return false;
+                });
+                
+    
+                $el.find('a.btn-layerClose').click(function () {
+                    video.pause();
+                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    $('source').remove();
+                    return false;
+                });
+    
+                $('.dimBg').click(function () {
+                    $('.dim-layer').fadeOut();
+                    return false;
+                });
+    
+            }
+        </script>
+
+
+
+
+
+
+
+
+
+
+        <!-- ##### All Javascript Script ##### -->
+        <!-- Popper js -->
+        <script src="/js/bootstrap/popper.min.js"></script>
+        <!-- Bootstrap js -->
+        <script src="/js/bootstrap/bootstrap.min.js"></script>
+        <!-- All Plugins js -->
+        <script src="/js/plugins/plugins.js"></script>
+        <!-- Active js -->
+        <script src="/js/active.js"></script>
+
+
+
+
 
     </body>
 

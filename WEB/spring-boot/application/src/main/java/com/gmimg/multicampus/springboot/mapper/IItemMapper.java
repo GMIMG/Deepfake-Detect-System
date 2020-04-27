@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.gmimg.multicampus.springboot.member.Item;
 
@@ -17,5 +18,8 @@ public interface IItemMapper {
 
 	@Select("select * from item where memIdx = #{memIdx}")
 	List<Item> findItem(@Param("memIdx") int memIdx);
+
+	@Update("update item set del=1 where iditem = #{iditem}")
+	void deleteItem(@Param("iditem") String iditem);
 
 }

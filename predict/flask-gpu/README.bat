@@ -1,0 +1,1 @@
+docker run --gpus all -v ./static=/static -p 5000:5000 -it --name flask flask:test

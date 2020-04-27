@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gmimg.multicampus.springboot.member.Member;
@@ -36,9 +35,6 @@ public class MemberController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView register(ModelAndView mav, Member member) throws Exception {
 		
-		System.out.println("1차 확인 : " + member);
-		System.out.println("1차 확인 : " + member.getMemId());
-				
 		String inputPass = member.getMemPw();
 		
 		System.out.println("2차확인 : "+ inputPass);
@@ -97,16 +93,17 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/member/logOut")
-	public String logOut(HttpServletRequest request, SessionStatus status) {
+	public String logOut(HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
+		session.invalidate();
 		
-		session.getAttribute("sessionMem");
-		System.out.println(session);
-		session.removeAttribute("sessionMem");
+		// session.getAttribute("sessionMem");
+		// System.out.println(session);
+		// session.removeAttribute("sessionMem");
 		
-		System.out.println(session.getAttribute("sessionMem"));
-		System.out.println("logout OK");
+		// System.out.println(session.getAttribute("sessionMem"));
+		// System.out.println("logout OK");
 		
 		
 		return "redirect:/";

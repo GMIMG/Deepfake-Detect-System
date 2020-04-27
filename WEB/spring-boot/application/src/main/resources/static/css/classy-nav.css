@@ -406,7 +406,7 @@ img {
   background-color: #ffffff;
   position: fixed;
   top: 0;
-  left: -310px;
+  right: -310px;
   z-index: 1000;
   width: 300px;
   height: 100%;
@@ -416,9 +416,10 @@ img {
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   display: block;
   overflow-x: hidden;
-  overflow-y: scroll; }
+  /* overflow-y: scroll;  */
+}
   .breakpoint-on .classy-navbar .classy-menu.menu-on {
-    left: 0; }
+    right: 0; }
 .breakpoint-on .classynav ul li {
   display: block;
   position: relative;

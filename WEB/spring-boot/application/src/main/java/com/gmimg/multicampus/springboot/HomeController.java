@@ -90,8 +90,26 @@ public class HomeController {
         }
     }
 
-    @RequestMapping(value = "/result", method = RequestMethod.GET)
-    public ModelAndView result(String results, String filename, ModelAndView mav) { // , @RequestParam
+    @ResponseBody
+    @RequestMapping(value = "/del", method = RequestMethod.GET)
+    public Integer del(String filename) {
+        System.out.println(filename);
+        mapper.deleteItem(filename);
+        bucketName = "deepfake";
+        filename = filename + ".webm";
+        System.out.println(filename);
+        try {
+            s3.deleteObject(bucketName, filename);
+        } catch (AmazonServiceException e) {
+            System.err.println(e.getErrorMessage());
+            // System.exit(1);
+        }
+        return 0;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/viewvid", method = RequestMethod.GET)
+    public Integer viewvid(String filename) { // , @RequestParam
         
         bucketName = "deepfake";
         objectName = filename + ".webm";
@@ -110,20 +128,57 @@ public class HomeController {
             fos.close();
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
-            System.exit(1);
+            // System.exit(1);
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
-            System.exit(1);
+            // System.exit(1);
         } catch (IOException e) {
             System.err.println(e.getMessage());
-            System.exit(1);
+            // System.exit(1);
+        }
+        return 1;
+    }
+
+    @RequestMapping(value = "/result", method = RequestMethod.GET)
+    public ModelAndView result(String results, String filename, String frames, String count, String fake_num, ModelAndView mav) { // , @RequestParam
+        
+        bucketName = "deepfake";
+        objectName = filename + ".webm";
+        downloadPath = staticPath + objectName;
+
+        try {
+            S3Object o = s3.getObject(bucketName, objectName);
+            S3ObjectInputStream s3is = o.getObjectContent();
+            FileOutputStream fos = new FileOutputStream(new File(downloadPath));
+            byte[] read_buf = new byte[1024];
+            int read_len = 0;
+            while ((read_len = s3is.read(read_buf)) > 0) {
+                fos.write(read_buf, 0, read_len);
+            }
+            s3is.close();
+            fos.close();
+            mav.setViewName("result");
+        } catch (AmazonServiceException e) {
+            System.err.println(e.getErrorMessage());
+            mav.setViewName("error/error");
+            // System.exit(1);
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+            mav.setViewName("error/error");
+            // System.exit(1);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            mav.setViewName("error/error");
+            // System.exit(1);
         }
 
         Float r = Float.parseFloat(results);
         String res = String.format("%.4f", r*100);
-        mav.setViewName("result");
         mav.addObject("filename", filename);
         mav.addObject("res", res);
+        mav.addObject("frames", frames);
+        mav.addObject("count", count);
+        mav.addObject("fake_num", fake_num);
         return mav;
     }
 
@@ -131,8 +186,6 @@ public class HomeController {
     public ModelAndView mypage(ModelAndView mav, HttpServletRequest request) throws Exception {
     	HttpSession session = request.getSession();
     	Member member = (Member) session.getAttribute("sessionMem");
-    	
-    	System.out.println(member.toString());
 
         // session의 id index 가져와서 저장
         int mem_idx = member.getMemIdx();
@@ -143,10 +196,12 @@ public class HomeController {
         List<Integer> iss = new ArrayList<>();
         List<String> fs = new ArrayList<>();
         List<Float> accs = new ArrayList<>();
+        List<Integer> deletes = new ArrayList<>();
 
         int i;
         String f;
         float acc;
+        int d;
 
         bucketName = "deepfake-thumb";
         
@@ -155,10 +210,12 @@ public class HomeController {
             i = item.getIditem();
             f = item.getFilename();
             acc = item.getAcc();
+            d = item.getDel();
 
             iss.add(i);
             fs.add(f);
             accs.add(acc);
+            deletes.add(d);
 
             objectName = Integer.toString(i) + ".jpg";
             downloadPath = staticPath + objectName;
@@ -176,23 +233,28 @@ public class HomeController {
                 }
                 s3is.close();
                 fos.close();
+                mav.setViewName("myPage");
             } catch (AmazonServiceException e) {
                 System.err.println(e.getErrorMessage());
-                System.exit(1);
+                mav.setViewName("error/error");
+                // System.exit(1);
             } catch (FileNotFoundException e) {
                 System.err.println(e.getMessage());
-                System.exit(1);
+                mav.setViewName("error/error");
+                // System.exit(1);
             } catch (IOException e) {
                 System.err.println(e.getMessage());
-                System.exit(1);
+                mav.setViewName("error/error");
+                // System.exit(1);
             }
 
         }
         
-        mav.setViewName("myPage");
         mav.addObject("iss", iss);
         mav.addObject("fs", fs);
         mav.addObject("accs", accs);
+        mav.addObject("deletes", deletes);
+        System.out.println(deletes);
 
         return mav;
     }

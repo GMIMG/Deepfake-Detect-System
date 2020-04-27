@@ -18,197 +18,10 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/style.css">
-    <link href="/css/style5.css" rel="stylesheet" />
-    <style>
-        .pop-layer .pop-container {
-            padding: 20px 25px;
-        }
-        
-        .pop-conts {
-            width: 100%;
-            height: 100%;
-            text-align: center;
-        }
-
-        .pop-layer p.ctxt {
-            color: #666;
-            line-height: 25px;
-        }
-
-        .pop-layer .btn-r {
-            width: 100%;
-            margin: 10px 0 20px;
-            padding-top: 10px;
-            border-top: 1px solid #DDD;
-            text-align: right;
-        }
-
-        .pop-layer {
-            
-            display: none;
-            position: absolute;
-            position:absolute; 
-            top:0; 
-            bottom:0; 
-            left: 0;
-            right: 0; 
-            width: 60%; 
-            height: 60%;
-            margin: auto;
-            /* top: 50%;
-            left: 50%;
-            width: 410px;
-            height: auto; */
-            background-color: #fff;
-            border: 1px solid black;
-            z-index: 10;
-        }
-
-        .dim-layer {
-            display: none;
-            position: fixed;
-            _position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 100;
-        }
-
-        .dim-layer .dimBg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            opacity: .5;
-            filter: alpha(opacity=50);
-        }
-
-        .dim-layer .pop-layer {
-            display: block;
-        }
-
-        a.btn-layerClose {
-            display: inline-block;
-            height: 25px;
-            padding: 0 14px 0;
-            border: 1px solid #304a8a;
-            background-color: #3f5a9d;
-            font-size: 13px;
-            color: #fff;
-            line-height: 25px;
-            position: absolute;
-
-            bottom: 20px;
-            right: 50px;
-        }
-
-        a.btn-layerClose:hover {
-            border: 1px solid #091940;
-            background-color: #1f326a;
-            color: #fff;
-
-        }
-
-        *,
-        *:before,
-        *:after {
-            box-sizing: inherit;
-        }
-
-
-
-        form {
-            width: 91%;
-            height: auto;
-           
-        }
-
-        input[type=text] {
-            background-color: transparent;
-            width: 100%;
-            font-size: 80%;
-            text-align: center;
-            /*text-transform: uppercase;*/
-
-            padding: 1rem 2rem;
-            border: 0;
-        }
-
-        label.file {
-            position: relative;
-            display: block;
-            /* width: 100%; */
-            font-size: 80%;
-            text-align: center;
-            text-transform: uppercase;
-            border: 2px dashed #ccc;
-            margin: 5vh 0;
-            padding: 5vh;
-        }
-
-        label.file:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-
-        label.file:active,
-        label.file.focus {
-            border-color: #09f;
-        }
-
-        input[type=file] {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            outline: 0;
-            border: 1px solid red;
-        }
-
-        button {
-            color: #eee;
-            background-color: #666;
-            padding: 2vh 5vw;
-            border: 0;
-            outline: none;
-        }
-
-        button:hover,
-        button:focus {
-            background-color: #333;
-        }
-
-        button:active {
-            color: #fff;
-            background-color: #000;
-        }
-
-        .sml {
-            display: inline-block;
-            color: #eee;
-            background-color: rgba(0, 200, 0, 0.67);
-            border-radius: 1rem;
-            font-size: smaller;
-            margin: 1rem 0 0 0;
-            padding: 0.67rem 1rem;
-        }
-    </style>
-
+    <link rel="stylesheet" href="/popup.css">
 </head>
 
 <body>
-    <!-- <div th:if="${session.sessionMem}">
-        <span th:text="${session.sessionMem.getmemId()}"></span>
-        <span th:text="${session.sessionMem.ididx]}"></span> 
-        <a href="logout">로그아웃</a>
-    </div>
-    <div th:unless="${session.sessionMem}">
-        로그인안됨
-    </div> -->
 
     <!-- Preloader -->
     <div class="preloader d-flex align-items-center justify-content-center">
@@ -327,8 +140,6 @@
                     <div class="section-heading style-2">
                         <p>See what we make</p>
                         <h2>DeepFake Detection Guide</h2>
-                        <br>
-                        <br>
 
                         <p>국가는 균형있는 국민경제의 성장 및 안정과 적정한 소득의 분배를 유지하고, 시장의 지배와 경제력의 남용을 방지하며, 경제주체간의 조화를 통한 경제의 민주화를 위하여
                             경제에 관한 규제와 조정을 할 수 있다.
@@ -343,25 +154,6 @@
 
                             제3항의 승인을 얻지 못한 때에는 그 처분 또는 명령은 그때부터 효력을 상실한다. 이 경우 그 명령에 의하여 개정 또는 폐지되었던 법률은 그 명령이 승인을 얻지 못한
                             때부터 당연히 효력을 회복한다.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-12 col-lg-9">
-                    <div class="ablums-text text-center mb-70">
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="albums-slideshow owl-carousel">
-
-
-
-
-
                     </div>
                 </div>
             </div>
@@ -471,18 +263,21 @@
                             <input class="fileinput" type="file" > 
                         </label>
                     <div style="position: absolute; left: 0; right: 0; margin: auto; bottom: 5vh;">
-                    <button onclick="myFunction()">predict</button>
+                        <div th:if="${session.sessionMem}==null">
+                            <button onclick="myFunction(3)">only 3 frame predict</button>
+                            <br>
+                            <span><a href="/member/loginForm">Sign in</a> to deep predict</span>
+                        </div>
+                        <div th:if="${session.sessionMem}!=null">
+                            <button onclick="myFunction(3)">only 3 predict</button>
+                            <button onclick="myFunction(0)">deep predict</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-	<div class="center-on-page">
-		<div class="pokeball">
-			<div class="pokeball__button"></div>
-        </div>
-    </div>
+
     
 
     <!-- ##### Footer Area Start ##### -->
@@ -490,7 +285,6 @@
         <div class="container">
             <div class="row d-flex flex-wrap align-items-center">
                 <div class="col-12 col-md-6">
-                    <a href="#"><img src="/img/core-img/logo.png" alt=""></a>
                     <p class="copywrite-text"><a href="#">
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             Copyright &copy;
@@ -500,7 +294,6 @@
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                 </div>
-
             </div>
         </div>
     </footer>
@@ -570,11 +363,9 @@
                 '<span class="sml">' +
                 'type: ' + f[0].type + ', ' +
                 Math.round(f[0].size / 1024) + ' KB</span>');
-
         });
 
-
-        function myFunction() {
+        function myFunction(getframe) {
 
             var formData = new FormData();
             var fileField = document.querySelector('input[type=file]'); //input[type="file"]
@@ -583,13 +374,14 @@
                 method: 'GET'
             })
             .then(response => response.text())
-            .then(text => upload_predict(text))
+            .then(text => upload_predict(text, getframe))
 
-            function upload_predict(text) {
+            function upload_predict(text, getframe) {
 
                 console.log(text)
                 formData.append('file', fileField.files[0]);
                 formData.append('ididx', text);
+                formData.append('getframe', getframe);
 
                 document.querySelector('article').innerHTML = '업로드 & 분석';
                 
@@ -611,7 +403,8 @@
 
             function done(json){
                 console.log(fileField.filename);
-                window.location.replace('result?results='+json["acc"] + '&filename='+json["filename"]);
+                window.location.replace('result?results='+json["acc"] + '&filename='+json["filename"] 
+                + '&frames='+json["num_frames"]+'&count='+json["count"]+'&fake_num='+json['fake_num']);
             }
         }
     </script>
