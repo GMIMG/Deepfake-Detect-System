@@ -1,0 +1,613 @@
+<html xmlns:th="https://www.thymeleaf.org">
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Deep Fake Detecter - detect your video</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/img/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <link href="/css/style5.css" rel="stylesheet" />
+    <style>
+        .pop-layer .pop-container {
+            padding: 20px 25px;
+        }
+        
+        .pop-conts {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        .pop-layer p.ctxt {
+            color: #666;
+            line-height: 25px;
+        }
+
+        .pop-layer .btn-r {
+            width: 100%;
+            margin: 10px 0 20px;
+            padding-top: 10px;
+            border-top: 1px solid #DDD;
+            text-align: right;
+        }
+
+        .pop-layer {
+            
+            display: none;
+            position: absolute;
+            position:absolute; 
+            top:0; 
+            bottom:0; 
+            left: 0;
+            right: 0; 
+            width: 60%; 
+            height: 60%;
+            margin: auto;
+            /* top: 50%;
+            left: 50%;
+            width: 410px;
+            height: auto; */
+            background-color: #fff;
+            border: 1px solid black;
+            z-index: 10;
+        }
+
+        .dim-layer {
+            display: none;
+            position: fixed;
+            _position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+        }
+
+        .dim-layer .dimBg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            opacity: .5;
+            filter: alpha(opacity=50);
+        }
+
+        .dim-layer .pop-layer {
+            display: block;
+        }
+
+        a.btn-layerClose {
+            display: inline-block;
+            height: 25px;
+            padding: 0 14px 0;
+            border: 1px solid #304a8a;
+            background-color: #3f5a9d;
+            font-size: 13px;
+            color: #fff;
+            line-height: 25px;
+            position: absolute;
+
+            bottom: 20px;
+            right: 50px;
+        }
+
+        a.btn-layerClose:hover {
+            border: 1px solid #091940;
+            background-color: #1f326a;
+            color: #fff;
+
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+
+
+        form {
+            width: 91%;
+            height: auto;
+           
+        }
+
+        input[type=text] {
+            background-color: transparent;
+            width: 100%;
+            font-size: 80%;
+            text-align: center;
+            /*text-transform: uppercase;*/
+
+            padding: 1rem 2rem;
+            border: 0;
+        }
+
+        label.file {
+            position: relative;
+            display: block;
+            /* width: 100%; */
+            font-size: 80%;
+            text-align: center;
+            text-transform: uppercase;
+            border: 2px dashed #ccc;
+            margin: 5vh 0;
+            padding: 5vh;
+        }
+
+        label.file:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        label.file:active,
+        label.file.focus {
+            border-color: #09f;
+        }
+
+        input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            outline: 0;
+            border: 1px solid red;
+        }
+
+        button {
+            color: #eee;
+            background-color: #666;
+            padding: 2vh 5vw;
+            border: 0;
+            outline: none;
+        }
+
+        button:hover,
+        button:focus {
+            background-color: #333;
+        }
+
+        button:active {
+            color: #fff;
+            background-color: #000;
+        }
+
+        .sml {
+            display: inline-block;
+            color: #eee;
+            background-color: rgba(0, 200, 0, 0.67);
+            border-radius: 1rem;
+            font-size: smaller;
+            margin: 1rem 0 0 0;
+            padding: 0.67rem 1rem;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- <div th:if="${session.sessionMem}">
+        <span th:text="${session.sessionMem.getmemId()}"></span>
+        <span th:text="${session.sessionMem.ididx]}"></span> 
+        <a href="logout">로그아웃</a>
+    </div>
+    <div th:unless="${session.sessionMem}">
+        로그인안됨
+    </div> -->
+
+    <!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="lds-ellipsis">
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+        <!-- Navbar Area -->
+        <div class="oneMusic-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="oneMusicNav">
+
+                        <!-- Nav brand -->
+                        <a href="/" class="nav-brand">Deep Fake</a>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- Close Button -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                         	
+                            <!-- Login/Register & Cart Button -->
+                            <div class="login-register-cart-button d-flex align-items-center">
+                                <!-- Login/Register -->
+                                <div th:if="${session.sessionMem}==null" class="login-register-btn mr-50">
+                                    <a href="/member/loginForm" id="loginBtn">Login</a>
+                                    <a>/</a>
+                                    <a href="/member/registerForm" id="loginBtn">Register</a>
+                                </div>
+                                <div th:if="${session.sessionMem}!=null" class="login-register-btn mr-50">
+                                    <a href="/member/logOut" id="loginBtn">LogOut</a>
+                                </div>
+
+                                <!-- Cart Button -->
+                                <div th:if="${session.sessionMem}!=null" class="cart-btn">
+                                    <a href="/mypage">
+                                        <p><span> MY PAGE</span></p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Nav End -->
+
+                </div>
+                </nav>
+            </div>
+        </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Hero Area Start ##### -->
+    <section class="hero-area">
+        <div class="hero-slides owl-carousel">
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url(/img/bg-img/trump.png);"></div>
+                <!-- Slide Content -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="hero-slides-content text-center">
+                                <h6 data-animation="fadeInUp" data-delay="100ms">Using Latest Model</h6>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">DETECT YOUR VIDEO <span>DETECT YOUR VIDEO</span></h2>
+                                <a data-animation="fadeInUp" data-delay="500ms" href="#layer2"
+                                class="btn btn-example oneMusic-btn mt-50">GO DETECT<i class="fa fa-angle-double-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url(/img/bg-img/make.jpg);"></div>
+                <!-- Slide Content -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="hero-slides-content text-center">
+                                <h6 data-animation="fadeInUp" data-delay="100ms">Using Latest Model</h6>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">DETECT YOUR VIDEO <span>DETECT YOUR VIDEO</span></h2>
+                                <a data-animation="fadeInUp" data-delay="500ms" href="#layer2"
+                                class="btn btn-example oneMusic-btn mt-50">GO DETECT<i class="fa fa-angle-double-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Hero Area End ##### -->
+
+    <!-- ##### Latest Albums Area Start ##### -->
+    <section class="latest-albums-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading style-2">
+                        <p>See what we make</p>
+                        <h2>DeepFake Detection Guide</h2>
+                        <br>
+                        <br>
+
+                        <p>국가는 균형있는 국민경제의 성장 및 안정과 적정한 소득의 분배를 유지하고, 시장의 지배와 경제력의 남용을 방지하며, 경제주체간의 조화를 통한 경제의 민주화를 위하여
+                            경제에 관한 규제와 조정을 할 수 있다.
+
+                            국민경제의 발전을 위한 중요정책의 수립에 관하여 대통령의 자문에 응하기 위하여 국민경제자문회의를 둘 수 있다. 교육의 자주성·전문성·정치적 중립성 및 대학의 자율성은
+                            법률이 정하는 바에 의하여 보장된다.
+
+                            국정감사 및 조사에 관한 절차 기타 필요한 사항은 법률로 정한다. 선거에 관한 경비는 법률이 정하는 경우를 제외하고는 정당 또는 후보자에게 부담시킬 수 없다.
+
+                            국가는 건전한 소비행위를 계도하고 생산품의 품질향상을 촉구하기 위한 소비자보호운동을 법률이 정하는 바에 의하여 보장한다. 대법원장과 대법관이 아닌 법관의 임기는
+                            10년으로 하며, 법률이 정하는 바에 의하여 연임할 수 있다.
+
+                            제3항의 승인을 얻지 못한 때에는 그 처분 또는 명령은 그때부터 효력을 상실한다. 이 경우 그 명령에 의하여 개정 또는 폐지되었던 법률은 그 명령이 승인을 얻지 못한
+                            때부터 당연히 효력을 회복한다.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-9">
+                    <div class="ablums-text text-center mb-70">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="albums-slideshow owl-carousel">
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Latest Albums Area End ##### -->
+
+    <!-- ##### Latest Albums Area Start ##### -->
+    <section class="latest-albums-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading style-2">
+                        <p>See who we are</p>
+                        <h2>DeepFake Detection Made By</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-9">
+                    <div class="ablums-text text-center mb-70">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="albums-slideshow owl-carousel">
+                        <!-- Single Album -->
+                        <div class="single-album">
+                            <img src="/img/bg-img/찬호.jpg" alt="">
+                            <div class="album-info">
+                                <a href="contact.html">
+                                    <h5>Made by 이찬호</h5>
+                                </a>
+                                <p> </p>
+                            </div>
+                        </div>
+
+                        <!-- Single Album -->
+                        <div class="single-album">
+                            <img src="/img/bg-img/지민.jpg" alt="">
+                            <div class="album-info">
+                                <a href="contact.html">
+                                    <h5>Made by 황지민</h5>
+                                </a>
+                                
+                            </div>
+                        </div>
+
+                        <!-- Single Album -->
+                        <div class="single-album">
+                            <img src="/img/bg-img/소현.jpg" alt="">
+                            <div class="album-info">
+                                <a href="contact.html">
+                                    <h5>Made by 정소현</h5>
+                                </a>
+                                <p> </p>
+                            </div>
+                        </div>
+
+                        <!-- Single Album -->
+                        <div class="single-album">
+                            <img src="/img/bg-img/정철.jpg" alt="">
+                            <div class="album-info">
+                                <a href="contact.html">
+                                    <h5>Made by 이정철</h5>
+                                </a>
+                                <p> </p>
+                            </div>
+                        </div>
+
+                        <!-- Single Album -->
+                        <div class="single-album">
+                            <img src="/img/bg-img/용주.jpg" alt="">
+                            <div class="album-info">
+                                <a href="contact.html">
+                                    <h5>Made by 정용주</h5>
+                                </a>
+                                <p> </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Latest Albums Area End ##### -->
+
+    
+    <div class="dim-layer">
+        <div class="dimBg"></div>
+        <div id="layer2" class="pop-layer" style="border-radius: 15px;">
+            <div class="pop-container">
+                <div class="pop-conts">
+                    <p class="ctxt mb20" style="font: weight 500; color:black; font-size: 20px;">
+                        동영상 업로드<br>
+                    </p>
+                    <a href="#" class="btn-layerClose">Close</a>
+                        <article>
+                            파일을 업로드 하여 예측합니다
+                        </article>
+                        <label class="file">
+                            <span>Drop a file or click to select one</span>
+                            <input class="fileinput" type="file" > 
+                        </label>
+                    <div style="position: absolute; left: 0; right: 0; margin: auto; bottom: 5vh;">
+                    <button onclick="myFunction()">predict</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area">
+        <div class="container">
+            <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-12 col-md-6">
+                    <a href="#"><img src="/img/core-img/logo.png" alt=""></a>
+                    <p class="copywrite-text"><a href="#top">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved <i
+                                class="fa fa-heart-o" aria-hidden="true"></i> by Chimac
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="/js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="/js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="/js/active.js"></script>
+
+    
+    <script>
+        $('.btn-example').click(function () {
+            var $href = $(this).attr('href');
+            layer_popup($href);
+        });
+        function layer_popup(el) {
+
+            var $el = $(el);        //레이어의 id를 $el 변수에 저장
+            var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+
+            isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+
+            var $elWidth = ~~($el.outerWidth()),
+                $elHeight = ~~($el.outerHeight()),
+                docWidth = $(document).width(),
+                docHeight = $(document).height();
+
+            // 화면의 중앙에 레이어를 띄운다.
+            if ($elHeight < docHeight || $elWidth < docWidth) {
+                $el.css({
+                    // marginTop: -$elHeight / 2,
+                    // marginLeft: -$elWidth / 2
+                })
+            } else {
+                $el.css({ top: 0, left: 0 });
+            }
+
+            $el.find('a.btn-layerClose').click(function () {
+                isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                return false;
+            });
+
+            $('.layer .dimBg').click(function () {
+                $('.dim-layer').fadeOut();
+                return false;
+            });
+
+        }
+    </script>
+
+    <script>
+        document.querySelector('input[type=file]').addEventListener('change',function(){
+
+            console.log(this.files);
+            var f = this.files;
+            var el = $(this).parent();
+
+            el.children('span').html(f[0].name + '<br>' +
+                '<span class="sml">' +
+                'type: ' + f[0].type + ', ' +
+                Math.round(f[0].size / 1024) + ' KB</span>');
+
+        });
+
+
+        function myFunction() {
+
+            var formData = new FormData();
+            var fileField = document.querySelector('input[type=file]'); //input[type="file"]
+            
+            fetch('getididx', {
+                method: 'GET'
+            })
+            .then(response => response.text())
+            .then(text => upload_predict(text))
+
+            function upload_predict(text) {
+
+                console.log(text)
+                formData.append('file', fileField.files[0]);
+                formData.append('ididx', text);
+
+                document.querySelector('article').innerHTML = '업로드 & 분석';
+                
+                fetch('predict', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if(response.ok) {
+                        return response.json()
+                    }
+                    else {
+                        document.querySelector('article').innerHTML = '분석실패';
+                        throw new Error('predict error');
+                    }
+                })
+                .then(json => done(json))
+            }
+
+            function done(json){
+                console.log(fileField.filename);
+                window.location.replace('result?results='+json["acc"] + '&filename='+json["filename"]);
+            }
+        }
+    </script>
+</body>
+</html>

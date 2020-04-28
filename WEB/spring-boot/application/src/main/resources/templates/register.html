@@ -16,10 +16,9 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/style.css">
-    <!-- <script src="/webjars/jquery/3.4.1/jquery.js"></script> -->
+    <script src="/webjars/jquery/3.4.1/jquery.js"></script>
     <script type="text/javascript" th:inline="javascript">
 		$(document).ready(function(){
-			
 
 			// 취소
 			$(".cencle").on("click", function(){
@@ -27,38 +26,58 @@
 			})
 			
 			$("#submit").on("click", function(){
+				var emailVal = $("#memId").val();
+				var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 				var pwd1 = $("#memPw0").val();
             	var pwd2 = $("#memPw").val();
+            	
+            	//id 입력확인 js
 				if($("#memId").val()==""){
 					alert("아이디를 입력해주세요.");
 					$("#memId").focus();
 					return false;
 				}
+				//비밀번호 입력확인 js
 				if($("#memPw").val()==""){
 					alert("비밀번호를 입력해주세요.");
 					$("#memPw").focus();
 					return false;
 				}
-
-				var idChkVal = $("#idChk").val();
-				
+				//비밀번호 숫자확인 js
+				if(pwd1.length < 8 || pwd1.length>15){
+					alert("비밀번호는 8~15 자로 가능합니다.");
+					$("#memPw").focus();
+					return false;
+				}
+				//이메일 양식확인 js
+				if (emailVal.match(regExp) != null) {
+					var idChkVal = $("#idChk").val();
+				} else {
+					alert('이메일 형식을 확인해주세요');
+					$("input[name=memId]").focus();
+					return false;
+				}
+				//중복확인 체크
 				if(idChkVal == "N"){
 					alert("중복확인 버튼을 눌러주세요.");
+					$("input[name=memId]").focus();
+					return false;
 					
-				}else if(idChkVal == "Y"){
-					if (pwd1 == pwd2) {
-						console.log("체크")
-						var regForm = document.getElementById('regForm');
-						console.log(" regForm method :",regForm.method) 
-						$("#regForm").submit();
-					} else {
-						window.location.replace("/member/registerForm")
-					}
-					
+				}
+				if (pwd1 == pwd2) {
+					alert("회원가입 성공")
+					$("#regForm").submit();
+						
+				} else {
+					alert("비밀번호 다름");
+						$("input[name=memPw]").focus();	
+// 						$("input[name=memPw]") = null;
+// 						document.getElementById("#memPw").value = null;
+					return false;
 				}
 			});
 		})
-		
+		//이메일 중복확인 Ajax 쿼리
 		function fn_idChk(){
 			$.ajax({
 				url : "/idChk",
@@ -66,12 +85,39 @@
 				dataType : "json",
 				data : {"memId" : $("#memId").val()},
 				success : function(data){
+					var emailVal = $("#memId").val();
+					var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+					//중복확인 + 이메일확인 시작
 					if(data == 1){
+						if (emailVal.match(regExp) != null) {
+							console.log("이메일 양식 확인 ok ", emailVal.match(regExp));
+							var idChkVal = $("#idChk").val();
+							
+						} else {
+							alert('이메일 형식을 확인해주세요');
+							console.log("이메일 양식 확인 x", emailVal.match(regExp));
+							$("input[name=memId]").focus();
+							return false;
+						}
+						$("#idChk").attr("value", "N");
 						alert("중복된 아이디입니다.");
+						$("input[name=memId]").focus();
 					}else if(data == 0){
+						if (emailVal.match(regExp) != null) {
+							console.log("이메일 양식 확인 ok ", emailVal.match(regExp));
+							var idChkVal = $("#idChk").val();
+							
+						} else {
+							alert('이메일 형식을 확인해주세요');
+							console.log("이메일 양식 확인 x", emailVal.match(regExp));
+							$("input[name=memId]").focus();
+							return false;
+						}
 						$("#idChk").attr("value", "Y");
 						alert("사용가능한 아이디입니다.");
+						$("input[name=memPw0]").focus();
 					}
+					//중복확인 + 이메일확인 끝
 				}
 			})
 		}
@@ -162,7 +208,7 @@
                         <!-- Register Form -->
                         
                         <div class="register-form">
-                            <form action="/register" method="post" id="regForm">
+                            <form action="/register" method="post" id="regForm" autocomplete="off">
                                 <div class="form-group">
                                     <label for="memId">Email address</label>
                                     <input type="email" name="memId" class="form-control" id="memId" aria-describedby="emailHelp" placeholder="Enter E-mail">
@@ -184,16 +230,9 @@
                                         <span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지않습니다.</span>
                                 	</div>
                                 </div>
-                                <!-- 
-                                <button type="submit" class="btn oneMusic-btn mt-30">Register</button>
-                                 
-                                <button class="btn oneMusic-btn mt-30" type="button" id="submit">회원가입</button>
-                                -->
-             
+                                	<button type="submit" id="submit" class="btn oneMusic-btn mt-30">Register</button>
                             </form>
-                            		<button type="button" id="submit" class="btn oneMusic-btn mt-30">Register</button>
-									<button class="btn oneMusic-btn text-center" type="button" id="submit">회원가입</button>	
-								
+            					
                         </div>
                     </div>
                 </div>
@@ -208,14 +247,19 @@
             <div class="row d-flex flex-wrap align-items-center">
                 <div class="col-12 col-md-6">
                     <a href="#"><img src="/img/core-img/logo.png" alt=""></a>
-                    <p class="copywrite-text"><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Chimac</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    <p class="copywrite-text"><a href="#top">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved <i
+                                class="fa fa-heart-o" aria-hidden="true"></i> by Chimac
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
                 </div>
 
             </div>
         </div>
     </footer>
+    <!-- ##### Footer Area End ##### -->
 
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
@@ -228,66 +272,26 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="/js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="/js/active.js"></script>
-    <!-- 
-    <script>
-        $('.form-control').focusout(function () {
-            var pwd1 = $("#regMemPw0").val();
-            var pwd2 = $("#regMemPw").val();
-
-            if (pwd1 != '' && pwd2 == '') {
-                null;
-            } else if (pwd1 != "" || pwd2 != "") {
-                if (pwd1 == pwd2) {
-                    $("#alert-success").css('display', 'inline-block');
-                    $("#alert-danger").css('display', 'none');
-                } else {
-                    alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
-                    $("#alert-success").css('display', 'none');
-                    $("#alert-danger").css('display', 'inline-block');
-                }
-            }
-        });
-    </script>
-     -->
-    <script>
-        $('.form-control').focusout(function () {
-            var pwd1 = $("#memPw0").val();
-            var pwd2 = $("#memPw").val();
-
-            if (pwd1 != '' && pwd2 == '') {
-                null;
-            } else if (pwd1 != "" || pwd2 != "") {
-                if (pwd1 == pwd2) {
-                    $("#alert-success").css('display', 'inline-block');
-                    $("#alert-danger").css('display', 'none');
-                } else {
-                    if (pwd1.length > 15 || pwd1.length < 8 || pwd2.length > 15 || pwd2.length < 8) {
-                        //alert("비밀번호가 8자리 이하이거나 15자리 이상입니다.")
-                    }
-                    //alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
-                    $("#alert-success").css('display', 'none');
-                    $("#alert-danger").css('display', 'inline-block');
-                }
-            }
-        });
-    </script>
-
-    <script>
-        document.getElementById("submit").onclick = function () {
-            myFunction()
-        };
-
-        function myFunction() {
-            var pwd1 = $("#memPw0").val();
-            var pwd2 = $("#memPw").val();
-
-            if (pwd1 != pwd2) {
-                alert("비밀번호가 다릅니다.")
-                window.location.replace("/member/registerForm")
-            }
-        }
-	</script>
     
+    <script>
+    //비밀번호 일치여부 js
+        $('.form-control').focusout(function () {
+            var pwd1 = $("#memPw0").val();
+            var pwd2 = $("#memPw").val();
+
+            if (pwd1 != '' && pwd2 == '') {
+                null;
+            } else if (pwd1 != "" || pwd2 != "") {
+                if (pwd1 == pwd2) {
+                    $("#alert-success").css('display', 'inline-block');
+                    $("#alert-danger").css('display', 'none');
+                } else {
+                    $("#alert-success").css('display', 'none');
+                    $("#alert-danger").css('display', 'inline-block');
+                }
+            }
+        });
+    </script>    
 </body>
 
 </html>

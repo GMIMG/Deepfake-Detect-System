@@ -175,7 +175,6 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-9">
                     <div class="ablums-text text-center mb-70">
-
                     </div>
                 </div>
             </div>
@@ -190,10 +189,8 @@
                                 <a href="contact.html">
                                     <h5>멀캠 딥러닝 이찬호</h5>
                                 </a>
-                                <p>contact</p>
                             </div>
                         </div>
-
                         <!-- Single Album -->
                         <div class="single-album">
                             <img src="/img/bg-img/지민.jpg" alt="">
@@ -201,10 +198,8 @@
                                 <a href="contact.html">
                                     <h5>멀캠 딥러닝 황지민</h5>
                                 </a>
-                                <p>contact</p>
                             </div>
                         </div>
-
                         <!-- Single Album -->
                         <div class="single-album">
                             <img src="/img/bg-img/소현.jpg" alt="">
@@ -212,10 +207,8 @@
                                 <a href="contact.html">
                                     <h5>멀캠 딥러닝 정소현</h5>
                                 </a>
-                                <p>contact</p>
                             </div>
                         </div>
-
                         <!-- Single Album -->
                         <div class="single-album">
                             <img src="/img/bg-img/정철.jpg" alt="">
@@ -223,10 +216,8 @@
                                 <a href="contact.html">
                                     <h5>멀캠 딥러닝 이정철</h5>
                                 </a>
-                                <p>contact</p>
                             </div>
                         </div>
-
                         <!-- Single Album -->
                         <div class="single-album">
                             <img src="/img/bg-img/용주.jpg" alt="">
@@ -234,10 +225,8 @@
                                 <a href="contact.html">
                                     <h5>멀캠 딥러닝 정용주</h5>
                                 </a>
-                                <p>contact</p>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -263,6 +252,7 @@
                             <input class="fileinput" type="file" > 
                         </label>
                     <div style="position: absolute; left: 0; right: 0; margin: auto; bottom: 5vh;">
+                        <!-- 로그인 여부에 따라 다름 -->
                         <div th:if="${session.sessionMem}==null">
                             <button onclick="myFunction(3)">only 3 frame predict</button>
                             <br>
@@ -286,12 +276,11 @@
             <div class="row d-flex flex-wrap align-items-center">
                 <div class="col-12 col-md-6">
                     <p class="copywrite-text"><a href="#">
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;
-                            <script>document.write(new Date().getFullYear());</script> All rights reserved <i
-                                class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                                target="_blank">Chimac</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved <i
+                            class="fa fa-heart-o" aria-hidden="true"></i> by Chimac
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                 </div>
             </div>
@@ -313,31 +302,18 @@
 
     
     <script>
+        // 버튼 누르면 팝업창 띄워짐
         $('.btn-example').click(function () {
             var $href = $(this).attr('href');
             layer_popup($href);
         });
+        // 팝업창 띄우는 함수
         function layer_popup(el) {
 
             var $el = $(el);        //레이어의 id를 $el 변수에 저장
             var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
 
             isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
-
-            var $elWidth = ~~($el.outerWidth()),
-                $elHeight = ~~($el.outerHeight()),
-                docWidth = $(document).width(),
-                docHeight = $(document).height();
-
-            // 화면의 중앙에 레이어를 띄운다.
-            if ($elHeight < docHeight || $elWidth < docWidth) {
-                $el.css({
-                    // marginTop: -$elHeight / 2,
-                    // marginLeft: -$elWidth / 2
-                })
-            } else {
-                $el.css({ top: 0, left: 0 });
-            }
 
             $el.find('a.btn-layerClose').click(function () {
                 isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
@@ -353,6 +329,7 @@
     </script>
 
     <script>
+        // 파일 선택시 창 내용 변화
         document.querySelector('input[type=file]').addEventListener('change',function(){
 
             console.log(this.files);
@@ -365,26 +342,30 @@
                 Math.round(f[0].size / 1024) + ' KB</span>');
         });
 
+        // predict 버튼 누르면 실행
         function myFunction(getframe) {
 
             var formData = new FormData();
-            var fileField = document.querySelector('input[type=file]'); //input[type="file"]
+            var fileField = document.querySelector('input[type=file]');
             
+            // 로그인한 계정의 정보 가져오기
             fetch('getididx', {
                 method: 'GET'
             })
             .then(response => response.text())
             .then(text => upload_predict(text, getframe))
 
+            // 업로드
             function upload_predict(text, getframe) {
 
                 console.log(text)
                 formData.append('file', fileField.files[0]);
                 formData.append('ididx', text);
                 formData.append('getframe', getframe);
-
                 document.querySelector('article').innerHTML = '업로드 & 분석';
                 
+                
+                // 예측
                 fetch('predict', {
                     method: 'POST',
                     body: formData
@@ -401,6 +382,7 @@
                 .then(json => done(json))
             }
 
+            // 결과 페이지로 이동
             function done(json){
                 console.log(fileField.filename);
                 window.location.replace('result?results='+json["acc"] + '&filename='+json["filename"] 

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+        <!-- Title -->
+        <title>Deep Fake Detecter - dect your video</title>
+
+        <!-- Favicon -->
+        <link rel="icon" href="/img/core-img/favicon.ico">
+
+        <!-- Stylesheet -->
+        <link rel="stylesheet" href="/style.css">
+
+        <style>
+        .pop-layer .pop-container {
+            /* padding: 20px 25px; */
+        }
+        
+        .pop-conts {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        .pop-layer p.ctxt {
+            color: #666;
+            line-height: 25px;
+        }
+
+        .pop-layer .btn-r {
+            width: 100%;
+            margin: 10px 0 20px;
+            padding-top: 10px;
+            border-top: 1px solid #DDD;
+            text-align: right;
+        }
+
+        .pop-layer {
+            
+            display: none;
+            position: absolute;
+            position:absolute; 
+            top:0; 
+            bottom:0; 
+            left: 0;
+            right: 0; 
+            width: 60%; 
+            height: 60%;
+            margin: auto;
+            /* top: 50%;
+            left: 50%;
+            width: 410px;
+            height: auto; */
+            background-color: #fff;
+            /* border: 1px solid black; */
+            z-index: 10;
+        }
+
+        .dim-layer {
+            display: none;
+            position: fixed;
+            _position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+        }
+
+        .dim-layer .dimBg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            opacity: .5;
+            filter: alpha(opacity=50);
+        }
+
+        .dim-layer .pop-layer {
+            display: block;
+        }
+        </style>
+    </head>
+
+    <body>
+        <!-- Preloader -->
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="lds-ellipsis">
+            </div>
+        </div>
+
+        <!-- ##### Header Area Start ##### -->
+        <header class="header-area">
+            <!-- Navbar Area -->
+            <div class="oneMusic-main-menu">
+                <div class="classy-nav-container breakpoint-off">
+                    <div class="container">
+                        <!-- Menu -->
+                        <nav class="classy-navbar justify-content-between" id="oneMusicNav">
+
+                            <!-- Nav brand -->
+                            <a href="/" class="nav-brand">Deep Fake</a>
+
+                            <!-- Navbar Toggler -->
+                            <div class="classy-navbar-toggler">
+                                <span class="navbarToggler"></span>
+                            </div>
+
+                            <!-- Menu -->
+                            <div class="classy-menu">
+
+                                <!-- Close Button -->
+                                <div class="classycloseIcon">
+                                    <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                                </div>
+                                <div th:if="${sessionMem}!=null" class="login-register-btn mr-50">
+                                    <a href="/member/logOut" id="loginBtn">LogOut</a>
+                                </div>
+
+                                <!-- Cart Button -->
+                                <div th:if="${sessionMem}!=null" class="cart-btn">
+                                    <a href="/member/myPage">
+                                        <p><span> MY PAGE</span></p>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Nav End -->
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- ##### Header Area End ##### -->
+    
+        <!-- ##### Breadcumb Area Start ##### -->
+        <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/img/bg-img/trump.png);">
+            <div class="bradcumbContent">
+                <p>See what’s new</p>
+                <h2>My Videos</h2>
+            </div>
+        </section>
+        <!-- ##### Breadcumb Area End ##### -->
+
+        <!-- ##### Album Catagory Area Start ##### -->
+        <section class="album-catagory section-padding-100-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="browse-by-catagories catagory-menu d-flex flex-wrap align-items-center mb-70">
+                            <a href="#" data-filter="*">Browse All</a>
+                            <a href="#" data-filter=".a" class="active">A</a>
+                            <a href="#" data-filter=".b">B</a>
+                            <a href="#" data-filter=".c">C</a>
+                            <a href="#" data-filter=".d">D</a>
+                            <a href="#" data-filter=".e">E</a>
+                            <a href="#" data-filter=".f">F</a>
+                            <a href="#" data-filter=".g">G</a>
+                            <a href="#" data-filter=".h">H</a>
+                            <a href="#" data-filter=".i">I</a>
+                            <a href="#" data-filter=".j">J</a>
+                            <a href="#" data-filter=".k">K</a>
+                            <a href="#" data-filter=".l">L</a>
+                            <a href="#" data-filter=".m">M</a>
+                            <a href="#" data-filter=".n">N</a>
+                            <a href="#" data-filter=".o">O</a>
+                            <a href="#" data-filter=".p">P</a>
+                            <a href="#" data-filter=".q">Q</a>
+                            <a href="#" data-filter=".r">R</a>
+                            <a href="#" data-filter=".s">S</a>
+                            <a href="#" data-filter=".t">T</a>
+                            <a href="#" data-filter=".u">U</a>
+                            <a href="#" data-filter=".v">V</a>
+                            <a href="#" data-filter=".w">W</a>
+                            <a href="#" data-filter=".x">X</a>
+                            <a href="#" data-filter=".y">Y</a>
+                            <a href="#" data-filter=".z">Z</a>
+                            <a href="#" data-filter=".number">0-9</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="album-list" class="row oneMusic-albums">
+                </div>
+                
+            </div>
+        </section>
+        <!-- ##### Album Catagory Area End ##### -->
+        
+        <!-- ##### Latest Albums Area Start ##### -->
+    <section class="latest-albums-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading style-2">
+                        <p>See what we make</p>
+                        <h2>DeepFake Detection Guide</h2>
+                        <br>
+                        <br>
+
+                        <p>국가는 균형있는 국민경제의 성장 및 안정과 적정한 소득의 분배를 유지하고, 시장의 지배와 경제력의 남용을 방지하며, 경제주체간의 조화를 통한 경제의 민주화를 위하여
+                            경제에 관한 규제와 조정을 할 수 있다.
+
+                            국민경제의 발전을 위한 중요정책의 수립에 관하여 대통령의 자문에 응하기 위하여 국민경제자문회의를 둘 수 있다. 교육의 자주성·전문성·정치적 중립성 및 대학의 자율성은
+                            법률이 정하는 바에 의하여 보장된다.
+
+                            국정감사 및 조사에 관한 절차 기타 필요한 사항은 법률로 정한다. 선거에 관한 경비는 법률이 정하는 경우를 제외하고는 정당 또는 후보자에게 부담시킬 수 없다.
+
+                            국가는 건전한 소비행위를 계도하고 생산품의 품질향상을 촉구하기 위한 소비자보호운동을 법률이 정하는 바에 의하여 보장한다. 대법원장과 대법관이 아닌 법관의 임기는
+                            10년으로 하며, 법률이 정하는 바에 의하여 연임할 수 있다.
+
+                            제3항의 승인을 얻지 못한 때에는 그 처분 또는 명령은 그때부터 효력을 상실한다. 이 경우 그 명령에 의하여 개정 또는 폐지되었던 법률은 그 명령이 승인을 얻지 못한
+                            때부터 당연히 효력을 회복한다.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-9">
+                    <div class="ablums-text text-center mb-70">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="albums-slideshow owl-carousel">
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Latest Albums Area End ##### -->
+
+
+
+    <div class="dim-layer">
+        <div class="dimBg"></div>
+        <div id="layer2" class="pop-layer" style="border-radius: 15px;">
+            <div class="pop-container">
+                <div class="pop-conts">
+                    <video poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg" id="bgvid" 
+                    style="width: 100%; max-height: 90%; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                    playsinline autoplay muted loop>
+                    </video>
+                    <a href="#" class="btn-layerDelete">Delete</a>
+                    <span>             </span>
+                    <a href="#" class="btn-layerClose">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+        <!-- ##### Footer Area Start ##### -->
+        <footer class="footer-area">
+            <div class="container">
+                <div class="row d-flex flex-wrap align-items-center">
+                    <div class="col-12 col-md-6">
+                        <a href="#"><img src="/img/core-img/logo.png" alt=""></a>
+                        <p class="copywrite-text"><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Chimac</a>
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+
+
+
+
+        <script th:inline="javascript">
+            // window.onload = 
+            makeAlbum();
+
+            function makeAlbum() {
+                let lst = [[${iss}]];
+                let filename = [[${fs}]];
+                let accs = [[${accs}]];
+                let deletes = [[${deletes}]];
+
+                for (i in lst){
+                    let al = document.querySelector("#album-list");
+                    let div1 = document.createElement('div');
+                    div1.className = "col-12 col-sm-4 col-md-3 col-lg-2 single-album-item";
+                    let div2 = document.createElement('div');
+                    div2.className = "single-album"
+                    let img = document.createElement('img');
+                    img.src = lst[i] + '.jpg';
+                    let div3 = document.createElement('div');
+                    
+                    let a;
+                    if (deletes[i]==0) {
+                        a = document.createElement('a'); 
+                        a.href = "#layer2";
+                        a.className = "btn-example";
+                    }
+                    else {a = document.createElement('span');}
+
+                    let h5 = document.createElement('h5');
+                    let p = document.createElement('p');
+                    div1.classList.add(filename[i][0].toLowerCase());
+                    p.innerHTML = accs[i];
+
+                    let fn;
+                    if (filename[i].length> 10)
+                    {
+                        fn = filename[i].substring(0,9) + '...'
+                    }
+                    else {fn = filename[i]}
+                    h5.innerHTML = fn;
+
+                    a.appendChild(h5);
+                    div3.appendChild(a);
+                    div3.appendChild(p);
+                    div2.appendChild(img);
+                    div2.appendChild(div3);
+                    div1.appendChild(div2);
+                    al.appendChild(div1);
+                }
+            }
+
+        </script>
+        <!-- jQuery-2.2.4 js -->
+        <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+        <script>
+            $('.btn-example').click(function () {
+                var th = $(this)
+                var iditem = $(this).parent().prev().attr('src').split('.')[0]
+                var $href = $(this).attr('href');
+                fetch('viewvid?filename='+ iditem, {method: 'GET'}).then(response => layer_popup($href, iditem, th))
+                // layer_popup($href);
+            });
+            function layer_popup(el, filename, th) {
+                let source = document.createElement( 'source' );
+                source.src = filename + ".webm";
+                source.type = "video/webm";
+                let video = document.querySelector("video")
+                video.appendChild(source);
+
+                video.load()
+                video.play();
+
+                var $el = $(el);        //레이어의 id를 $el 변수에 저장
+                var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+                isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+    
+                var $elWidth = ~~($el.outerWidth()),
+                    $elHeight = ~~($el.outerHeight()),
+                    docWidth = $(document).width(),
+                    docHeight = $(document).height();
+    
+                // 화면의 중앙에 레이어를 띄운다.
+                if ($elHeight < docHeight || $elWidth < docWidth) {
+                    $el.css({
+                        // marginTop: -$elHeight / 2,
+                        // marginLeft: -$elWidth / 2
+                    })
+                } else {
+                    $el.css({ top: 0, left: 0 });
+                }
+
+                $el.find('a.btn-layerDelete').click(function () {
+                    video.pause();
+                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    $('source').remove();
+                    fetch('del?filename='+filename,{method: 'GET'}).then(response => response);
+                    th.removeattr('href');
+                    th.unbind("click");
+                    th.removeClass('btn-example');
+                    return false;
+                });
+                
+    
+                $el.find('a.btn-layerClose').click(function () {
+                    video.pause();
+                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    $('source').remove();
+                    return false;
+                });
+    
+                $('.dimBg').click(function () {
+                    $('.dim-layer').fadeOut();
+                    return false;
+                });
+    
+            }
+        </script>
+
+
+
+
+
+
+
+
+
+
+        <!-- ##### All Javascript Script ##### -->
+        <!-- Popper js -->
+        <script src="/js/bootstrap/popper.min.js"></script>
+        <!-- Bootstrap js -->
+        <script src="/js/bootstrap/bootstrap.min.js"></script>
+        <!-- All Plugins js -->
+        <script src="/js/plugins/plugins.js"></script>
+        <!-- Active js -->
+        <script src="/js/active.js"></script>
+
+
+
+
+
+    </body>
+
+</html>

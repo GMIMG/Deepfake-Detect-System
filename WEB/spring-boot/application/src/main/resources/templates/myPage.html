@@ -221,25 +221,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-12 col-lg-9">
-                    <div class="ablums-text text-center mb-70">
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="albums-slideshow owl-carousel">
-
-
-
-
-
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
     <!-- ##### Latest Albums Area End ##### -->
@@ -274,14 +255,9 @@
         Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Chimac</a>
         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
-
                 </div>
             </div>
         </footer>
-
-
-
-
 
         <script th:inline="javascript">
             // window.onload = 
@@ -338,13 +314,15 @@
         <!-- jQuery-2.2.4 js -->
         <script src="/js/jquery/jquery-2.2.4.min.js"></script>
         <script>
+            // item 제목을 클릭하면 영상을 볼수있게 보여줌
             $('.btn-example').click(function () {
                 var th = $(this)
                 var iditem = $(this).parent().prev().attr('src').split('.')[0]
                 var $href = $(this).attr('href');
                 fetch('viewvid?filename='+ iditem, {method: 'GET'}).then(response => layer_popup($href, iditem, th))
-                // layer_popup($href);
             });
+
+            // layer열리면 영상 셋팅
             function layer_popup(el, filename, th) {
                 let source = document.createElement( 'source' );
                 source.src = filename + ".webm";
@@ -359,40 +337,27 @@
                 var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
                 isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
     
-                var $elWidth = ~~($el.outerWidth()),
-                    $elHeight = ~~($el.outerHeight()),
-                    docWidth = $(document).width(),
-                    docHeight = $(document).height();
-    
-                // 화면의 중앙에 레이어를 띄운다.
-                if ($elHeight < docHeight || $elWidth < docWidth) {
-                    $el.css({
-                        // marginTop: -$elHeight / 2,
-                        // marginLeft: -$elWidth / 2
-                    })
-                } else {
-                    $el.css({ top: 0, left: 0 });
-                }
 
+                // delete 버튼을 클릭하면 aws에서 object를 삭제하고 레이어가 닫힌다.
                 $el.find('a.btn-layerDelete').click(function () {
                     video.pause();
-                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut();
                     $('source').remove();
                     fetch('del?filename='+filename,{method: 'GET'}).then(response => response);
                     th.removeattr('href');
-                    th.unbind("click");
                     th.removeClass('btn-example');
                     return false;
                 });
                 
-    
+                // close 버튼을 클릭하면 레이어가 닫힌다.
                 $el.find('a.btn-layerClose').click(function () {
                     video.pause();
-                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); 
                     $('source').remove();
                     return false;
                 });
     
+                // !동작안함
                 $('.dimBg').click(function () {
                     $('.dim-layer').fadeOut();
                     return false;
@@ -400,15 +365,6 @@
     
             }
         </script>
-
-
-
-
-
-
-
-
-
 
         <!-- ##### All Javascript Script ##### -->
         <!-- Popper js -->
@@ -419,10 +375,6 @@
         <script src="/js/plugins/plugins.js"></script>
         <!-- Active js -->
         <script src="/js/active.js"></script>
-
-
-
-
 
     </body>
 

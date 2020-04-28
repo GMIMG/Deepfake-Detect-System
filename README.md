@@ -96,7 +96,7 @@ docker run --rm -u gradle -v $(pwd):/home/gradle/project -w /home/gradle/project
 ```bash
 # /WEB/nginx/default.conf
 upstream flask_uwsgi {
-  server 211.237.247.66:5000; # => ip를 플라스크 서버로 바꿔야함
+  server ${ip}:5000; # => ip를 플라스크 서버로 바꿔야함
 }
 ...
 ```

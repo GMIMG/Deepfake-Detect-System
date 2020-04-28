@@ -39,6 +39,7 @@ public class HomeController {
     @Autowired
     IItemMapper mapper;
 
+    // Get cloud key from application.yml
     @Value("${cloud.aws.credentials.accessKey}")
     private String accessKey;
     
@@ -48,8 +49,8 @@ public class HomeController {
     private AmazonS3 s3;
     
     String staticPath = "/static/";
-//    String staticPath = "E:/dev/git/Final_Project/WEB/spring-boot/application/src/main/resources/static/deepImg/";
 
+    // Get aws object cloud with key
     @PostConstruct
     public void setS3Client() {
         AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
@@ -65,16 +66,13 @@ public class HomeController {
     String objectName;
     String downloadPath;
 
+    // mapping index page
 	@RequestMapping("/")
 	public String indexPage() {
 		return "index";
 	}
 
-    @RequestMapping("/uploadForm")
-    public String uploadForm() {
-        return "uploadForm";
-    }
-
+    // get member id index
     @RequestMapping(value = "/getididx", method = RequestMethod.GET)
     @ResponseBody
     public int getididx(HttpServletRequest request) {
@@ -90,14 +88,13 @@ public class HomeController {
         }
     }
 
+    // delete item object
     @ResponseBody
     @RequestMapping(value = "/del", method = RequestMethod.GET)
     public Integer del(String filename) {
-        System.out.println(filename);
         mapper.deleteItem(filename);
         bucketName = "deepfake";
         filename = filename + ".webm";
-        System.out.println(filename);
         try {
             s3.deleteObject(bucketName, filename);
         } catch (AmazonServiceException e) {
@@ -107,6 +104,7 @@ public class HomeController {
         return 0;
     }
     
+    // get video object in mypage
     @ResponseBody
     @RequestMapping(value = "/viewvid", method = RequestMethod.GET)
     public Integer viewvid(String filename) { // , @RequestParam
@@ -139,6 +137,7 @@ public class HomeController {
         return 1;
     }
 
+    // mapping result page, get vid object and infomation
     @RequestMapping(value = "/result", method = RequestMethod.GET)
     public ModelAndView result(String results, String filename, String frames, String count, String fake_num, ModelAndView mav) { // , @RequestParam
         
@@ -182,6 +181,7 @@ public class HomeController {
         return mav;
     }
 
+    // mapping mypage 
     @RequestMapping(value="/mypage", method=RequestMethod.GET)
     public ModelAndView mypage(ModelAndView mav, HttpServletRequest request) throws Exception {
     	HttpSession session = request.getSession();
@@ -205,7 +205,7 @@ public class HomeController {
 
         bucketName = "deepfake-thumb";
         
-
+        // call member's item in aws cloud
         for (Item item: items){
             i = item.getIditem();
             f = item.getFilename();
@@ -219,8 +219,6 @@ public class HomeController {
 
             objectName = Integer.toString(i) + ".jpg";
             downloadPath = staticPath + objectName;
-
-            System.out.println(objectName);
                 
             try {
                 S3Object o = s3.getObject(bucketName, objectName);
@@ -233,7 +231,7 @@ public class HomeController {
                 }
                 s3is.close();
                 fos.close();
-                mav.setViewName("myPage");
+                mav.setViewName("mypage");
             } catch (AmazonServiceException e) {
                 System.err.println(e.getErrorMessage());
                 mav.setViewName("error/error");
@@ -254,7 +252,6 @@ public class HomeController {
         mav.addObject("fs", fs);
         mav.addObject("accs", accs);
         mav.addObject("deletes", deletes);
-        System.out.println(deletes);
 
         return mav;
     }

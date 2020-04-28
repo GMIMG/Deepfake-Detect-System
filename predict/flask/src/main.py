@@ -1,41 +1,27 @@
-﻿from flask import Flask, render_template, jsonify, request
+from flask import Flask, jsonify, request
 import os
-import time
 import numpy as np
-import pandas as pd
-import tensorflow as tf
 import cv2
-from tensorflow.keras.models import Sequential, load_model
-# from mtcnn import MTCNN
-from facenet_pytorch import MTCNN
-from sklearn.metrics import log_loss
-from os.path import join
 import boto3
 import mysql.connector
 import config
+from tensorflow.keras.models import load_model
+from facenet_pytorch import MTCNN
+# from mtcnn import MTCNN
 
-
+# config 변수 선언
 service_name = 's3'
 endpoint_url = 'https://kr.object.ncloudstorage.com'
 region_name = 'kr-standard'
 access_key = config.access_key
 secret_key = config.secret_key
-
-
-model = load_model("IR.h5")
-
-app = Flask(__name__)
-
 vid_path = '/static/'
 
-# #파일 업로드 처리
-# @app.route('/fileUpload', methods = ['GET', 'POST'])
-# def upload_file():
-#     if request.method == 'POST':
-#         f = request.files['file']
-#         #저장할 경로 + 파일명
-#         f.save(vid_path + f.filename)
-#     return f.filename
+# model load
+model = load_model("IR.h5")
+
+# app start
+app = Flask(__name__)
 
 @app.route('/predict', methods = ['GET', 'POST'])
 def predict():
@@ -89,16 +75,15 @@ def predict():
         writer.write(image)
 
     def predict_model(vid_path, vid_name, model, start_frame=0, end_frame=None, n_frames=None, stop_frame=None):
-
         predictions = []
         origin_vid = vid_path + vid_name
         vid_name_no_ext = '.'.join(vid_name.split('.')[:-1])
         thumbnail_fn = vid_name_no_ext + '.jpg'
-        video_fn = vid_name_no_ext + '.webm' # .split('/')[-1]
+        video_fn = vid_name_no_ext + '.webm'
 
         # 비디오 불러오기
         reader = cv2.VideoCapture(origin_vid) # '/static/test1.mp4'
-        fps = reader.get(cv2.CAP_PROP_FPS)
+        fps = 1 if stop_frame else reader.get(cv2.CAP_PROP_FPS)
         num_frames = int(reader.get(cv2.CAP_PROP_FRAME_COUNT))
         # 영상이 이상하면 return
         if not start_frame < num_frames - 1:
@@ -143,7 +128,7 @@ def predict():
                     croped_img = crop_img(frame, face_coord)
                     croped_img = np.array(cv2.resize(np.array(croped_img),(160 ,160)))
                     if not predictions:
-                        cv2.imwrite(join(vid_path, thumbnail_fn), croped_img)
+                        cv2.imwrite(vid_path + thumbnail_fn, croped_img)
 
                     croped_img = (croped_img.flatten() / 255.0).reshape(-1, 160, 160, 3)
 
@@ -157,7 +142,7 @@ def predict():
                 # writer 정의
                 if writer is None:
                     height, width = frame.shape[:2]
-                    writer = cv2.VideoWriter(join(vid_path, video_fn), fourcc, 1, (width, height))
+                    writer = cv2.VideoWriter(vid_path + video_fn, fourcc, fps, (width, height))
                 draw_face_box(frame, face_coords, predicts, writer)
 
             now_frame_num += 1
@@ -169,20 +154,17 @@ def predict():
 
 
 
-    try:
-        r = request.form['getframe']
-        r = int(r)
-    except:
-        r = 10
-        
+    # if request.method == 'POST':
+    f = request.files['file']
+    ididx = request.form['ididx']
+    r = int(request.form['getframe'])
+    end_frame = None
+    n_frames = None
     if r:
-        n_frames = None
-        end_frame = None
         stop_frame = r
-    else:
-        n_frames = None
-        end_frame = None
-        stop_frame = None
+    #저장할 경로 + 파일명
+    f.save(vid_path + f.filename)
+    file_name = f.filename
 
     input_shape = (160,160,3)
     # Text variables
@@ -190,40 +172,28 @@ def predict():
     thickness = 2
     font_scale = 1
 
-    # if request.method == 'POST':
-    f = request.files['file']
-    #저장할 경로 + 파일명
-    f.save(vid_path + f.filename)
-    file_name = f.filename
-    ididx = request.form['ididx']
+    # try:
+    # 영상예측
+    num_frames, predictions, video_fn, fake_num = predict_model(vid_path, file_name, model, start_frame=0, end_frame=end_frame, n_frames=n_frames, stop_frame=stop_frame)
+    count = len(predictions)
 
-    try:
-        # 영상예측
-        num_frames, predictions, video_fn, fake_num = predict_model(vid_path, file_name, model, start_frame=0, end_frame=end_frame, n_frames=n_frames, stop_frame=stop_frame)
-        count = len(predictions)
+    # 얼굴이 검출 안됐으면 acc = 0.5 return
+    if count == 0:
+        acc = 0.5
+        print('NO FACE ERROR', 'num_frames', num_frames, 'video_fn', video_fn, 'count', count, 'acc', acc)
+        return jsonify(acc=acc)
+    acc = sum(predictions)/(count)
+    print('COMPLETE', 'num_frames', num_frames, 'video_fn', video_fn, 'count', count, 'acc', acc)
 
-        # 얼굴이 검출 안됐으면 acc = 0.5 return
-        if count == 0:
-            acc = 0.5
-            print('ERROR', 'num_frames', num_frames, 'video_fn', video_fn, 'count', count, 'acc', acc)
-            return jsonify(acc=acc)
-        acc = sum(predictions)/(count)
-        print('COMPLETE', 'num_frames', num_frames, 'video_fn', video_fn, 'count', count, 'acc', acc)
 
-    except:
-        acc = None
-        print('ERROR', 'num_frames', 0, 'video_fn', '', 'count', 0, 'acc', None)
-
-    # Text variables
-    font_face = cv2.FONT_HERSHEY_SIMPLEX
-    thickness = 2
-    font_scale = 1
+    # DB 에 영상 예측 정보 저장
     cnx = mysql.connector.connect(user='root', password=config.password,
                                 host=config.host,
                                 database='mydb')
     cursor = cnx.cursor()
     cursor.execute(f"INSERT INTO item (memIdx, filename, acc) values ({ididx}, '{file_name}', {acc})")
 
+    # autoincrease 한값 가져와서 파일이름으로 만들기
     cnx.commit()
     cursor.execute("SELECT LAST_INSERT_ID()")
     rows = cursor.fetchall()
@@ -231,33 +201,41 @@ def predict():
 
     vid_object_name = str(rows[0][0]) + '.webm'
     thumb_object_name = str(rows[0][0]) + '.jpg'
-
-    # 데이터 베이스 등록
-
-    # autoincrease 한값 가져와서 파일이름
-
     vid_local_file_path = vid_path + video_fn
     thumb_local_file_path = vid_path + '.'.join(file_name.split('.')[:-1]) + '.jpg'
 
     # 후처리영상 s3서버에 전송
     s3 = boto3.client(service_name, endpoint_url=endpoint_url, aws_access_key_id=access_key,
                     aws_secret_access_key=secret_key)
-    
-    # try:
-    #     # s3.delete_object(Bucket=bucket_name, Key=object_name)
-    #     s3.delete_object(Bucket='deepfake', Key=vid_object_name)
-    #     s3.delete_object(Bucket='deepfake-thumb', Key=thumb_local_file_path)
-    # except:
-    #     pass
-
+    try:
+        s3.delete_object(Bucket='deepfake', Key=vid_object_name)
+        s3.delete_object(Bucket='deepfake-thumb', Key=thumb_local_file_path)
+    except:
+        pass
     s3.upload_file(vid_local_file_path, 'deepfake', vid_object_name)
     s3.upload_file(thumb_local_file_path, 'deepfake-thumb', thumb_object_name)
+    # 후처리영상, ,원본영상 서버에서 삭제
+
+
+    # 알수없는 에러
+    # except:
+    # acc = 0.5
+    # count = 0
+    # filename = ''
+    # num_frames = 0
+    # count = 0
+    # fake_num = 0
+    # print('UNKNOWN ERROR', 'num_frames', 0, 'video_fn', '', 'count', 0, 'acc', None)
+
 
     # 후처리영상, ,원본영상 서버에서 삭제
-    os.remove(thumb_local_file_path)
-    os.remove(vid_local_file_path)
-    os.remove(vid_path + file_name)
-    
+    try:
+        os.remove(thumb_local_file_path)
+        os.remove(vid_local_file_path)
+        os.remove(vid_path + file_name)
+    except:
+        pass
+
     return jsonify(acc=acc, filename=rows[0][0], num_frames=num_frames, count=count, fake_num=fake_num)
 
 if __name__ == '__main__':
