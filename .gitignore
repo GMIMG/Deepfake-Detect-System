@@ -5,6 +5,7 @@
 *.hdf5
 *.jar
 *.war
+*.webm
 config.py
 application.yml
 WEB/static/
