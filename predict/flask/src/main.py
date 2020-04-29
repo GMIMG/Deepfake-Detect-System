@@ -18,7 +18,7 @@ secret_key = config.secret_key
 vid_path = '/static/'
 
 # model load
-model = load_model("IR.h5")
+model = load_model("IR-89-0.0000.h5")
 
 # app start
 app = Flask(__name__)
@@ -159,6 +159,7 @@ def predict():
     ididx = request.form['ididx']
     r = int(request.form['getframe'])
     end_frame = None
+    stop_frame = None
     n_frames = None
     if r:
         stop_frame = r

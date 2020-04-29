@@ -180,6 +180,21 @@ public class HomeController {
         mav.addObject("fake_num", fake_num);
         return mav;
     }
+    
+    @RequestMapping(value="/star", method=RequestMethod.GET)
+    @ResponseBody
+    public void star(HttpServletRequest request, String f, String score) throws Exception {
+        HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute("sessionMem");
+        Integer id = 0;
+        if (member == null){
+            id = 0;
+        }
+        else{
+            id = member.getMemIdx();
+        }
+        mapper.star(f,score,id);
+    }
 
     // mapping mypage 
     @RequestMapping(value="/mypage", method=RequestMethod.GET)

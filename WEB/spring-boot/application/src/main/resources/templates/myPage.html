@@ -6,7 +6,7 @@
         <meta name="description" content="">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <!-- 위의 4개의 태그는 제일 먼저 선언되어야 합니다. -->
 
         <!-- Title -->
         <title>Deep Fake Detecter - dect your video</title>
@@ -20,6 +20,14 @@
         <style>
         .pop-layer .pop-container {
             /* padding: 20px 25px; */
+        }
+        .pop-container{
+            bottom: 0;
+            position: absolute;
+            margin: auto;
+            left: 0;
+            right: 0;
+            text-align: center;
         }
         
         .pop-conts {
@@ -42,24 +50,15 @@
         }
 
         .pop-layer {
-            
-            display: none;
+            max-width: 80vw;
+            max-height: 80vh;
             position: absolute;
-            position:absolute; 
-            top:0; 
-            bottom:0; 
+            display: inline-block;
             left: 0;
-            right: 0; 
-            width: 60%; 
-            height: 60%;
+            right: 0;
             margin: auto;
-            /* top: 50%;
-            left: 50%;
-            width: 410px;
-            height: auto; */
-            background-color: #fff;
-            /* border: 1px solid black; */
-            z-index: 10;
+            top: 0;
+            bottom: 0;
         }
 
         .dim-layer {
@@ -87,6 +86,19 @@
         .dim-layer .pop-layer {
             display: block;
         }
+        video {
+            margin: auto;
+            border-radius: 15px;
+            left: 0;
+            right: 0;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            max-width: 100%;
+            max-height: 100%;
+            min-height: 50%;
+            min-width: 50%;
+        }
         </style>
     </head>
 
@@ -97,7 +109,7 @@
             </div>
         </div>
 
-        <!-- ##### Header Area Start ##### -->
+        <!-- ##### Header Area 시작 ##### -->
         <header class="header-area">
             <!-- Navbar Area -->
             <div class="oneMusic-main-menu">
@@ -138,18 +150,18 @@
                 </div>
             </div>
         </header>
-        <!-- ##### Header Area End ##### -->
+        <!-- ##### Header Area 끝 ##### -->
     
-        <!-- ##### Breadcumb Area Start ##### -->
+        <!-- ##### Mypage Top Area Start ##### -->
         <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/img/bg-img/trump.png);">
             <div class="bradcumbContent">
                 <p>See what’s new</p>
                 <h2>My Videos</h2>
             </div>
         </section>
-        <!-- ##### Breadcumb Area End ##### -->
+        <!-- ##### Mypage Top Area End ##### -->
 
-        <!-- ##### Album Catagory Area Start ##### -->
+        <!-- ##### Mypage Catagory Area 시작 ##### -->
         <section class="album-catagory section-padding-100-0">
             <div class="container">
                 <div class="row">
@@ -192,68 +204,36 @@
                 
             </div>
         </section>
-        <!-- ##### Album Catagory Area End ##### -->
-        
-        <!-- ##### Latest Albums Area Start ##### -->
-    <section class="latest-albums-area section-padding-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading style-2">
-                        <p>See what we make</p>
-                        <h2>DeepFake Detection Guide</h2>
-                        <br>
-                        <br>
+        <!-- ##### Mypage Catagory Area 끝 ##### -->
 
-                        <p>국가는 균형있는 국민경제의 성장 및 안정과 적정한 소득의 분배를 유지하고, 시장의 지배와 경제력의 남용을 방지하며, 경제주체간의 조화를 통한 경제의 민주화를 위하여
-                            경제에 관한 규제와 조정을 할 수 있다.
-
-                            국민경제의 발전을 위한 중요정책의 수립에 관하여 대통령의 자문에 응하기 위하여 국민경제자문회의를 둘 수 있다. 교육의 자주성·전문성·정치적 중립성 및 대학의 자율성은
-                            법률이 정하는 바에 의하여 보장된다.
-
-                            국정감사 및 조사에 관한 절차 기타 필요한 사항은 법률로 정한다. 선거에 관한 경비는 법률이 정하는 경우를 제외하고는 정당 또는 후보자에게 부담시킬 수 없다.
-
-                            국가는 건전한 소비행위를 계도하고 생산품의 품질향상을 촉구하기 위한 소비자보호운동을 법률이 정하는 바에 의하여 보장한다. 대법원장과 대법관이 아닌 법관의 임기는
-                            10년으로 하며, 법률이 정하는 바에 의하여 연임할 수 있다.
-
-                            제3항의 승인을 얻지 못한 때에는 그 처분 또는 명령은 그때부터 효력을 상실한다. 이 경우 그 명령에 의하여 개정 또는 폐지되었던 법률은 그 명령이 승인을 얻지 못한
-                            때부터 당연히 효력을 회복한다.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### Latest Albums Area End ##### -->
-
-
-
+    <!-- video Area Start-->
     <div class="dim-layer">
         <div class="dimBg"></div>
         <div id="layer2" class="pop-layer" style="border-radius: 15px;">
-            <div class="pop-container">
-                <div class="pop-conts">
-                    <video poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg" id="bgvid" 
-                    style="width: 100%; max-height: 90%; border-top-left-radius: 15px; border-top-right-radius: 15px;"
-                    playsinline autoplay muted loop>
-                    </video>
-                    <a href="#" class="btn-layerDelete">Delete</a>
+            <video poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg" id="bgvid" 
+            playsinline autoplay muted loop>
+            </video>
+
+            <div class="pop-container" style="bottom: 0;">
+                <!-- <div class="pop-conts"> -->
+                    <a href="#" class="btn-layerDelete" style="background-color: #000; color: #fff;">Delete</a>
                     <span>             </span>
-                    <a href="#" class="btn-layerClose">Close</a>
-                </div>
+                    <a href="#" class="btn-layerClose" style="background-color: #fff; color: #000;">Close</a>
+                <!-- </div> -->
             </div>
         </div>
     </div>
-
+    <!-- video Area End-->
    
-        <!-- ##### Footer Area Start ##### -->
+        <!-- ##### Footer Area 시작 ##### -->
         <footer class="footer-area">
             <div class="container">
                 <div class="row d-flex flex-wrap align-items-center">
                     <div class="col-12 col-md-6">
                         <a href="#"><img src="/img/core-img/logo.png" alt=""></a>
-                        <p class="copywrite-text"><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Chimac</a>
-        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                        <p class="copywrite-text"><a href="#">
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Chimac</a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -359,7 +339,9 @@
     
                 // !동작안함
                 $('.dimBg').click(function () {
-                    $('.dim-layer').fadeOut();
+                    video.pause();
+                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); 
+                    $('source').remove();
                     return false;
                 });
     

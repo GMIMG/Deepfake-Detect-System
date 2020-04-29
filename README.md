@@ -1,5 +1,23 @@
 # 웹서버 실행방법(dev)
 
+
+
+
+
+USE STACK
+
+CM - Git, Github, gitkraken
+
+HTML, CSS, JAVASCRIPT
+
+library - JQuery, Ajax, 
+
+Framework - Bootstrab 
+
+
+
+
+
 환경설정
 
 - Docker desktop 2.2.0.3 (Engine 19.03.8)

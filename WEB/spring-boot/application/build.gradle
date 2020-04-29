@@ -38,8 +38,6 @@ dependencies {
 	
 	implementation 'com.amazonaws:aws-java-sdk-s3:1.11.238'
 	compileOnly 'org.projectlombok:lombok'
-
-	// compile "org.springframework.boot:spring-boot-starter-security"
 	
 	compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
 	compile group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'

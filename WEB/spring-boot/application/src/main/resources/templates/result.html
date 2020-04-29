@@ -6,9 +6,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
         <link rel="stylesheet" href="/result.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
+        <style>
+            #star{
+                position: fixed;
+                bottom: 5vh;
+                left: 0;
+            }
+        </style>
     </head>
 
+    <!-- Result Area 시작 -->
     <body>
+        <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
         <video poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg" id="bgvid" playsinline autoplay muted loop>
         </video>
 
@@ -22,7 +32,42 @@
             <span th:text="'fake face: '+ ${fake_num}"></span>
             <br>
             <a href="/" id ="a1">Go Previous Page</a>
+            <div id='star'>
+                <i id="star1" class="star far fa-star"></i>
+                <i id="star2" class="star far fa-star"></i>
+                <i id="star3" class="star far fa-star"></i>
+                <i id="star4" class="star far fa-star"></i>
+                <i id="star5" class="star far fa-star"></i>
+            </div>
         </div>
+
+
+        <script th:inline="javascript">
+            function setstar(index, g) {
+                // $.ajax('/star')
+                let f = [[${filename}]]
+                let score = index + 1
+                fetch('/star?score='+score+'&f='+f,{method: 'GET'})
+                for(let i=0; i<=index; i++) {
+                    g.children[i].className = 'star fas fa-star'
+                }
+                for(i=index+1; i<len; i++) {
+                    g.children[i].className = 'star far fa-star'
+                }
+            }
+            var g = document.querySelector('#star')
+            for (var i = 0, len = g.children.length; i < len; i++)
+            {
+
+                (function(index){
+                    g.children[i].onclick = function(){
+                        setstar(index, g)  ;
+                    }    
+                })(i);
+            }
+        </script>
+
+
 
         <script th:inline="javascript">
             window.onload = function (){
@@ -54,4 +99,5 @@
         </script>
         
     </body>
+    <!-- Result Area 끝 -->
 </html>

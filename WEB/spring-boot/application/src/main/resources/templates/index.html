@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!--위의 4개의 태그는 제일 먼저 선언되어야 합니다.  -->
 
     <!-- Title -->
     <title>Deep Fake Detecter - dect your video</title>
@@ -19,6 +19,12 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/popup.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
+    <style>
+        #loading {
+            display: none;
+        }
+    </style> 
 </head>
 
 <body>
@@ -29,7 +35,7 @@
         </div>
     </div>
 
-    <!-- ##### Header Area Start ##### -->
+    <!-- ##### Header Area 시작 ##### -->
     <header class="header-area">
         <!-- Navbar Area -->
         <div class="oneMusic-main-menu">
@@ -56,7 +62,7 @@
 
                             <!-- Nav Start -->
                          	
-                            <!-- Login/Register & Cart Button -->
+                            <!-- Login/Register & Mypage Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
                                 <div th:if="${session.sessionMem}==null" class="login-register-btn mr-50">
@@ -68,7 +74,7 @@
                                     <a href="/member/logOut" id="loginBtn">LogOut</a>
                                 </div>
 
-                                <!-- Cart Button -->
+                                <!-- Mypage Button -->
                                 <div th:if="${session.sessionMem}!=null" class="cart-btn">
                                     <a href="/mypage">
                                         <p><span> MY PAGE</span></p>
@@ -84,12 +90,12 @@
         </div>
         </div>
     </header>
-    <!-- ##### Header Area End ##### -->
+    <!-- ##### Header Area 끝 ##### -->
 
-    <!-- ##### Hero Area Start ##### -->
+    <!-- ##### Detect Area Start ##### -->
     <section class="hero-area">
         <div class="hero-slides owl-carousel">
-            <!-- Single Hero Slide -->
+            <!-- Single Img Slide -->
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
                 <div class="slide-img bg-img" style="background-image: url(/img/bg-img/trump.png);"></div>
@@ -109,7 +115,7 @@
                 </div>
             </div>
 
-            <!-- Single Hero Slide -->
+            <!-- Single Img Slide -->
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
                 <div class="slide-img bg-img" style="background-image: url(/img/bg-img/make.jpg);"></div>
@@ -130,9 +136,9 @@
             </div>
         </div>
     </section>
-    <!-- ##### Hero Area End ##### -->
+    <!-- ##### Detect Area 끝 ##### -->
 
-    <!-- ##### Latest Albums Area Start ##### -->
+    <!-- ##### content Area 시작 ##### -->
     <section class="latest-albums-area section-padding-100">
         <div class="container">
             <div class="row">
@@ -141,27 +147,23 @@
                         <p>See what we make</p>
                         <h2>DeepFake Detection Guide</h2>
 
-                        <p>국가는 균형있는 국민경제의 성장 및 안정과 적정한 소득의 분배를 유지하고, 시장의 지배와 경제력의 남용을 방지하며, 경제주체간의 조화를 통한 경제의 민주화를 위하여
-                            경제에 관한 규제와 조정을 할 수 있다.
-
-                            국민경제의 발전을 위한 중요정책의 수립에 관하여 대통령의 자문에 응하기 위하여 국민경제자문회의를 둘 수 있다. 교육의 자주성·전문성·정치적 중립성 및 대학의 자율성은
-                            법률이 정하는 바에 의하여 보장된다.
-
-                            국정감사 및 조사에 관한 절차 기타 필요한 사항은 법률로 정한다. 선거에 관한 경비는 법률이 정하는 경우를 제외하고는 정당 또는 후보자에게 부담시킬 수 없다.
-
-                            국가는 건전한 소비행위를 계도하고 생산품의 품질향상을 촉구하기 위한 소비자보호운동을 법률이 정하는 바에 의하여 보장한다. 대법원장과 대법관이 아닌 법관의 임기는
-                            10년으로 하며, 법률이 정하는 바에 의하여 연임할 수 있다.
-
-                            제3항의 승인을 얻지 못한 때에는 그 처분 또는 명령은 그때부터 효력을 상실한다. 이 경우 그 명령에 의하여 개정 또는 폐지되었던 법률은 그 명령이 승인을 얻지 못한
-                            때부터 당연히 효력을 회복한다.</p>
+                        <p>악의적인 목적으로 제작되어 배포되는 딥 페이크 영상이 
+                            
+                            심각한 초상권 침해와 인권 침해를 불러일으키고 있다. 
+                            
+                            육안으로는 구분할 수 없을 정도로 정교하게 만들어진 
+                            
+                            딥 페이크 영상을 판별하는 시스템을 만들어 범죄 피해를 
+                            
+                            줄이고자 한다.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- ##### Latest Albums Area End ##### -->
+    <!-- ##### content Area 끝 ##### -->
 
-    <!-- ##### Latest Albums Area Start ##### -->
+    <!-- ##### Madeby Area 시작 ##### -->
     <section class="latest-albums-area section-padding-100">
         <div class="container">
             <div class="row">
@@ -182,7 +184,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="albums-slideshow owl-carousel">
-                        <!-- Single Album -->
+                        <!-- Single Area -->
                         <div class="single-album">
                             <img src="/img/bg-img/찬호.jpg" alt="">
                             <div class="album-info">
@@ -191,7 +193,7 @@
                                 </a>
                             </div>
                         </div>
-                        <!-- Single Album -->
+                        <!-- Single Area -->
                         <div class="single-album">
                             <img src="/img/bg-img/지민.jpg" alt="">
                             <div class="album-info">
@@ -200,7 +202,7 @@
                                 </a>
                             </div>
                         </div>
-                        <!-- Single Album -->
+                        <!-- Single Area -->
                         <div class="single-album">
                             <img src="/img/bg-img/소현.jpg" alt="">
                             <div class="album-info">
@@ -209,7 +211,7 @@
                                 </a>
                             </div>
                         </div>
-                        <!-- Single Album -->
+                        <!-- Single Area -->
                         <div class="single-album">
                             <img src="/img/bg-img/정철.jpg" alt="">
                             <div class="album-info">
@@ -218,7 +220,7 @@
                                 </a>
                             </div>
                         </div>
-                        <!-- Single Album -->
+                        <!-- Single Area -->
                         <div class="single-album">
                             <img src="/img/bg-img/용주.jpg" alt="">
                             <div class="album-info">
@@ -232,9 +234,9 @@
             </div>
         </div>
     </section>
-    <!-- ##### Latest Albums Area End ##### -->
+    <!-- ##### content Area 끝 ##### -->
 
-    
+    <!-- upload Area -->
     <div class="dim-layer">
         <div class="dimBg"></div>
         <div id="layer2" class="pop-layer" style="border-radius: 15px;">
@@ -247,9 +249,10 @@
                         <article>
                             파일을 업로드 하여 예측합니다
                         </article>
+                        <i id="loading" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
                         <label class="file">
                             <span>Drop a file or click to select one</span>
-                            <input class="fileinput" type="file" > 
+                            <input class="fileinput" type="file" accept="video/*">
                         </label>
                     <div style="position: absolute; left: 0; right: 0; margin: auto; bottom: 5vh;">
                         <!-- 로그인 여부에 따라 다름 -->
@@ -270,23 +273,21 @@
 
     
 
-    <!-- ##### Footer Area Start ##### -->
+    <!-- ##### Footer Area 시작 ##### -->
     <footer class="footer-area">
         <div class="container">
             <div class="row d-flex flex-wrap align-items-center">
                 <div class="col-12 col-md-6">
                     <p class="copywrite-text"><a href="#">
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         Copyright &copy;
                         <script>document.write(new Date().getFullYear());</script> All rights reserved <i
                             class="fa fa-heart-o" aria-hidden="true"></i> by Chimac
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                 </div>
             </div>
         </div>
     </footer>
-    <!-- ##### Footer Area Start ##### -->
+    <!-- ##### Footer Area 끝 ##### -->
 
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
@@ -345,6 +346,8 @@
         // predict 버튼 누르면 실행
         function myFunction(getframe) {
 
+            document.querySelector('#loading').style.display = 'block';
+
             var formData = new FormData();
             var fileField = document.querySelector('input[type=file]');
             
@@ -371,11 +374,13 @@
                     body: formData
                 })
                 .then(response => {
+                    
                     if(response.ok) {
                         return response.json()
                     }
                     else {
                         document.querySelector('article').innerHTML = '분석실패';
+                        document.querySelector('#loading').style.display = 'none';
                         throw new Error('predict error');
                     }
                 })
