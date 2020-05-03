@@ -12,7 +12,7 @@ DeepFake Detection System (DFDS)는 사이트에 DeepFake로 의심 되는 영�
 
 #### 
 
-## Project Team Meber
+## Project Team Member
 
 
 ![member](https://user-images.githubusercontent.com/57612261/80907829-fd9e4a00-8d54-11ea-8054-2e46a4067e09.JPG)
